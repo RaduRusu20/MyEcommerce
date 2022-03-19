@@ -1,17 +1,33 @@
 ﻿using System;
-using MyEcommerce.Customers;
-using MyEcommerce.Admin;
-using MyEcommerce.Products;
+using Domain.Admin;
+using Domain.Customers;
+using Domain.Products;
+
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
+        static Product product = new Product("minge", "albastra", 99.98f);
+
         static void Main(string[] args)
         {
             int option = 0;
             Admin admin = new Admin();
-       
+
+            admin.Customers = new List<Customer>() {
+                new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
+                new Adress("Arad", "Romania", "Principala", 1094, 317335)),
+
+                new Customer("Andrei", "Rusu", "rusu.andrei@yahoo.com", "parola@34$", "0749183620",
+                new Adress("Arad", "Romania", "Principala", 1094, 317335)),
+
+            };
+
+            Customer customer = new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
+                new Adress("Arad", "Romania", "Principala", 1094, 317335));
+
+
 
             while (true)
             {
@@ -22,7 +38,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 Console.WriteLine("4 -> See cutomer list");
                 Console.WriteLine("5 -> Add product in a category");
                 Console.WriteLine("6 -> See all products in a category");
-                Console.WriteLine("7 -> Exit.");
+                Console.WriteLine("7 -> Add to cart");
+                Console.WriteLine("8 -> Remove from cart");
+                Console.WriteLine("9 -> View Shopping Cart");
+                Console.WriteLine("10 -> Checkout");
+                Console.WriteLine("11 -> Exit.");
 
                 try
                 {
@@ -60,6 +80,18 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         seeProductsByCategory(admin);
                         break;
                     case 7:
+                        AddToCart(customer);
+                        break;
+                    case 8:
+                        DeleteFromCart(customer);
+                        break;
+                    case 9:
+                        SeeProducts(customer);
+                        break;
+                    case 10:
+                        Checkout(customer);
+                        break;
+                    case 11:
                         Environment.Exit(0);
                         break;
 
@@ -84,31 +116,47 @@ namespace MyApp // Note: actual namespace depends on the project name.
             }
         }
 
+        private static void Checkout(Customer customer)
+        {
+            Console.WriteLine($"Total sum is: {customer.Checkout()}");
+        }
+
+        private static void AddToCart(Customer customer)
+        {
+            customer.AddToCart(product);
+        }
+
+        private static void DeleteFromCart(Customer customer)
+        {
+            customer.DeleteFromCart(product);
+        }
+
+        private static void SeeProducts(Customer customer)
+        {
+            customer.SeeCartProducts();
+        }
+
         private static void seeProductsByCategory(Admin admin)
         {
-            int categoryId;
+            string categoryName;
 
-            Console.WriteLine("Category id = ");
-            categoryId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Category name = ");
+            categoryName = Console.ReadLine();
 
-            admin.SeeProductsByCategory(admin.GetCategoryById(categoryId));
+            admin.SeeProductsByCategory(admin.GetCategoryByName(categoryName));
         }
 
         private static void addProduct(Admin admin)
         {
-            string name;
+            string productName, categoryName;
             string description;
-            int id, categoryId;
             float price;
 
-            Console.Write("Category id = ");
-            categoryId = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Product id = ");
-            id = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Category name = ");
+            categoryName = Console.ReadLine();
 
             Console.Write("Product name = ");
-            name = Console.ReadLine();
+            productName = Console.ReadLine();
 
             Console.Write("Product description = ");
             description = Console.ReadLine();
@@ -117,7 +165,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             price = (float)Convert.ToDouble(Console.ReadLine());
 
 
-            admin.AddProduct(admin.GetCategoryById(categoryId), id, name, description, price);
+            admin.AddProduct(admin.GetCategoryByName(categoryName), productName, description, price);
         }
 
         private static void seeCustomerList(Admin admin)
@@ -132,24 +180,21 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
         private static void addNewCategory(Admin admin)
         {
-            string name;
-            int id;
+            string categoryName;
 
             Console.Write("name = ");
-            name = Console.ReadLine();
+            categoryName = Console.ReadLine();
 
-            Console.Write("id = ");
-            id = Convert.ToInt32(Console.ReadLine());
-            admin.AddCategory(id, name);
+            admin.AddCategory(categoryName);
         }
 
         private static void deleteCategory(Admin admin)
         {
-            int id;
+            string categoryName;
 
-            Console.Write("id for deleting: ");
-            id = Convert.ToInt32(Console.ReadLine());
-            admin.DeleteCategory(id);
+            Console.Write("Category name for deleting: ");
+            categoryName = Console.ReadLine();
+            admin.DeleteCategory(categoryName);
         }
     }
 }
