@@ -2,6 +2,7 @@
 using Domain.Admin;
 using Domain.Customers;
 using Domain.Products;
+using Domain.RepositoryPattern;
 
 
 namespace MyApp // Note: actual namespace depends on the project name.
@@ -17,15 +18,57 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             admin.Customers = new List<Customer>() {
                 new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
-                new Adress("Arad", "Romania", "Principala", 1094, 317335)),
+                "Arad, Romania, Principala, 1094, 317335"),
 
                 new Customer("Andrei", "Rusu", "rusu.andrei@yahoo.com", "parola@34$", "0749183620",
-                new Adress("Arad", "Romania", "Principala", 1094, 317335)),
+                "Arad, Romania, Principala, 1094, 317335"),
 
             };
 
-            Customer customer = new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
-                new Adress("Arad", "Romania", "Principala", 1094, 317335));
+            //BaseRepository checking if work well
+
+            BaseRepository<Customer> customerRepository = new BaseRepository<Customer>();
+
+            Customer customer1 = new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
+                "Arad, Romania, Principala, 1094, 317335");
+
+            Customer customer2 = new Customer("Andrei", "Rusu", "rusu.andrei@yahoo.com", "parola@34$", "0749183620",
+                "Arad, Romania, Principala, 1094, 317335");
+
+            customerRepository.Add(customer1);
+            customerRepository.Add(customer2);
+
+            
+            foreach(Customer customer in customerRepository.items)
+            {
+                Console.WriteLine(customer);
+            }
+
+            customerRepository.Delete(customer1.Id);
+
+
+            foreach (Customer customer in customerRepository.items)
+            {
+                Console.WriteLine(customer);
+            }
+
+            var customerList = customerRepository.GetAll();
+
+            customerList.ForEach(x => Console.WriteLine(x));
+
+            customerRepository.Add(customer2);
+            
+
+            var customer3 = customerRepository.GetById(customer1.Id);
+
+            Console.WriteLine(customer3);
+
+            Console.WriteLine(customerRepository.DateCreatedOn());
+
+            //end checking
+
+
+
 
 
 
@@ -80,16 +123,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         seeProductsByCategory(admin);
                         break;
                     case 7:
-                        AddToCart(customer);
+                        AddToCart(customer1);
                         break;
                     case 8:
-                        DeleteFromCart(customer);
+                        DeleteFromCart(customer1);
                         break;
                     case 9:
-                        SeeProducts(customer);
+                        SeeProducts(customer1);
                         break;
                     case 10:
-                        Checkout(customer);
+                        Checkout(customer1);
                         break;
                     case 11:
                         Environment.Exit(0);

@@ -5,8 +5,8 @@ namespace Domain.Admin
 {
     public class Admin
     {
-        private const string username = "admin";
-        private const string password = "password";
+        private const string _username = "admin";
+        private const string _password = "password";
 
         public List<Category> Categories { get; }
         public List<Customer> Customers { get; set; }
@@ -28,7 +28,7 @@ namespace Domain.Admin
         public void DeleteCategory(string name)
         {
 
-            var categoryTbd = Categories.Where(x => x.Name == name)
+            var categoryTbd = Categories.Where(x => x.Name.Equals(name))
                 .SingleOrDefault();
 
             if (categoryTbd == null)

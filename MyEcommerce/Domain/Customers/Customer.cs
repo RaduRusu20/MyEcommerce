@@ -2,20 +2,20 @@
 
 namespace Domain.Customers
 {
-    public class Customer
+    public class Customer : Model
     {
      
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Phone { get; set; }
-        public Guid Id { get;}
-        public Adress Adress { get; set; }
-        public ShoppingCart ShoppingCart { get; set; }
+        public string FirstName { get; }
+        public string LastName { get;  }
+        public string Email { get; }
+        public string Password { get; }
+        public string Phone { get; }
+        public Guid Id { get { return id; } private set { id = value; } }
+        public string Adress{ get; }
+        public ShoppingCart ShoppingCart { get; }
 
 
-        public Customer(string firstName, string lastName, string email, string password, string phone, Adress adress)
+        public Customer(string firstName, string lastName, string email, string password, string phone, string adress)
         {
             if (string.IsNullOrEmpty(firstName))
                 throw new ArgumentNullException("firstName");
@@ -29,8 +29,10 @@ namespace Domain.Customers
             if (string.IsNullOrEmpty(phone))
                 throw new ArgumentNullException("phone");
 
-            if (adress == null)
+            if (string.IsNullOrEmpty(adress))
                 throw new ArgumentNullException("adress");
+
+
 
             this.FirstName = firstName;
             this.LastName = lastName;

@@ -1,9 +1,9 @@
 ﻿namespace Domain.Products
 {
-    public class Category
+    public class Category : Model
     {
 
-        public Guid Id { get;}
+        public Guid Id { get { return id; } }
         public string Name { get; set; }
         public List<Product> Products { get; set; }
 
@@ -12,7 +12,7 @@
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
-            this.Id = Guid.NewGuid();
+            this.id = Guid.NewGuid();
             this.Name = name;
             Products = new List<Product>();
         }

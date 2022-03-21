@@ -1,13 +1,13 @@
 ﻿namespace Domain.Products
 {
-    public class Product
+    public class Product : Model
     {
 
-        public Guid Id { get;}
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public float Price { get; set; }
-        public float Raiting { get; set; }
+        public Guid Id { get { return id; } }
+        public string Name { get; }
+        public string Description { get; }
+        public float Price { get; }
+        public float Raiting { get; }
 
         public Product(string name, string description, float price)
         {
@@ -20,7 +20,7 @@
             if (price <= 0)
                  throw new ArgumentOutOfRangeException("price");
 
-            this.Id = Guid.NewGuid();
+            this.id = Guid.NewGuid();
             this.Name = name;
             this.Description = description;
             this.Price = price;
