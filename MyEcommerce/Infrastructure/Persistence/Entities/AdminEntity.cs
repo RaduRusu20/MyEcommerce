@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Entities
 {
-    public class AdminEntity
+    public class AdminEntity : BaseEntity
     {
         private const String _username = "admin";
         private const string _password = "password";
@@ -18,6 +18,11 @@ namespace Infrastructure.Persistence.Entities
         public AdminEntity()
         {
             this.Categories = new List<Category>();
+        }
+
+        public AdminEntity(List<Category> categories)
+        {
+            Categories = categories;
         }
 
         public Category CreateCategory(string name)

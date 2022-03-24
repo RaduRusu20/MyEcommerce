@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Entities
 {
-    public class CategoryEntity
+    public class CategoryEntity : BaseEntity
     {
-        public Guid Id { get; }
         public string Name { get; set; }
         public List<Product> Products { get; set; }
 

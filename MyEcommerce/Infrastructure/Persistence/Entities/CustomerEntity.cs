@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Entities
 {
-    public class CustomerEntity
+    public class CustomerEntity : BaseEntity
     {
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
         public string Password { get; }
         public string Phone { get; }
-        public Guid Id { get; }
         public string Adress { get; }
         public ShoppingCart ShoppingCart { get; }
 

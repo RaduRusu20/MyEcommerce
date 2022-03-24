@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Entities
 {
-    public class ProductEntity
+    public class ProductEntity : BaseEntity
     {
-        public Guid Id { get; }
+       
         public string Name { get; }
         public string Description { get; }
         public float Price { get; }
