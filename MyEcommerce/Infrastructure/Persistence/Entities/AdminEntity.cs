@@ -1,18 +1,21 @@
-﻿using Domain.Customers;
-using Domain.Products;
+﻿using Domain.Products;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Domain.Admin
+namespace Infrastructure.Persistence.Entities
 {
-    public class Admin
+    public class AdminEntity
     {
         private const String _username = "admin";
         private const string _password = "password";
 
-        
         public List<Category> Categories { get; }
 
 
-        public Admin()
+        public AdminEntity()
         {
             this.Categories = new List<Category>();
         }
@@ -27,13 +30,13 @@ namespace Domain.Admin
 
         public Category DeleteCategory(Category category)
         {
-           Categories.Remove(category);
-           return category;
+            Categories.Remove(category);
+            return category;
         }
 
         public Category GetCategoryByName(string name)
         {
-            var category =  Categories.Where(x => x.Name == name)
+            var category = Categories.Where(x => x.Name == name)
                 .FirstOrDefault();
 
             if (category == null)
@@ -42,7 +45,7 @@ namespace Domain.Admin
             }
 
             return category;
-                
+
         }
 
         public void AddProduct(Category category, string name, string description, float price)

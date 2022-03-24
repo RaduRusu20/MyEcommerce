@@ -1,15 +1,20 @@
-﻿namespace Domain.Products
-{
-    public class Product
-    {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Infrastructure.Persistence.Entities
+{
+    public class ProductEntity
+    {
         public Guid Id { get; }
         public string Name { get; }
         public string Description { get; }
         public float Price { get; }
         public float Raiting { get; }
 
-        public Product(string name, string description, float price)
+        public ProductEntity(string name, string description, float price)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -18,7 +23,7 @@
                 throw new ArgumentNullException("description");
 
             if (price <= 0)
-                 throw new ArgumentOutOfRangeException("price");
+                throw new ArgumentOutOfRangeException("price");
 
             this.Id = Guid.NewGuid();
             this.Name = name;

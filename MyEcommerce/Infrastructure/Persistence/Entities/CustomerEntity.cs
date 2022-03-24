@@ -1,21 +1,26 @@
-﻿using Domain.Products;
+﻿using Domain.Customers;
+using Domain.Products;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Domain.Customers
+namespace Infrastructure.Persistence.Entities
 {
-    public class Customer
+    public class CustomerEntity
     {
-     
         public string FirstName { get; }
-        public string LastName { get;  }
+        public string LastName { get; }
         public string Email { get; }
         public string Password { get; }
         public string Phone { get; }
         public Guid Id { get; }
-        public string Adress{ get; }
+        public string Adress { get; }
         public ShoppingCart ShoppingCart { get; }
 
 
-        public Customer(string firstName, string lastName, string email, string password, string phone, string adress)
+        public CustomerEntity(string firstName, string lastName, string email, string password, string phone, string adress)
         {
             if (string.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentNullException("firstName");
@@ -92,6 +97,5 @@ namespace Domain.Customers
         {
             return this.FirstName + " " + this.LastName;
         }
-
     }
 }

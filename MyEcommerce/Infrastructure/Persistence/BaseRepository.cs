@@ -1,9 +1,10 @@
-﻿using System.Linq.Expressions;
+﻿using Infrastructure.Persistence.Entities;
+using System.Linq.Expressions;
 
 namespace Domain.RepositoryPattern
 {
 
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : Model
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         public List<TEntity> items;
         private DateTime dateCreatedOn;
@@ -35,6 +36,7 @@ namespace Domain.RepositoryPattern
         public TEntity GetById(Guid id)
         {
             return items.Where(x => x.Id == id).FirstOrDefault();
+            
         }
 
         public void Update(TEntity item)

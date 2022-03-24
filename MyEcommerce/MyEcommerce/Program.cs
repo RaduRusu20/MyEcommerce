@@ -3,6 +3,7 @@ using Domain.Admin;
 using Domain.Customers;
 using Domain.Products;
 using Domain.RepositoryPattern;
+using Infrastructure.Persistence.Entities;
 
 
 namespace MyApp // Note: actual namespace depends on the project name.
@@ -16,59 +17,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
             int option = 0;
             Admin admin = new Admin();
 
-            admin.Customers = new List<Customer>() {
-                new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
-                "Arad, Romania, Principala, 1094, 317335"),
-
-                new Customer("Andrei", "Rusu", "rusu.andrei@yahoo.com", "parola@34$", "0749183620",
-                "Arad, Romania, Principala, 1094, 317335"),
-
-            };
-
-            //BaseRepository checking if work well
-
-            BaseRepository<Customer> customerRepository = new BaseRepository<Customer>();
+          
+    
 
             Customer customer1 = new Customer("Radu", "Rusu", "rusu.radu12@yahoo.com", "alexandru123", "0752190344",
                 "Arad, Romania, Principala, 1094, 317335");
 
             Customer customer2 = new Customer("Andrei", "Rusu", "rusu.andrei@yahoo.com", "parola@34$", "0749183620",
                 "Arad, Romania, Principala, 1094, 317335");
-
-            customerRepository.Add(customer1);
-            customerRepository.Add(customer2);
-
-            
-            foreach(Customer customer in customerRepository.items)
-            {
-                Console.WriteLine(customer);
-            }
-
-            customerRepository.Delete(customer1.Id);
-
-
-            foreach (Customer customer in customerRepository.items)
-            {
-                Console.WriteLine(customer);
-            }
-
-            var customerList = customerRepository.GetAll();
-
-            customerList.ForEach(x => Console.WriteLine(x));
-
-            customerRepository.Add(customer2);
-            
-
-            var customer3 = customerRepository.GetById(customer1.Id);
-
-            Console.WriteLine(customer3);
-
-            Console.WriteLine(customerRepository.DateCreatedOn());
-
-            //end checking
-
-
-
 
 
 
@@ -186,7 +142,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("Category name = ");
             categoryName = Console.ReadLine();
 
-            admin.SeeProductsByCategory(admin.GetCategoryByName(categoryName));
+          //  admin.SeeProductsByCategory(admin.GetCategoryByName(categoryName));
         }
 
         private static void addProduct(Admin admin)
@@ -213,12 +169,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
         private static void seeCustomerList(Admin admin)
         {
-            admin.SeeCustomers();
+           // admin.SeeCustomers();
         }
 
         private static void seeCategories(Admin admin)
         {
-            admin.SeeCategories();
+            //admin.SeeCategories();
         }
 
         private static void addNewCategory(Admin admin)
@@ -228,7 +184,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.Write("name = ");
             categoryName = Console.ReadLine();
 
-            admin.AddCategory(categoryName);
+            admin.CreateCategory(categoryName);
         }
 
         private static void deleteCategory(Admin admin)
@@ -237,7 +193,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             Console.Write("Category name for deleting: ");
             categoryName = Console.ReadLine();
-            admin.DeleteCategory(categoryName);
+
+            Category category = new Category(categoryName);
+
+            admin.DeleteCategory(category);
         }
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Domain.Customers
 {
-    public class ShoppingCart : Model
+    public class ShoppingCart
     {
-        public Guid Id { get { return id; } }
+        public Guid Id { get; }
         public List<Product> Products { get; set; }
 
         public ShoppingCart()
         {
-            this.id = Guid.NewGuid();
+            this.Id = Guid.NewGuid();
             this.Products = new List<Product>();
         }
     }

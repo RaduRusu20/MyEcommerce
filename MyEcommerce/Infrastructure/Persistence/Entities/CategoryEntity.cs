@@ -1,13 +1,19 @@
-﻿namespace Domain.Products
-{
-    public class Category
-    {
+﻿using Domain.Products;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Infrastructure.Persistence.Entities
+{
+    public class CategoryEntity
+    {
         public Guid Id { get; }
         public string Name { get; set; }
         public List<Product> Products { get; set; }
 
-        public Category(string name)
+        public CategoryEntity(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Infrastructure.Persistence.Entities
 {
-    public abstract class Model
+    public class BaseEntity
     {
-        protected Guid id;
-
-        public Guid Id{ get { return id; } }
+        public Guid Id { get; set; }
     }
 }
