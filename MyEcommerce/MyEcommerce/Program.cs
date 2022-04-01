@@ -1,19 +1,37 @@
-﻿using System;
-using Domain.Admin;
-using Domain.Customers;
-using Domain.Products;
+﻿using Application.Categories.Command;
+using Application.Categories.Command.DeleteCategory;
+using Application.Categories.Queries.GetCategories;
+using Application.Categories.Queries.GetCategoryById;
+using Application.Customers.Command.CreateCustomer;
+using Application.Customers.Command.DeleteCustomer;
+using Application.Customers.Queries.GetCustomerById;
+using Application.Customers.Queries.GetCustomers;
+using Application.Products.Commands;
+using Application.Products.Commands.DeleteProduct;
+using Application.Products.Queries;
+using Application.Products.Queries.GetProductById;
+using Application.ShoppingCarts.Commands;
+using Application.ShoppingCarts.Commands.DeleteShoppingCart;
+using Application.ShoppingCarts.Queries;
+using Application.ShoppingCarts.Queries.GetShoppingCartById;
 using Domain.RepositoryPattern;
-using Infrastructure.Persistence.Entities;
+using Infrastructure.Persistence;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
-        static Product product = new Product("minge", "albastra", 99.98f);
+        // static Product product = new Product("minge", "albastra", 99.98f);
 
-        static void Main(string[] args)
+       // private static ServiceProvider _diContainer;
+       // private static IMediator _mediator;
+
+        static async Task Main(string[] args)
         {
+            /*
             int option = 0;
             Admin admin = new Admin();
 
@@ -197,6 +215,157 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Category category = new Category(categoryName);
 
             admin.DeleteCategory(category);
+        
+            */
+
+            var _diContainer = new ServiceCollection()
+                .AddMediatR(typeof(CreateProductCommand))
+                .AddScoped<IProductRepository,ProductRepository>()
+                .AddScoped<ICustomerRepository, CustomerRepository>()
+                .AddScoped<ICategoryRepository, CategoryRepository>()
+                .AddScoped<IShoppingCartRepository, ShoppingCartRepository>()
+                .BuildServiceProvider();
+
+             var _mediator = _diContainer.GetRequiredService<IMediator>();
+
+            
+
+            var productId = await _mediator.Send(new CreateProductCommand
+            {
+                Name = "Minge de fotbal",
+                Description = "albastra",
+                Price = 121.9f
+            });
+
+            var productId1 = await _mediator.Send(new CreateProductCommand
+            {
+                Name = "Minge de rugby",
+                Description = "albastra",
+                Price = 121.9f
+            });
+
+            var productId2 = await _mediator.Send(new CreateProductCommand
+            {
+                Name = "Minge de volei",
+                Description = "albastra",
+                Price = 121.9f
+            });
+
+            var productList = await _mediator.Send(new GetProductsQuery());
+
+             productList.ForEach(x => Console.WriteLine(x));
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var customerId = await _mediator.Send(new CreateCustomerCommand
+            {
+                FirstName = "Radu",
+                LastName = "Rusu",
+                Email = "rusu.radu12@yahoo.com",
+                Password = "alexandru",
+                Phone = "0752190344",
+                Adress = "Str. ",
+            });
+
+            var customerId1 = await _mediator.Send(new CreateCustomerCommand
+            {
+                FirstName = "Andrei",
+                LastName = "Rusu",
+                Email = "rusu.andrei@yahoo.com",
+                Password = "password",
+                Phone = "0752190344",
+                Adress = "Str. ",
+            });
+
+            var customerList = await _mediator.Send(new GetCustomersQuery());
+
+            customerList.ForEach(x => Console.WriteLine(x));
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var customer = await _mediator.Send(new GetCustomerByIdQuery
+            {
+                Id = customerId,
+            });
+
+            Console.WriteLine(customer);
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var deletedId = await _mediator.Send(new DeleteCustomerCommand
+            {
+                Customer = customer,
+            });
+
+            customerList = await _mediator.Send(new GetCustomersQuery());
+
+            customerList.ForEach(x => Console.WriteLine(x));
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var categoryId = await _mediator.Send(new CreateCategoryCommand
+            {
+                Name = "mingi de fotbal",
+            });
+
+            var categoryId1 = await _mediator.Send(new CreateCategoryCommand
+            {
+                Name = "mingi de baschet",
+            });
+
+            var categoryList = await _mediator.Send(new GetCategoriesQuery());
+
+            categoryList.ForEach(x => Console.WriteLine(x));
+
+            var category = await _mediator.Send(new GetCategoryByIdQuery
+            {
+                Id = categoryId1,
+            });
+
+            Console.WriteLine(category);
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var removedIdCategory = await _mediator.Send(new DeleteCategoryCommand
+            {
+                Category = category,
+            });
+
+            categoryList.ForEach(x => Console.WriteLine(x));
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var shId = await _mediator.Send(new CreateShoppingCartCommand());
+            var shId1 = await _mediator.Send(new CreateShoppingCartCommand());
+            var shId2 = await _mediator.Send(new CreateShoppingCartCommand());
+
+            var shList = await _mediator.Send(new GetShoppingCartsQuery());
+
+            shList.ForEach(x => Console.WriteLine(x));
+
+            Console.WriteLine(" //////////////////////////////////////// ");
+
+            var shCart = await _mediator.Send(new GetShoppingCartByIdQuery
+            {
+                Id = shId,
+            });
+
+            var shCart1 = await _mediator.Send(new GetShoppingCartByIdQuery
+            {
+                Id = shId1,
+            });
+
+            var removedShId = await _mediator.Send(new DeleteShoppingCartCommand
+            {
+                ShoppingCart = shCart,
+            });
+
+            var removedShId1 = await _mediator.Send(new DeleteShoppingCartCommand
+            {
+                ShoppingCart = shCart1,
+            });
+
+            shList.ForEach(x => Console.WriteLine(x));
         }
     }
 }

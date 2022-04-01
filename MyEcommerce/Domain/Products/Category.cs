@@ -7,7 +7,7 @@
         public string Name { get; set; }
         public List<Product> Products { get; set; }
 
-        public Category(string name)
+        internal Category(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -15,6 +15,11 @@
             this.Id = Guid.NewGuid();
             this.Name = name;
             Products = new List<Product>();
+        }
+
+        public static Category CreateCategory(string name)
+        {
+            return new Category(name);
         }
 
 

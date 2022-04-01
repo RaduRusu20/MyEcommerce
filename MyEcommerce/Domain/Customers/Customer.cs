@@ -15,9 +15,12 @@ namespace Domain.Customers
         public ShoppingCart ShoppingCart { get; }
 
 
-        public Customer(string firstName, string lastName, string email, string password, string phone, string adress)
+        internal Customer(string firstName, string lastName, string email, string password, string phone, string adress)
         {
             if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentNullException("firstName");
+
+            if (string.IsNullOrWhiteSpace(lastName))
                 throw new ArgumentNullException("firstName");
 
             if (string.IsNullOrWhiteSpace(email))
@@ -42,6 +45,11 @@ namespace Domain.Customers
             this.Id = Guid.NewGuid();
             this.Adress = adress;
             this.ShoppingCart = new ShoppingCart();
+        }
+
+        public static Customer CreateCustomer(string firstName, string lastName, string email, string password, string phone, string adress)
+        {
+            return new Customer(firstName, lastName, email, password, phone, adress);
         }
 
         public void AddToCart(Product product)

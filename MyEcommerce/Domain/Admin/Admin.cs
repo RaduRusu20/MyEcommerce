@@ -9,41 +9,12 @@ namespace Domain.Admin
         private const string _password = "password";
 
         
-        public List<Category> Categories { get; }
-
-
-        public Admin()
-        {
-            this.Categories = new List<Category>();
-        }
 
         public Category CreateCategory(string name)
         {
-            Category category = new Category(name);
-            Categories.Add(category);
-
-            return category;
+            return new Category(name);
         }
 
-        public Category DeleteCategory(Category category)
-        {
-           Categories.Remove(category);
-           return category;
-        }
-
-        public Category GetCategoryByName(string name)
-        {
-            var category =  Categories.Where(x => x.Name == name)
-                .FirstOrDefault();
-
-            if (category == null)
-            {
-                Console.WriteLine("This category doesn't exist!");
-            }
-
-            return category;
-                
-        }
 
         public void AddProduct(Category category, string name, string description, float price)
         {

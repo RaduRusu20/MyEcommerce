@@ -7,10 +7,20 @@ namespace Domain.Customers
         public Guid Id { get; }
         public List<Product> Products { get; set; }
 
-        public ShoppingCart()
+        internal ShoppingCart()
         {
             this.Id = Guid.NewGuid();
             this.Products = new List<Product>();
+        }
+
+        public static ShoppingCart CreateShoppingCart()
+        {
+            return new ShoppingCart();
+        }
+
+        public override string? ToString()
+        {
+            return Id.ToString();
         }
     }
 }

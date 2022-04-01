@@ -9,7 +9,7 @@
         public float Price { get; }
         public float Raiting { get; }
 
-        public Product(string name, string description, float price)
+        internal Product(string name, string description, float price)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -24,6 +24,11 @@
             this.Name = name;
             this.Description = description;
             this.Price = price;
+        }
+
+        public static Product CreateProduct(string name, string description, float price)
+        {
+            return new Product(name, description, price);
         }
 
         public override string? ToString()
