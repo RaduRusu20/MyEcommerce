@@ -20,7 +20,7 @@ namespace Application.Customers.Command.CreateCustomer
 
         public Task<Guid> Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
         {
-            var customer = Customer.CreateCustomer(command.FirstName, command.LastName, command.Email, command.Password, command.Adress, command.Phone);
+            var customer = new Customer(command.FirstName, command.LastName, command.Email, command.Password, command.Adress, command.Phone);
             _repository.CreateCustomeryAsync(customer, cancellationToken);
             return Task.FromResult(customer.Id);
         }

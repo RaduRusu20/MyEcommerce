@@ -7,15 +7,14 @@ using Application.Customers.Command.DeleteCustomer;
 using Application.Customers.Queries.GetCustomerById;
 using Application.Customers.Queries.GetCustomers;
 using Application.Products.Commands;
-using Application.Products.Commands.DeleteProduct;
 using Application.Products.Queries;
-using Application.Products.Queries.GetProductById;
 using Application.ShoppingCarts.Commands;
 using Application.ShoppingCarts.Commands.DeleteShoppingCart;
 using Application.ShoppingCarts.Queries;
 using Application.ShoppingCarts.Queries.GetShoppingCartById;
+using Domain.Customers;
 using Domain.RepositoryPattern;
-using Infrastructure.Persistence;
+using Infrastructure.DataAccess;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -217,6 +216,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             admin.DeleteCategory(category);
         
             */
+
+        
 
             var _diContainer = new ServiceCollection()
                 .AddMediatR(typeof(CreateProductCommand))

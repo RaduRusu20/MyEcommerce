@@ -7,7 +7,7 @@ namespace Domain.Customers
         public Guid Id { get; }
         public List<Product> Products { get; set; }
 
-        internal ShoppingCart()
+        internal ShoppingCart()//fara teste
         {
             this.Id = Guid.NewGuid();
             this.Products = new List<Product>();

@@ -1,12 +1,6 @@
 ﻿using Domain.Products;
 using Domain.RepositoryPattern;
-using Infrastructure.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Products.Commands
 {
@@ -22,7 +16,7 @@ namespace Application.Products.Commands
 
         public Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = Product.CreateProduct(command.Name, command.Description, command.Price);
+            var product = new Product(command.Name, command.Description, command.Price);
             _repository.CreateProductAsync(product, cancellationToken);
             return Task.FromResult(product.Id);
         }

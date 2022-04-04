@@ -20,7 +20,7 @@ namespace Application.Categories.Command
 
         public Task<Guid> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)
         {
-            var category = Category.CreateCategory(command.Name);
+            var category = new Category(command.Name);
             _repository.CreateCategoryAsync(category, cancellationToken);
             return Task.FromResult(category.Id);
         }
