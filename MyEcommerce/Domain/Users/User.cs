@@ -23,41 +23,41 @@ namespace Domain.Users
         public Role Role { get; }
 
 
-        internal User(string firstName, string lastName, string email, string password, string adress, string phone, Role role)
+        internal User(string FirstName, string LastName, string Email, string Password, string Adress, string Phone, Role Role)
         {
-            if (string.IsNullOrWhiteSpace(firstName))
+            if (string.IsNullOrWhiteSpace(FirstName))
                 throw new ArgumentNullException("FirstName is not valid!");
 
-            if (string.IsNullOrWhiteSpace(lastName))
+            if (string.IsNullOrWhiteSpace(LastName))
                 throw new ArgumentNullException("LastName is not valid!");
 
             //email checking
            
-            bool isValidEmail = regex.IsMatch(email);
+            bool isValidEmail = regex.IsMatch(Email);
             if (!isValidEmail)
                 throw new ArgumentNullException("Email is not valid!");
 
             //password validation
-            var isValidPassword = passRegex.IsMatch(password);
+            var isValidPassword = passRegex.IsMatch(Password);
             if (!isValidPassword)
                 throw new ArgumentNullException("Invalid password!");
 
-            if (string.IsNullOrWhiteSpace(phone) || phone.Length != 10)
+            if (string.IsNullOrWhiteSpace(Phone) || Phone.Length != 10)
                 throw new ArgumentNullException("Phone is not valid!");
 
-            if (string.IsNullOrWhiteSpace(adress))
+            if (string.IsNullOrWhiteSpace(Adress))
                 throw new ArgumentNullException("Adress is not valid!");
 
 
 
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
-            this.Password = password;
-            this.Phone = phone;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Email = Email;
+            this.Password = Password;
+            this.Phone = Phone;
             this.Id = Guid.NewGuid();
-            this.Adress = adress;
-            this.Role = role;
+            this.Adress = Adress;
+            this.Role = Role;
         }
 
         public override String ToString()

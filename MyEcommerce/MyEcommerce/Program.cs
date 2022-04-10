@@ -25,7 +25,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static async Task Main(string[] args)
         {
 
-            
+            /*
             var _diContainer = new ServiceCollection()
                 .AddMediatR(typeof(CreateProductCommand))
                 .AddScoped<IProductRepository, ProductRepository>()
@@ -176,6 +176,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
             });
 
             shList.ForEach(x => Console.WriteLine(x));
+            */
+
+
             
         }
     }
