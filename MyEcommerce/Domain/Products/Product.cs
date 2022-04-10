@@ -8,6 +8,7 @@
         public string Description { get; }
         public float Price { get; }
         public float Raiting { get; }
+        public List<ShoppingCartsProducts> ShoppingCarts { get; set; }
 
         internal Product(string name, string description, float price)
         {

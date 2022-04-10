@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20220410115816_shoppingCartMigration")]
+    partial class shoppingCartMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,21 +67,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Domain.ShoppingCartsProducts", b =>
-                {
-                    b.Property<Guid>("ShoppingCartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ShoppingCartId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCartsProducts");
                 });
 
             modelBuilder.Entity("Domain.Users.ShoppingCart", b =>
@@ -143,25 +130,6 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("CategoryId");
                 });
 
-            modelBuilder.Entity("Domain.ShoppingCartsProducts", b =>
-                {
-                    b.HasOne("Domain.Products.Product", "Product")
-                        .WithMany("ShoppingCarts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Users.ShoppingCart", "ShoppingCart")
-                        .WithMany("Products")
-                        .HasForeignKey("ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("ShoppingCart");
-                });
-
             modelBuilder.Entity("Domain.Users.ShoppingCart", b =>
                 {
                     b.HasOne("Domain.Users.User", "User")
@@ -174,16 +142,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Products.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Domain.Products.Product", b =>
-                {
-                    b.Navigation("ShoppingCarts");
-                });
-
-            modelBuilder.Entity("Domain.Users.ShoppingCart", b =>
                 {
                     b.Navigation("Products");
                 });

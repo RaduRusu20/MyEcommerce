@@ -1,18 +1,19 @@
 ﻿using Domain.Products;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Users
 {
     public class ShoppingCart
     {
+
         public Guid Id { get; }
         public User User { get; set; }
-        public List<Product> Products { get; set; }
+        public List<ShoppingCartsProducts> Products { get; set; }
 
-        internal ShoppingCart(User user)
+
+        internal ShoppingCart()
         {
             this.Id = Guid.NewGuid();
-            this.Products = new List<Product>();
-            this.User = user;
         }
 
         public override string? ToString()

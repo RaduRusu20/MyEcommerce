@@ -1,4 +1,6 @@
-﻿using Domain.Roles;
+﻿using Domain;
+using Domain.Products;
+using Domain.Roles;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +15,9 @@ namespace Infrastructure.Persistence
     {
        
         public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +40,45 @@ namespace Infrastructure.Persistence
             u.Property(u => u.Role);
         });
 
+            modelBuilder.Entity<Product>(
+        p =>
+        {
+            p.HasKey(p => p.Id);
+
+            p.Property(p => p.Name);
+            p.Property(p => p.Description);
+            p.Property(p => p.Price);
+            p.Property(p => p.Raiting);
+
+        });
+
+            modelBuilder.Entity<Category>(
+       c =>
+       {
+           c.HasKey(c => c.Id);
+
+           c.Property(c => c.Name);
+       });
+
+            modelBuilder.Entity<ShoppingCart>(
+      sc =>
+      {
+          sc.HasKey(sc => sc.Id);
+          sc.HasOne(sc => sc.User);
+      });
+
+            modelBuilder.Entity<ShoppingCartsProducts>()
+                .HasKey(scp => new { scp.ShoppingCartId, scp.ProductId });
+
+            modelBuilder.Entity<ShoppingCartsProducts>()
+                .HasOne(scp => scp.ShoppingCart)
+                .WithMany(scp => scp.Products)
+                .HasForeignKey(scp => scp.ShoppingCartId);
+
+            modelBuilder.Entity<ShoppingCartsProducts>()
+                .HasOne(scp => scp.Product)
+                .WithMany(scp => scp.ShoppingCarts)
+                .HasForeignKey(scp => scp.ProductId);
         }
     }
 }
