@@ -1,11 +1,6 @@
-﻿using Domain.Customers;
-using Domain.RepositoryPattern;
+﻿using Domain.RepositoryPattern;
+using Domain.Users;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.ShoppingCarts.Commands
 {
@@ -20,7 +15,7 @@ namespace Application.ShoppingCarts.Commands
 
         public Task<Guid> Handle(CreateShoppingCartCommand command, CancellationToken cancellationToken)
         {
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(command.User);
             _repository.CreateShoppingCartAsync(shoppingCart, cancellationToken);
             return Task.FromResult(shoppingCart.Id);
         }

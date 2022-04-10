@@ -1,4 +1,4 @@
-﻿using Domain.Customers;
+﻿using Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +9,14 @@ namespace Domain.RepositoryPattern
 {
     public interface ICustomerRepository
     {
-        public Task CreateCustomeryAsync(Customer customer, CancellationToken cancellationToken);
+        public Task CreateCustomeryAsync(User customer, CancellationToken cancellationToken);
 
-        public Task UpdateCustomerAsync(Customer customer, CancellationToken cancellationToken);
+        public Task UpdateCustomerAsync(User customer, CancellationToken cancellationToken);
 
-        public Task DeleteCustomeryAsync(Customer customer, CancellationToken cancellationToken);
+        public Task DeleteCustomeryAsync(User customer, CancellationToken cancellationToken);
 
-        public Task<Customer> FindCustomerByIdAsync(Guid customerId, CancellationToken cancellationToken);
+        public Task<User> FindCustomerByIdAsync(Guid customerId, CancellationToken cancellationToken);
 
-        public Task<List<Customer>> GetAllCustomersAsync(CancellationToken cancellationToken);
+        public Task<List<User>> GetAllCustomersAsync(CancellationToken cancellationToken);
     }
 }

@@ -1,10 +1,5 @@
-﻿using Domain.Customers;
-using Domain.RepositoryPattern;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.RepositoryPattern;
+using Domain.Users;
 
 namespace Infrastructure.DataAccess
 {

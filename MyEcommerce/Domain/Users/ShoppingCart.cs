@@ -1,21 +1,18 @@
 ﻿using Domain.Products;
 
-namespace Domain.Customers
+namespace Domain.Users
 {
     public class ShoppingCart
     {
         public Guid Id { get; }
+        public User User { get; set; }
         public List<Product> Products { get; set; }
 
-        internal ShoppingCart()//fara teste
+        internal ShoppingCart(User user)
         {
             this.Id = Guid.NewGuid();
             this.Products = new List<Product>();
-        }
-
-        public static ShoppingCart CreateShoppingCart()
-        {
-            return new ShoppingCart();
+            this.User = user;
         }
 
         public override string? ToString()

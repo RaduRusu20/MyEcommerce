@@ -1,13 +1,14 @@
-﻿using MediatR;
+﻿using Domain.Roles;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Customers.Command.CreateCustomer
+namespace Application.Users.Command.CreateCustomer
 {
-    public class CreateCustomerCommand : IRequest<Guid>
+    public class CreateUserCommand : IRequest<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,5 +16,6 @@ namespace Application.Customers.Command.CreateCustomer
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Adress { get; set; }
+        public Role Role { get; set; }
     }
 }
