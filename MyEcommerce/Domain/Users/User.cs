@@ -23,6 +23,7 @@ namespace Domain.Users
         public Role Role { get; }
 
 
+
         internal User(string FirstName, string LastName, string Email, string Password, string Adress, string Phone, Role Role)
         {
             if (string.IsNullOrWhiteSpace(FirstName))

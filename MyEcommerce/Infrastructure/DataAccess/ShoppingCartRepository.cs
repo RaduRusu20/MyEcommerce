@@ -1,48 +1,43 @@
 ﻿using Domain.RepositoryPattern;
 using Domain.Users;
+using Infrastructure.Persistence;
 
 namespace Infrastructure.DataAccess
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
-        private List<ShoppingCart> _shoppingCarts;
+        private EcommerceContext ecommerceContext;
 
         public ShoppingCartRepository()
         {
-            _shoppingCarts = new List<ShoppingCart>();
+            ecommerceContext = new EcommerceContext();
         }
 
         public async Task CreateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
-            _shoppingCarts.Add(shoppingCart);
+            ecommerceContext.ShoppingCarts.Add(shoppingCart);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task DeleteShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
-            _shoppingCarts.Remove(shoppingCart);
+            ecommerceContext.ShoppingCarts.Remove(shoppingCart);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<ShoppingCart> FindShoppingCartByIdAsync(Guid shoppingCartId, CancellationToken cancellationToken)
         {
-            return _shoppingCarts.SingleOrDefault(x => x.Id == shoppingCartId);
+            return ecommerceContext.ShoppingCarts.SingleOrDefault(x => x.Id == shoppingCartId);
         }
 
         public async Task<List<ShoppingCart>> GetAllShoppingCartAsync(CancellationToken cancellationToken)
         {
-            return _shoppingCarts;
+            return ecommerceContext.ShoppingCarts.ToList();
         }
 
         public async Task UpdateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
-            int i;
-
-            for (i = 0; i < _shoppingCarts.Count; i++)
-            {
-                if (_shoppingCarts[i].Id == shoppingCart.Id)
-                {
-                    _shoppingCarts[i] = shoppingCart;
-                }
-            }
+            throw new NotImplementedException();
         }
     }
 }

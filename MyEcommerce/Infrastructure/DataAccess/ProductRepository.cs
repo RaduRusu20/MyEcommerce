@@ -1,5 +1,6 @@
 ﻿using Domain.Products;
 using Domain.RepositoryPattern;
+using Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,44 +11,38 @@ namespace Infrastructure.DataAccess
 {
     public class ProductRepository : IProductRepository
     {
-        private List<Product> _products;
+        private EcommerceContext ecommerceContext;
 
         public ProductRepository()
         {
-            _products = new List<Product>();
+            ecommerceContext = new EcommerceContext();
         }
 
         public async Task CreateProductAsync(Product product, CancellationToken cancellationToken)
         {
-            _products.Add(product);
+            ecommerceContext.Products.Add(product);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task DeleteProductAsync(Product product, CancellationToken cancellationToken)
         {
-            _products.Remove(product);
+            ecommerceContext.Products.Remove(product);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<Product> FindProductByIdAsync(Guid productId, CancellationToken cancellationToken)
         {
-            return _products.SingleOrDefault(x => x.Id == productId);
+            return ecommerceContext.Products.SingleOrDefault(x => x.Id == productId);
         }
 
         public async Task<List<Product>> GetAllProductsAsync(CancellationToken cancellationToken)
         {
-            return _products;
+            return ecommerceContext.Products.ToList();
         }
 
         public async Task UpdateProductAsync(Product product, CancellationToken cancellationToken)
         {
-            int i;
-
-            for (i = 0; i < _products.Count; i++)
-            {
-                if (_products[i].Id == product.Id)
-                {
-                    _products[i] = product;
-                }
-            }
+            throw new NotImplementedException();
         }
     }
 }

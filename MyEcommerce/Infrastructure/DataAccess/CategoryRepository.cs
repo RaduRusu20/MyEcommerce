@@ -1,5 +1,6 @@
 ﻿using Domain.Products;
 using Domain.RepositoryPattern;
+using Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,44 +11,38 @@ namespace Infrastructure.DataAccess
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private List<Category> _categories;
+        private EcommerceContext ecommerceContext;
 
         public CategoryRepository()
         {
-            _categories = new List<Category>();
+            ecommerceContext = new EcommerceContext();
         }
 
         public async Task CreateCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-             _categories.Add(category);
+            ecommerceContext.Categories.Add(category);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task DeleteCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-            _categories.Remove(category);
+            ecommerceContext.Categories.Remove(category);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken)
         {
-            return _categories;
+            return ecommerceContext.Categories.ToList();
         }
 
         public async Task<Category> FindCategoryByIdAsync(Guid categoryId, CancellationToken cancellationToken)
         {
-            return _categories.SingleOrDefault(x => x.Id == categoryId);
+            return ecommerceContext.Categories.SingleOrDefault(x => x.Id == categoryId);
         }
 
         public async Task UpdateCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-            int i;
-
-            for(i = 0; i < _categories.Count; i++)
-            {
-                if(_categories[i].Id == category.Id)
-                {
-                    _categories[i] = category;
-                }
-            }
+            throw new NotImplementedException();
         }
     }
 }

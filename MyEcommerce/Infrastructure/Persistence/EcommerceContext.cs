@@ -33,7 +33,7 @@ namespace Infrastructure.Persistence
 
             u.Property(u => u.FirstName);
             u.Property(u => u.LastName);
-            u.Property(u => u.Email);
+            u.HasIndex(u => u.Email).IsUnique(true);
             u.Property(u => u.Password);
             u.Property(u => u.Phone);
             u.Property(u => u.Adress);
