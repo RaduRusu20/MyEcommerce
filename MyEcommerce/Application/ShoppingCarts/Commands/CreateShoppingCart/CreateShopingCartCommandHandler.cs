@@ -16,7 +16,9 @@ namespace Application.ShoppingCarts.Commands
         public Task<Guid> Handle(CreateShoppingCartCommand command, CancellationToken cancellationToken)
         {
             var shoppingCart = new ShoppingCart();
+            shoppingCart.UserId = command.UserId;
             _repository.CreateShoppingCartAsync(shoppingCart, cancellationToken);
+
             return Task.FromResult(shoppingCart.Id);
         }
     }

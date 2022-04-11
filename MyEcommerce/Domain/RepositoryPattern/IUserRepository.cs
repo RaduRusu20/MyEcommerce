@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.RepositoryPattern
 {
-    public interface ICustomerRepository
+    public interface IUserRepository
     {
         public Task CreateCustomeryAsync(User customer, CancellationToken cancellationToken);
 
@@ -18,5 +18,7 @@ namespace Domain.RepositoryPattern
         public Task<User> FindCustomerByIdAsync(Guid customerId, CancellationToken cancellationToken);
 
         public Task<List<User>> GetAllCustomersAsync(CancellationToken cancellationToken);
+
+        public Task<Guid> FindCustomerIdByEmailAsync(string email, CancellationToken cancellationToken); 
     }
 }

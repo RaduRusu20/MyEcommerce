@@ -6,9 +6,9 @@ namespace Application.Users.Command.CreateCustomer
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {
-        private ICustomerRepository _repository;
+        private IUserRepository _repository;
 
-        public CreateUserCommandHandler(ICustomerRepository repository)
+        public CreateUserCommandHandler(IUserRepository repository)
         {
             _repository = repository;
         }

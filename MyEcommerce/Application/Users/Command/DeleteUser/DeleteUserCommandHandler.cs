@@ -10,9 +10,9 @@ namespace Application.Users.Command.DeleteCustomer
 {
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Guid>
     {
-        private ICustomerRepository _repository;
+        private IUserRepository _repository;
 
-        public DeleteUserCommandHandler(ICustomerRepository repository)
+        public DeleteUserCommandHandler(IUserRepository repository)
         {
             _repository = repository;
         }

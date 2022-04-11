@@ -44,5 +44,10 @@ namespace Infrastructure.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Guid> FindIdByNameAsync(string name, CancellationToken cancellationToken)
+        {
+            return ecommerceContext.Categories.FirstOrDefault(x => x.Name == name).Id;
+        }
     }
 }

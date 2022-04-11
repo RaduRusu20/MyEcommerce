@@ -6,9 +6,9 @@ namespace Application.Users.Queries.GetCustomerById
 {
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, User>
     {
-        private ICustomerRepository _repository;
+        private IUserRepository _repository;
 
-        public GetUserByIdQueryHandler(ICustomerRepository repository)
+        public GetUserByIdQueryHandler(IUserRepository repository)
         {
             _repository = repository;
         }

@@ -22,6 +22,8 @@ namespace Domain.Users
         public string Adress { get; }
         public Role Role { get; }
 
+        public ShoppingCart ShoppingCart { get; set; }
+
 
 
         internal User(string FirstName, string LastName, string Email, string Password, string Adress, string Phone, Role Role)

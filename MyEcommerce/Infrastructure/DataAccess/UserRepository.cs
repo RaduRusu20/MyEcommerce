@@ -4,7 +4,7 @@ using Infrastructure.Persistence;
 
 namespace Infrastructure.DataAccess
 {
-    public class UserRepository : ICustomerRepository
+    public class UserRepository : IUserRepository
     {
 
         private EcommerceContext ecommerceContext;
@@ -39,6 +39,11 @@ namespace Infrastructure.DataAccess
         public async Task UpdateCustomerAsync(User customer, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Guid> FindCustomerIdByEmailAsync(string email, CancellationToken cancellationToken)
+        {
+            return ecommerceContext.Users.FirstOrDefault(x => x.Email == email).Id;
         }
     }
 }

@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20220411083956_newMigration1")]
+    partial class newMigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,8 +95,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -173,8 +174,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Users.ShoppingCart", b =>
                 {
                     b.HasOne("Domain.Users.User", "User")
-                        .WithOne("ShoppingCart")
-                        .HasForeignKey("Domain.Users.ShoppingCart", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -194,12 +195,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Users.ShoppingCart", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Domain.Users.User", b =>
-                {
-                    b.Navigation("ShoppingCart")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

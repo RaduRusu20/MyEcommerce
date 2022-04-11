@@ -18,5 +18,7 @@ namespace Domain.RepositoryPattern
         public Task<Product> FindProductByIdAsync(Guid productId, CancellationToken cancellationToken);
 
         public Task<List<Product>> GetAllProductsAsync(CancellationToken cancellationToken);
+
+        public Task<Guid> FindProductIdByNameAsync(string name, CancellationToken cancellationToken);
     }
 }
