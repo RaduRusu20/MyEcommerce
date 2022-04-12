@@ -46,14 +46,13 @@ namespace Infrastructure.DataAccess
 
         public async Task AddProductToShoppingCartAsync(User user, Product product, CancellationToken cancellationToken)
         {
+            
             var shoppingCartsProducts = new ShoppingCartsProducts
             {
-                Product = product,
                 ProductId = product.Id,
-                ShoppingCart = user.ShoppingCart,
                 ShoppingCartId = user.ShoppingCart.Id,
             };
-
+            
             ecommerceContext.ShoppingCartsProducts.Add(shoppingCartsProducts);
             ecommerceContext.SaveChanges();
         }

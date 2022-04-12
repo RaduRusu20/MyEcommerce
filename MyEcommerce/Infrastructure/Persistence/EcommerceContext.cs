@@ -70,17 +70,7 @@ namespace Infrastructure.Persistence
       });
 
             modelBuilder.Entity<ShoppingCartsProducts>()
-                .HasKey(scp => new {scp.ShoppingCartId, scp.ProductId});
-
-            modelBuilder.Entity<ShoppingCartsProducts>()
-                .HasOne<ShoppingCart>(scp => scp.ShoppingCart)
-                .WithMany(scp => scp.Products)
-                .HasForeignKey(scp => scp.ShoppingCartId);
-
-            modelBuilder.Entity<ShoppingCartsProducts>()
-                .HasOne<Product>(scp => scp.Product)
-                .WithMany(scp => scp.ShoppingCarts)
-                .HasForeignKey(scp => scp.ProductId);
+                .HasKey(scp => new { scp.ShoppingCartId, scp.ProductId });
         }
     }
 }

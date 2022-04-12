@@ -56,7 +56,7 @@ namespace Domain.Users
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.Email = Email;
-            this.Password = Password;
+            this.Password = MyCryptography.EncryptPlainTextToCipherText(Password);
             this.Phone = Phone;
             this.Id = Guid.NewGuid();
             this.Adress = Adress;

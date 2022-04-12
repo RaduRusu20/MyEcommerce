@@ -7,9 +7,12 @@ using Application.ShoppingCarts.Commands.AddProductToShoppingCart;
 using Application.Users.Command.CreateCustomer;
 using Application.Users.Queries.GetCustomers;
 using Application.Users.Queries.GetUserIdByEmail;
+using Domain;
 using Domain.RepositoryPattern;
 using Infrastructure.DataAccess;
+using Infrastructure.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -31,32 +34,29 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             var _mediator = _diContainer.GetRequiredService<IMediator>();
 
-            var user = await _mediator.Send(new GetUserByEmailQuery
-            {
-                Email = "rusu.radu12@yahoo.com"
-            });
+            
 
-            var product = await _mediator.Send(new GetProductByNameQuery
-            {
-                Name = "Puma NEYMAR JR",
-            });
+            var context = new EcommerceContext();
 
-            var product1 = await _mediator.Send(new GetProductByNameQuery
-            {
-                Name = "HAMMER CleverFold",
-            });
+            //select all customers
+            var customersList = context.Users
+                .Where(u => u.Role == Domain.Roles.Role.Customer)
+                .Include(u => u.ShoppingCart)
+                    .ThenInclude(s => s.Products)
+                        .ThenInclude(p => p.Product)  
+                .ToList();
 
-            await _mediator.Send(new AddProductToShoppingCartCommand
-            {
-                User = user,
-                Product = product,
-            });
+            //sorting products by price
+            var products = context.Products
+                .OrderBy(p => p.Price)
+                .ToList();
 
-            //await _mediator.Send(new AddProductToShoppingCartCommand
-            //{
-               // User = user,
-               // Product = product1,
-           // });
+            //group products by category
+            var groupedProducts = context.Products
+                //.Include(p => p.Category)
+                .GroupBy(p => p.CategoryId)
+                .ToList();
+
 
             Console.ReadKey();
 

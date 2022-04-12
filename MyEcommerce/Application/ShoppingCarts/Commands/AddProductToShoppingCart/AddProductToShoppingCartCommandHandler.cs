@@ -19,8 +19,12 @@ namespace Application.ShoppingCarts.Commands.AddProductToShoppingCart
 
         public async Task<Guid> Handle(AddProductToShoppingCartCommand command, CancellationToken cancellationToken)
         {
-            _repository.AddProductToShoppingCartAsync(command.User, command.Product, cancellationToken);
-            return await Task.FromResult(command.User.Id);
+            if (command.User.Role == Domain.Roles.Role.Customer)
+            {
+                _repository.AddProductToShoppingCartAsync(command.User, command.Product, cancellationToken);
+                return await Task.FromResult(command.User.Id);
+            }
+            else throw new Exception("You have to be customer to add product to shopping cart!");
         }
     }
 }
