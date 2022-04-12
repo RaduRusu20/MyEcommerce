@@ -1,6 +1,11 @@
-﻿using Application.Categories.Queries.GetCategoryIdByName;
+﻿using Application.Categories.Queries.GetCategories;
 using Application.Products.Commands;
+using Application.Products.Queries;
+using Application.Products.Queries.GetProductByName;
 using Application.ShoppingCarts.Commands;
+using Application.ShoppingCarts.Commands.AddProductToShoppingCart;
+using Application.Users.Command.CreateCustomer;
+using Application.Users.Queries.GetCustomers;
 using Application.Users.Queries.GetUserIdByEmail;
 using Domain.RepositoryPattern;
 using Infrastructure.DataAccess;
@@ -26,17 +31,34 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             var _mediator = _diContainer.GetRequiredService<IMediator>();
 
-            var idUsr1 = await _mediator.Send(new GetUserIdByEmailQuery
+            var user = await _mediator.Send(new GetUserByEmailQuery
             {
-                Email = "rusu.radu12@yahoo.com",
+                Email = "rusu.radu12@yahoo.com"
             });
 
-       
-            await _mediator.Send(new CreateShoppingCartCommand
+            var product = await _mediator.Send(new GetProductByNameQuery
             {
-                UserId = idUsr1,
+                Name = "Puma NEYMAR JR",
             });
-            
+
+            var product1 = await _mediator.Send(new GetProductByNameQuery
+            {
+                Name = "HAMMER CleverFold",
+            });
+
+            await _mediator.Send(new AddProductToShoppingCartCommand
+            {
+                User = user,
+                Product = product,
+            });
+
+            //await _mediator.Send(new AddProductToShoppingCartCommand
+            //{
+               // User = user,
+               // Product = product1,
+           // });
+
+            Console.ReadKey();
 
         }
     }

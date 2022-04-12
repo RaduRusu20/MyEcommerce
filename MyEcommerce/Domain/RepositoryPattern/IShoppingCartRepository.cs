@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Domain.Products;
+using Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Domain.RepositoryPattern
         public Task<ShoppingCart> FindShoppingCartByIdAsync(Guid shoppingCartId, CancellationToken cancellationToken);
 
         public Task<List<ShoppingCart>> GetAllShoppingCartAsync(CancellationToken cancellationToken);
+
+        public Task AddProductToShoppingCartAsync(User user, Product product, CancellationToken cancellationToken);
 
     }
 }

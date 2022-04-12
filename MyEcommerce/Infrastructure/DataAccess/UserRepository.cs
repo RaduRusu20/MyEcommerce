@@ -1,6 +1,7 @@
 ﻿using Domain.RepositoryPattern;
 using Domain.Users;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
 {
@@ -28,12 +29,16 @@ namespace Infrastructure.DataAccess
 
         public async Task<User> FindCustomerByIdAsync(Guid customerId, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Users.SingleOrDefault(x => x.Id == customerId);
+            return ecommerceContext.Users
+                .Include(u => u.ShoppingCart)
+                .SingleOrDefault(x => x.Id == customerId);
         }
 
         public async Task<List<User>> GetAllCustomersAsync(CancellationToken cancellationToken)
         {
-            return ecommerceContext.Users.ToList();
+            return ecommerceContext.Users
+                .Include(u => u.ShoppingCart)
+                .ToList();
         }
 
         public async Task UpdateCustomerAsync(User customer, CancellationToken cancellationToken)
@@ -41,9 +46,11 @@ namespace Infrastructure.DataAccess
             throw new NotImplementedException();
         }
 
-        public async Task<Guid> FindCustomerIdByEmailAsync(string email, CancellationToken cancellationToken)
+        public async Task<User> FindCustomerByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Users.FirstOrDefault(x => x.Email == email).Id;
+            return ecommerceContext.Users
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefault(x => x.Email == email);
         }
     }
 }

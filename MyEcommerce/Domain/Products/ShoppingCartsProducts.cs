@@ -10,6 +10,7 @@ namespace Domain.Products
 {
     public class ShoppingCartsProducts
     {
+
         public Guid ShoppingCartId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
         

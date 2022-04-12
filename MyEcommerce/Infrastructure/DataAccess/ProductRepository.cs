@@ -1,6 +1,7 @@
 ﻿using Domain.Products;
 using Domain.RepositoryPattern;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,18 @@ namespace Infrastructure.DataAccess
 
         public async Task<Product> FindProductByIdAsync(Guid productId, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Products.SingleOrDefault(x => x.Id == productId);
+            return ecommerceContext.Products
+                .Include(p => p.Category)
+                .Include(p => p.ShoppingCarts)
+                .SingleOrDefault(x => x.Id == productId);
         }
 
         public async Task<List<Product>> GetAllProductsAsync(CancellationToken cancellationToken)
         {
-            return ecommerceContext.Products.ToList();
+            return ecommerceContext.Products
+                .Include(p => p.Category)
+                .Include(p => p.ShoppingCarts)
+                .ToList();
         }
 
         public async Task UpdateProductAsync(Product product, CancellationToken cancellationToken)
@@ -45,9 +52,12 @@ namespace Infrastructure.DataAccess
             throw new NotImplementedException();
         }
 
-        public async Task<Guid> FindProductIdByNameAsync(string name, CancellationToken cancellationToken)
+        public async Task<Product> FindProductByNameAsync(string name, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Products.FirstOrDefault(x => x.Name == name).Id;
+            return ecommerceContext.Products
+                .Include(p => p.Category)
+                .Include(p => p.ShoppingCarts)
+                .FirstOrDefault(x => x.Name == name);
         }
     }
 }

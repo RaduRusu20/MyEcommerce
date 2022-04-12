@@ -18,10 +18,12 @@ namespace Infrastructure.Persistence
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartsProducts> ShoppingCartsProducts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=LAPTOP-V68LBGAO\SQLEXPRESS;Database=MyEcommerce;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=LAPTOP-V68LBGAO\SQLEXPRESS;Database=MyEcommerce;Trusted_Connection=True;")
+                          .LogTo(Console.WriteLine);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,15 +70,15 @@ namespace Infrastructure.Persistence
       });
 
             modelBuilder.Entity<ShoppingCartsProducts>()
-                .HasKey(scp => new { scp.ShoppingCartId, scp.ProductId });
+                .HasKey(scp => new {scp.ShoppingCartId, scp.ProductId});
 
             modelBuilder.Entity<ShoppingCartsProducts>()
-                .HasOne(scp => scp.ShoppingCart)
+                .HasOne<ShoppingCart>(scp => scp.ShoppingCart)
                 .WithMany(scp => scp.Products)
                 .HasForeignKey(scp => scp.ShoppingCartId);
 
             modelBuilder.Entity<ShoppingCartsProducts>()
-                .HasOne(scp => scp.Product)
+                .HasOne<Product>(scp => scp.Product)
                 .WithMany(scp => scp.ShoppingCarts)
                 .HasForeignKey(scp => scp.ProductId);
         }

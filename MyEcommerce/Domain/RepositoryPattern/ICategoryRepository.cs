@@ -19,7 +19,7 @@ namespace Domain.RepositoryPattern
 
         public Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken);
 
-        public Task<Guid> FindIdByNameAsync(string name, CancellationToken cancellationToken);    
+        public Task<Category> FindCategoryByNameAsync(string name, CancellationToken cancellationToken);    
 
     }
 }

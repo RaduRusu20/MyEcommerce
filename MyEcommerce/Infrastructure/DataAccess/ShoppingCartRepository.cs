@@ -1,6 +1,8 @@
-﻿using Domain.RepositoryPattern;
+﻿using Domain.Products;
+using Domain.RepositoryPattern;
 using Domain.Users;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
 {
@@ -32,13 +34,28 @@ namespace Infrastructure.DataAccess
 
         public async Task<List<ShoppingCart>> GetAllShoppingCartAsync(CancellationToken cancellationToken)
         {
-            return ecommerceContext.ShoppingCarts.ToList();
+            return ecommerceContext.ShoppingCarts
+                .Include(sc => sc.Products)
+                .ToList();
         }
 
         public async Task UpdateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
-        
+
+        public async Task AddProductToShoppingCartAsync(User user, Product product, CancellationToken cancellationToken)
+        {
+            var shoppingCartsProducts = new ShoppingCartsProducts
+            {
+                Product = product,
+                ProductId = product.Id,
+                ShoppingCart = user.ShoppingCart,
+                ShoppingCartId = user.ShoppingCart.Id,
+            };
+
+            ecommerceContext.ShoppingCartsProducts.Add(shoppingCartsProducts);
+            ecommerceContext.SaveChanges();
+        }
     }
 }
