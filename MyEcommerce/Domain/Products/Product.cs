@@ -8,8 +8,12 @@
         public string Description { get; }
         public float Price { get; }
         public float Raiting { get; }
+        public List<ShoppingCartsProducts> ShoppingCarts { get; set; }
 
-        internal Product(string name, string description, float price)
+        public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
+
+        internal Product(string name, string description, float price, float raiting)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -18,17 +22,13 @@
                 throw new ArgumentNullException("description");
 
             if (price <= 0)
-                 throw new ArgumentOutOfRangeException("price");
+                throw new ArgumentOutOfRangeException("price");
 
             this.Id = Guid.NewGuid();
             this.Name = name;
             this.Description = description;
             this.Price = price;
-        }
-
-        public static Product CreateProduct(string name, string description, float price)
-        {
-            return new Product(name, description, price);
+            this.Raiting = raiting;
         }
 
         public override string? ToString()

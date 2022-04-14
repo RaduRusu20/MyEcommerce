@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 
         [assembly: InternalsVisibleTo("Application")]
-        [assembly: InternalsVisibleTo("Domain.UnitTests")]
+[assembly: InternalsVisibleTo("Presentation")]
+[assembly: InternalsVisibleTo("Domain.UnitTests")]
 
 

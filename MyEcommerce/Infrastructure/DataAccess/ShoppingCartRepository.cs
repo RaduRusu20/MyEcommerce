@@ -1,53 +1,60 @@
-﻿using Domain.Customers;
+﻿using Domain.Products;
 using Domain.RepositoryPattern;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Users;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
-        private List<ShoppingCart> _shoppingCarts;
+        private EcommerceContext ecommerceContext;
 
         public ShoppingCartRepository()
         {
-            _shoppingCarts = new List<ShoppingCart>();
+            ecommerceContext = new EcommerceContext();
         }
 
         public async Task CreateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
-            _shoppingCarts.Add(shoppingCart);
+            ecommerceContext.ShoppingCarts.Add(shoppingCart);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task DeleteShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
-            _shoppingCarts.Remove(shoppingCart);
+            ecommerceContext.ShoppingCarts.Remove(shoppingCart);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<ShoppingCart> FindShoppingCartByIdAsync(Guid shoppingCartId, CancellationToken cancellationToken)
         {
-            return _shoppingCarts.SingleOrDefault(x => x.Id == shoppingCartId);
+            return ecommerceContext.ShoppingCarts.SingleOrDefault(x => x.Id == shoppingCartId);
         }
 
         public async Task<List<ShoppingCart>> GetAllShoppingCartAsync(CancellationToken cancellationToken)
         {
-            return _shoppingCarts;
+            return ecommerceContext.ShoppingCarts
+                .Include(sc => sc.Products)
+                .ToList();
         }
 
         public async Task UpdateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
         {
-            int i;
+            throw new NotImplementedException();
+        }
 
-            for (i = 0; i < _shoppingCarts.Count; i++)
+        public async Task AddProductToShoppingCartAsync(User user, Product product, CancellationToken cancellationToken)
+        {
+            
+            var shoppingCartsProducts = new ShoppingCartsProducts
             {
-                if (_shoppingCarts[i].Id == shoppingCart.Id)
-                {
-                    _shoppingCarts[i] = shoppingCart;
-                }
-            }
+                ProductId = product.Id,
+                ShoppingCartId = user.ShoppingCart.Id,
+            };
+            
+            ecommerceContext.ShoppingCartsProducts.Add(shoppingCartsProducts);
+            ecommerceContext.SaveChanges();
         }
     }
 }

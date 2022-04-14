@@ -15,5 +15,9 @@ namespace Application.Products.Commands
 
         public float Price { get; set; }
 
+        public float Raiting { get; set; }  
+
+        public Guid CategoryId { get; set; }    
+
     }
 }

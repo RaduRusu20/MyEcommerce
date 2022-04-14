@@ -16,7 +16,8 @@ namespace Application.Products.Commands
 
         public Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = new Product(command.Name, command.Description, command.Price);
+            var product = new Product(command.Name, command.Description, command.Price, command.Raiting);
+            product.CategoryId = command.CategoryId;
             _repository.CreateProductAsync(product, cancellationToken);
             return Task.FromResult(product.Id);
         }

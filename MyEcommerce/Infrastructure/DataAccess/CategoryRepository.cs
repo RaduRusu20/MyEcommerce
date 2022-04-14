@@ -1,5 +1,7 @@
 ﻿using Domain.Products;
 using Domain.RepositoryPattern;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,44 +12,49 @@ namespace Infrastructure.DataAccess
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private List<Category> _categories;
+        private EcommerceContext ecommerceContext;
 
         public CategoryRepository()
         {
-            _categories = new List<Category>();
+            ecommerceContext = new EcommerceContext();
         }
 
         public async Task CreateCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-             _categories.Add(category);
+            ecommerceContext.Categories.Add(category);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task DeleteCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-            _categories.Remove(category);
+            ecommerceContext.Categories.Remove(category);
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken)
         {
-            return _categories;
+            return ecommerceContext.Categories
+                .Include(c => c.Products)
+                .ToList();
         }
 
         public async Task<Category> FindCategoryByIdAsync(Guid categoryId, CancellationToken cancellationToken)
         {
-            return _categories.SingleOrDefault(x => x.Id == categoryId);
+            return ecommerceContext.Categories
+                .Include(c => c.Products)
+                .SingleOrDefault(x => x.Id == categoryId);
         }
 
         public async Task UpdateCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-            int i;
+            throw new NotImplementedException();
+        }
 
-            for(i = 0; i < _categories.Count; i++)
-            {
-                if(_categories[i].Id == category.Id)
-                {
-                    _categories[i] = category;
-                }
-            }
+        public async Task<Category> FindCategoryByNameAsync(string name, CancellationToken cancellationToken)
+        {
+            return ecommerceContext.Categories
+                .Include(c => c.Products)
+                .FirstOrDefault(x => x.Name == name);
         }
     }
 }
