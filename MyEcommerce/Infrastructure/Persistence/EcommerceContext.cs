@@ -13,18 +13,23 @@ namespace Infrastructure.Persistence
 {
     public class EcommerceContext : DbContext
     {
-       
+        public EcommerceContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ShoppingCartsProducts> ShoppingCartsProducts { get; set; }
 
+        /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=LAPTOP-V68LBGAO\SQLEXPRESS;Database=MyEcommerce;Trusted_Connection=True;")
                           .LogTo(Console.WriteLine);
         }
+        */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,7 +55,7 @@ namespace Infrastructure.Persistence
             p.Property(p => p.Name);
             p.Property(p => p.Description);
             p.Property(p => p.Price);
-            p.Property(p => p.Raiting);
+            p.Property(p => p.Rating);
 
         });
 

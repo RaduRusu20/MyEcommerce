@@ -11,7 +11,7 @@ namespace Domain.Users
         private static Regex regex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
            RegexOptions.CultureInvariant | RegexOptions.Singleline);
 
-        private static Regex passRegex = new Regex(@"(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8}");
+        private static Regex passRegex = new Regex(@"(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}");
 
         public string FirstName { get; }
         public string LastName { get; }
@@ -41,9 +41,9 @@ namespace Domain.Users
                 throw new ArgumentNullException("Email is not valid!");
 
             //password validation
-            var isValidPassword = passRegex.IsMatch(Password);
-            if (!isValidPassword)
-                throw new ArgumentNullException("Invalid password!");
+            //var isValidPassword = passRegex.IsMatch(Password);
+           // if (!isValidPassword)
+              //  throw new ArgumentNullException("Invalid password!");
 
             if (string.IsNullOrWhiteSpace(Phone) || Phone.Length != 10)
                 throw new ArgumentNullException("Phone is not valid!");
@@ -56,7 +56,7 @@ namespace Domain.Users
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.Email = Email;
-            this.Password = MyCryptography.EncryptPlainTextToCipherText(Password);
+            this.Password = Password;
             this.Phone = Phone;
             this.Id = Guid.NewGuid();
             this.Adress = Adress;

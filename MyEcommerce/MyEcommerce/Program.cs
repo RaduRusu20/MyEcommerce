@@ -1,4 +1,5 @@
-﻿using Application.Categories.Queries.GetCategories;
+﻿using Application.Categories.Command;
+using Application.Categories.Queries.GetCategories;
 using Application.Products.Commands;
 using Application.Products.Queries;
 using Application.Products.Queries.GetProductByName;
@@ -33,32 +34,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 .BuildServiceProvider();
 
             var _mediator = _diContainer.GetRequiredService<IMediator>();
-
-            
-
-            var context = new EcommerceContext();
-
-            //select all customers
-            var customersList = context.Users
-                .Where(u => u.Role == Domain.Roles.Role.Customer)
-                .Include(u => u.ShoppingCart)
-                    .ThenInclude(s => s.Products)
-                        .ThenInclude(p => p.Product)  
-                .ToList();
-
-            //sorting products by price
-            var products = context.Products
-                .OrderBy(p => p.Price)
-                .ToList();
-
-            //group products by category
-            var groupedProducts = context.Products
-                //.Include(p => p.Category)
-                .GroupBy(p => p.CategoryId)
-                .ToList();
-
-
-            Console.ReadKey();
 
         }
     }

@@ -10,9 +10,9 @@ namespace Infrastructure.DataAccess
     {
         private EcommerceContext ecommerceContext;
 
-        public ShoppingCartRepository()
+        public ShoppingCartRepository(EcommerceContext _ecommerceContext)
         {
-            ecommerceContext = new EcommerceContext();
+            ecommerceContext = _ecommerceContext;
         }
 
         public async Task CreateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)

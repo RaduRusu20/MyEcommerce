@@ -14,9 +14,9 @@ namespace Infrastructure.DataAccess
     {
         private EcommerceContext ecommerceContext;
 
-        public CategoryRepository()
+        public CategoryRepository(EcommerceContext _ecommerceContext)
         {
-            ecommerceContext = new EcommerceContext();
+            ecommerceContext = _ecommerceContext;
         }
 
         public async Task CreateCategoryAsync(Category category, CancellationToken cancellationToken)

@@ -14,9 +14,9 @@ namespace Infrastructure.DataAccess
     {
         private EcommerceContext ecommerceContext;
 
-        public ProductRepository()
+        public ProductRepository(EcommerceContext _ecommerceContext)
         {
-            ecommerceContext = new EcommerceContext();
+            ecommerceContext = _ecommerceContext;
         }
 
         public async Task CreateProductAsync(Product product, CancellationToken cancellationToken)
