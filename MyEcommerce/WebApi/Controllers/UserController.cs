@@ -1,4 +1,6 @@
-﻿using Application.Users.Queries.GetCustomerById;
+﻿using Application.ShoppingCarts.Commands;
+using Application.Users.Command.CreateCustomer;
+using Application.Users.Queries.GetCustomerById;
 using Application.Users.Queries.GetCustomers;
 using AutoMapper;
 using MediatR;
@@ -42,6 +44,35 @@ namespace WebApi.Controllers
             var result = await _mediator.Send(query);
             var dtoResult = _mapper.Map<List<UserDto>>(result);
             return Ok(dtoResult);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(UserDto user)
+        {
+            var commandUser = new CreateUserCommand
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Password = user.Password,
+                Phone = user.Phone,
+                Adress = user.Adress,
+                Role = user.Role,
+            };
+
+            var userId = await _mediator.Send(commandUser);
+
+            if (user.Role == Domain.Roles.Role.Customer)
+            {
+                var userGet = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+                var commandSHc = new CreateShoppingCartCommand
+                {
+                    User = userGet
+                };
+                await _mediator.Send(commandSHc);
+            }
+
+            return Ok(user);
         }
     }
 }

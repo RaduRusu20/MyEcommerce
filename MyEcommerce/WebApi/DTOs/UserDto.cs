@@ -1,4 +1,6 @@
-﻿namespace WebApi.DTOs
+﻿using Domain.Roles;
+
+namespace WebApi.DTOs
 {
     public class UserDto
     {
@@ -8,5 +10,6 @@
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Adress { get; set; }
+        public Role Role { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Application.Categories.Queries.GetCategories;
+﻿using Application.Categories.Command;
+using Application.Categories.Queries.GetCategories;
 using Application.Categories.Queries.GetCategoryById;
 using AutoMapper;
 using MediatR;
@@ -42,6 +43,18 @@ namespace WebApi.Controllers
             var result = await _mediator.Send(query);
             var dtoResult = _mapper.Map<List<CategoryDto>>(result);
             return Ok(dtoResult);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CategoryDto category)
+        {
+            var command = new CreateCategoryCommand
+            {
+                Name = category.Name
+            };
+            await _mediator.Send(command);
+
+            return Ok(category);
         }
     }
 }

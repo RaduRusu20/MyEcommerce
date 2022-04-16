@@ -30,6 +30,7 @@ namespace Infrastructure.Persistence
                           .LogTo(Console.WriteLine);
         }
         */
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,7 +56,7 @@ namespace Infrastructure.Persistence
             p.Property(p => p.Name);
             p.Property(p => p.Description);
             p.Property(p => p.Price);
-            p.Property(p => p.Rating);
+            p.Property(p => p.AvailableQuantity);
 
         });
 

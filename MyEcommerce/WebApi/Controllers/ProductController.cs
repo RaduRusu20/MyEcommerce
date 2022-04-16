@@ -1,4 +1,5 @@
-﻿using Application.Products.Queries;
+﻿using Application.Products.Commands;
+using Application.Products.Queries;
 using Application.Products.Queries.GetProductById;
 using AutoMapper;
 using MediatR;
@@ -42,6 +43,23 @@ namespace WebApi.Controllers
             var result = await _mediator.Send(query);
             var dtoResult = _mapper.Map<List<ProductDto>>(result);
             return Ok(dtoResult);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(ProductDto product)
+        {
+            var command = new CreateProductCommand
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                AvailableQuantity = product.AvailableQuantity,
+                CategoryId = product.CategoryId
+            };
+
+            await _mediator.Send(command);
+
+            return Ok(product);
         }
     }
 }

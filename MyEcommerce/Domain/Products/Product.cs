@@ -7,13 +7,13 @@
         public string Name { get; }
         public string Description { get; }
         public float Price { get; }
-        public float Rating { get; }
+        public int AvailableQuantity { get; set; }
         public List<ShoppingCartsProducts> ShoppingCarts { get; set; }
 
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
 
-        internal Product(string name, string description, float price, float rating)
+        internal Product(string name, string description, float price, int AvailableQuantity)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -28,7 +28,7 @@
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.Rating = rating;
+            this.AvailableQuantity = AvailableQuantity;
         }
 
         public override string? ToString()

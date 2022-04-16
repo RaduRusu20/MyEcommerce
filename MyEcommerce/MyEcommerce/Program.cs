@@ -6,6 +6,7 @@ using Application.Products.Queries.GetProductByName;
 using Application.ShoppingCarts.Commands;
 using Application.ShoppingCarts.Commands.AddProductToShoppingCart;
 using Application.Users.Command.CreateCustomer;
+using Application.Users.Queries.GetCustomerById;
 using Application.Users.Queries.GetCustomers;
 using Application.Users.Queries.GetUserIdByEmail;
 using Domain;
@@ -26,7 +27,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             
             var _diContainer = new ServiceCollection()
-                .AddMediatR(typeof(CreateProductCommand))
+                .AddMediatR(typeof(CreateUserCommand))
                 .AddScoped<IProductRepository, ProductRepository>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<ICategoryRepository, CategoryRepository>()

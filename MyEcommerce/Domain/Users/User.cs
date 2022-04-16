@@ -11,12 +11,12 @@ namespace Domain.Users
         private static Regex regex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
            RegexOptions.CultureInvariant | RegexOptions.Singleline);
 
-        private static Regex passRegex = new Regex(@"(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}");
+       // private static Regex passRegex = new Regex(@"(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}");
 
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
-        public string Password { get; }
+        public string Password { get; set; }
         public string Phone { get; }
         public Guid Id { get; }
         public string Adress { get; }
@@ -42,8 +42,8 @@ namespace Domain.Users
 
             //password validation
             //var isValidPassword = passRegex.IsMatch(Password);
-           // if (!isValidPassword)
-              //  throw new ArgumentNullException("Invalid password!");
+            if (Password == null)
+               throw new ArgumentNullException("Invalid password!");
 
             if (string.IsNullOrWhiteSpace(Phone) || Phone.Length != 10)
                 throw new ArgumentNullException("Phone is not valid!");
