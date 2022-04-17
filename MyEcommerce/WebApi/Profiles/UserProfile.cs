@@ -8,7 +8,8 @@ namespace WebApi.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>()
+                .ReverseMap();
         }
     }
 }

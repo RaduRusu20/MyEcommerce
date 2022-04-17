@@ -11,7 +11,7 @@ namespace Domain.RepositoryPattern
     {
         public Task CreateCustomeryAsync(User customer, CancellationToken cancellationToken);
 
-        public Task UpdateCustomerAsync(User customer, CancellationToken cancellationToken);
+        public Task UpdateCustomerAsync(User customer, Guid id, CancellationToken cancellationToken);
 
         public Task DeleteCustomeryAsync(User customer, CancellationToken cancellationToken);
 

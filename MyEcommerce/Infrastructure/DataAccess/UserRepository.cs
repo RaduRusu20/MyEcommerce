@@ -41,9 +41,18 @@ namespace Infrastructure.DataAccess
                 .ToList();
         }
 
-        public async Task UpdateCustomerAsync(User customer, CancellationToken cancellationToken)
+        public async Task UpdateCustomerAsync(User newUser, Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = ecommerceContext.Users.FirstOrDefault(x => x.Id == id);
+
+            newUser.Id = id;
+
+            if (user != null)
+            {
+                ecommerceContext.Entry(user).CurrentValues.SetValues(newUser);
+            }
+
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<User> FindCustomerByEmailAsync(string email, CancellationToken cancellationToken)

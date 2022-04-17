@@ -1,9 +1,11 @@
 ﻿using Application.Products.Commands;
 using Application.Products.Commands.DeleteProduct;
+using Application.Products.Commands.UpdateProduct;
 using Application.Products.Queries;
 using Application.Products.Queries.GetProductById;
 using Application.Products.Queries.GetProductsByCategoryId;
 using AutoMapper;
+using Domain.Products;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +90,21 @@ namespace WebApi.Controllers
             var command = new DeleteProductCommand
             {
                 Product = product
+            };
+
+            await _mediator.Send(command);
+
+            return Ok(productId);
+        }
+
+        [HttpPatch("{productId}")]
+        public async Task<IActionResult> UpdateProduct(ProductDto product, Guid productId)
+        {
+            var newProduct = _mapper.Map<Product>(product);
+            var command = new UpdateProductCommand
+            {
+                Id = productId,
+                Product = newProduct
             };
 
             await _mediator.Send(command);

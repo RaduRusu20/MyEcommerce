@@ -1,9 +1,12 @@
 ﻿using Application.ShoppingCarts.Commands;
 using Application.Users.Command.CreateCustomer;
 using Application.Users.Command.DeleteCustomer;
+using Application.Users.Command.UpdateUser;
 using Application.Users.Queries.GetCustomerById;
 using Application.Users.Queries.GetCustomers;
 using AutoMapper;
+using Domain;
+using Domain.Users;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -87,6 +90,23 @@ namespace WebApi.Controllers
             };
 
             await _mediator.Send(command);
+            return Ok(userId);
+        }
+
+        [HttpPatch("{userId}")]
+        public async Task<IActionResult> UpdateUser(UserDto newUser, Guid userId)
+        {
+            var user = _mapper.Map<User>(newUser);
+
+            user.Password = MyCryptography.EncryptPlainTextToCipherText(user.Password);
+
+            var command = new UpdateUserCommand
+            {
+                Id = userId,
+                User = user
+            };
+            await _mediator.Send(command);
+
             return Ok(userId);
         }
     }

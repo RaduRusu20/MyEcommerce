@@ -47,9 +47,18 @@ namespace Infrastructure.DataAccess
                 .ToList();
         }
 
-        public async Task UpdateProductAsync(Product product, CancellationToken cancellationToken)
+        public async Task UpdateProductAsync(Product newProduct, Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var product = ecommerceContext.Products.FirstOrDefault(x => x.Id == id);
+
+            newProduct.Id = id;
+
+            if (product != null)
+            {
+                ecommerceContext.Entry(product).CurrentValues.SetValues(newProduct);
+            }
+
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<Product> FindProductByNameAsync(string name, CancellationToken cancellationToken)

@@ -3,7 +3,7 @@
     public class Product
     {
 
-        public Guid Id { get; }
+        public Guid Id { get; set; }
         public string Name { get; }
         public string Description { get; }
         public float Price { get; }

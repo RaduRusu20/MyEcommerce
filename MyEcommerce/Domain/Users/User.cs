@@ -18,7 +18,7 @@ namespace Domain.Users
         public string Email { get; }
         public string Password { get; set; }
         public string Phone { get; }
-        public Guid Id { get; }
+        public Guid Id { get; set; }
         public string Adress { get; }
         public Role Role { get; }
 
