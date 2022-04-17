@@ -1,7 +1,10 @@
 ﻿using Application.Categories.Command;
+using Application.Categories.Command.DeleteCategory;
+using Application.Categories.Command.UpdateCategory;
 using Application.Categories.Queries.GetCategories;
 using Application.Categories.Queries.GetCategoryById;
 using AutoMapper;
+using Domain.Products;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,12 +25,12 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategoryById(Guid id)
+        [HttpGet("{categoryId}")]
+        public async Task<IActionResult> GetCategoryById(Guid categoryId)
         {
             var query = new GetCategoryByIdQuery
             {
-                Id = id
+                Id = categoryId
             };
 
             var result = await _mediator.Send(query);
@@ -55,6 +58,32 @@ namespace WebApi.Controllers
             await _mediator.Send(command);
 
             return Ok(category);
+        }
+
+        [HttpDelete("{categoryId}")]
+        public async Task<IActionResult> DeleteCategory(Guid categoryId)
+        {
+            var category = await _mediator.Send(new GetCategoryByIdQuery { Id = categoryId });
+            var command = new DeleteCategoryCommand { Category = category };
+
+            await _mediator.Send(command);
+
+            return Ok(categoryId);
+        }
+
+        [HttpPatch("{categoryId}")]
+        public async Task<IActionResult> UpdateCategory(CategoryDto newCategory, Guid categoryId)
+        {
+            var category = _mapper.Map<Category>(newCategory);
+
+            var command = new UpdateCategoryCommand
+            {
+                Category = category,
+                Id = categoryId
+            };
+
+            await _mediator.Send(command);
+            return Ok(categoryId);
         }
     }
 }

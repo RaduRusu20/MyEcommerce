@@ -59,5 +59,20 @@ namespace Infrastructure.DataAccess
                 .Include(p => p.ShoppingCarts)
                 .FirstOrDefault(x => x.Name == name);
         }
+
+        public async Task<List<Product>> GetProductsByCategoryId(Guid categoryId, CancellationToken cancellationToken)
+        {
+            var listOfProducts = ecommerceContext.Products.ToList();
+
+            foreach(Product p in listOfProducts)
+            {
+                if(p.CategoryId != categoryId)
+                {
+                    listOfProducts.Remove(p);
+                }
+            }
+
+            return listOfProducts;
+        }
     }
 }

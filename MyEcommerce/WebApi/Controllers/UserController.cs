@@ -1,5 +1,6 @@
 ﻿using Application.ShoppingCarts.Commands;
 using Application.Users.Command.CreateCustomer;
+using Application.Users.Command.DeleteCustomer;
 using Application.Users.Queries.GetCustomerById;
 using Application.Users.Queries.GetCustomers;
 using AutoMapper;
@@ -73,6 +74,20 @@ namespace WebApi.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            var user = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+
+            var command = new DeleteUserCommand
+            {
+                User = user
+            };
+
+            await _mediator.Send(command);
+            return Ok(userId);
         }
     }
 }

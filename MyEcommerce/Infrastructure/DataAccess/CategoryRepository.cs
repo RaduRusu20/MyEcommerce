@@ -45,9 +45,18 @@ namespace Infrastructure.DataAccess
                 .SingleOrDefault(x => x.Id == categoryId);
         }
 
-        public async Task UpdateCategoryAsync(Category category, CancellationToken cancellationToken)
+        public async Task UpdateCategoryAsync(Category newCategory, Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+           var category = ecommerceContext.Categories.FirstOrDefault(x => x.Id == id);
+
+            newCategory.Id = id;
+
+            if (category != null)
+            {
+                ecommerceContext.Entry(category).CurrentValues.SetValues(newCategory);
+            }
+
+            ecommerceContext.SaveChanges();
         }
 
         public async Task<Category> FindCategoryByNameAsync(string name, CancellationToken cancellationToken)

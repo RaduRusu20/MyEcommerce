@@ -11,7 +11,7 @@ namespace Domain.RepositoryPattern
     {
         public Task CreateCategoryAsync(Category category, CancellationToken cancellationToken);
 
-        public Task UpdateCategoryAsync(Category category, CancellationToken cancellationToken);
+        public Task UpdateCategoryAsync(Category category, Guid id, CancellationToken cancellationToken);
 
         public Task DeleteCategoryAsync(Category category, CancellationToken cancellationToken);
 
