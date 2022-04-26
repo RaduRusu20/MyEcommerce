@@ -14,7 +14,7 @@ using WebApi.DTOs;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
     public class UserController : ControllerBase
     {

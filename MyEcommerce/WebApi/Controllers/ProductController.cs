@@ -13,7 +13,7 @@ using WebApi.DTOs;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Products")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -39,22 +39,7 @@ namespace WebApi.Controllers
             return Ok(dtoResult);
         }
         
-        /*
-        [HttpGet("{CategoryId}")]
-        public async Task<IActionResult> GetProductsByCategory(Guid CategoryId)
-        {
-            var query = new GetProductsByCategoryIdQuery
-            {
-                CategoryId = CategoryId
-            };
 
-            var listOfProducts = await _mediator.Send(query);
-            var dtoListOfProducts = _mapper.Map<List<ProductDto>>(listOfProducts);
-
-            return Ok(dtoListOfProducts);
-        }
-        */
-        
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()

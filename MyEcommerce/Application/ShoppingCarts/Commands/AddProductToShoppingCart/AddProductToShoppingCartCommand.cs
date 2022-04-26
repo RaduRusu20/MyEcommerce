@@ -11,7 +11,8 @@ namespace Application.ShoppingCarts.Commands.AddProductToShoppingCart
 {
     public class AddProductToShoppingCartCommand : IRequest<Guid>
     {
-        public User User { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
         public Product Product { get; set; }
+        public int Quantity { get; set; }
     }
 }

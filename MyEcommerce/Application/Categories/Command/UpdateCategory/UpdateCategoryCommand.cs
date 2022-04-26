@@ -11,6 +11,6 @@ namespace Application.Categories.Command.UpdateCategory
     public class UpdateCategoryCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
-        public Category Category { get; set; }
+        public string Name { get; set; } = null!;
     }
 }

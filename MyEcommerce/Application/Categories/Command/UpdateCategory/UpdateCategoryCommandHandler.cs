@@ -19,7 +19,10 @@ namespace Application.Categories.Command.UpdateCategory
 
         public async Task<Guid> Handle(UpdateCategoryCommand command, CancellationToken cancellationToken)
         {
-            await _repository.UpdateCategoryAsync(command.Category, command.Id, cancellationToken);
+            var category = await _repository.FindCategoryByIdAsync(command.Id, cancellationToken);
+            category.Name = command.Name;
+            
+            await _repository.UpdateCategoryAsync(category, cancellationToken);
             return command.Id;
         }
     }

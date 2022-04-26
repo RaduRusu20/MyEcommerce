@@ -3,6 +3,7 @@ using Application.Categories.Command.DeleteCategory;
 using Application.Categories.Command.UpdateCategory;
 using Application.Categories.Queries.GetCategories;
 using Application.Categories.Queries.GetCategoryById;
+using Application.Products.Queries.GetProductsByCategoryId;
 using AutoMapper;
 using Domain.Products;
 using MediatR;
@@ -12,7 +13,7 @@ using WebApi.DTOs;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Categories")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -25,8 +26,25 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{categoryId}")]
-        public async Task<IActionResult> GetCategoryById(Guid categoryId)
+        
+        [HttpGet("{CategoryId}/Products")]
+        public async Task<IActionResult> GetProductsByCategory(Guid CategoryId)
+        {
+            var query = new GetProductsByCategoryIdQuery
+            {
+                CategoryId = CategoryId
+            };
+
+            var listOfProducts = await _mediator.Send(query);
+            var dtoListOfProducts = _mapper.Map<List<ProductDto>>(listOfProducts);
+
+            return Ok(dtoListOfProducts);
+        }
+        
+
+
+        [HttpGet("{CategoryId}")]
+        public async Task<ActionResult<CategoryDto>> GetCategoryById(Guid categoryId)
         {
             var query = new GetCategoryByIdQuery
             {
@@ -55,9 +73,9 @@ namespace WebApi.Controllers
             {
                 Name = category.Name
             };
-            await _mediator.Send(command);
+            var x = await _mediator.Send(command);
 
-            return Ok(category);
+            return Created($"/Category/{x}", null);
         }
 
         [HttpDelete("{categoryId}")]
@@ -68,22 +86,21 @@ namespace WebApi.Controllers
 
             await _mediator.Send(command);
 
-            return Ok(categoryId);
+            return NoContent();
         }
 
         [HttpPatch("{categoryId}")]
         public async Task<IActionResult> UpdateCategory(CategoryDto newCategory, Guid categoryId)
         {
-            var category = _mapper.Map<Category>(newCategory);
-
+           
             var command = new UpdateCategoryCommand
             {
-                Category = category,
+                Name = newCategory.Name,
                 Id = categoryId
             };
 
             await _mediator.Send(command);
-            return Ok(categoryId);
+            return NoContent();
         }
     }
 }

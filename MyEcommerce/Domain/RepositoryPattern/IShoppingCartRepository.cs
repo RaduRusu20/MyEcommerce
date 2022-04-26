@@ -20,7 +20,9 @@ namespace Domain.RepositoryPattern
 
         public Task<List<ShoppingCart>> GetAllShoppingCartAsync(CancellationToken cancellationToken);
 
-        public Task AddProductToShoppingCartAsync(User user, Product product, CancellationToken cancellationToken);
+        public Task AddProductToShoppingCartAsync(ShoppingCart shoppingCart, Product product, int Quantity, CancellationToken cancellationToken);
+
+        public Task RemoveProductFromShoppingCartAsync(ShoppingCart shoppingCart, Product product, int Quantity, CancellationToken cancellationToken);
 
     }
 }

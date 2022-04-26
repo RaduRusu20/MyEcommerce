@@ -71,16 +71,9 @@ namespace Infrastructure.DataAccess
 
         public async Task<List<Product>> GetProductsByCategoryId(Guid categoryId, CancellationToken cancellationToken)
         {
-            var listOfProducts = ecommerceContext.Products.ToList();
-
-            foreach(Product p in listOfProducts)
-            {
-                if(p.CategoryId != categoryId)
-                {
-                    listOfProducts.Remove(p);
-                }
-            }
-
+            var listOfProducts = await ecommerceContext.Products
+                .Where(x => x.CategoryId == categoryId)
+                .ToListAsync(cancellationToken);
             return listOfProducts;
         }
     }

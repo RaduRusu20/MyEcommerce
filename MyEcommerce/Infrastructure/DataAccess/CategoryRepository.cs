@@ -21,14 +21,15 @@ namespace Infrastructure.DataAccess
 
         public async Task CreateCategoryAsync(Category category, CancellationToken cancellationToken)
         {
-            ecommerceContext.Categories.Add(category);
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.Categories.AddAsync(category, cancellationToken);
+            // await Task.WhenAll(ecommerceContext.Fo.AddAsync(...), ecommerceContext.Fo1.AddAsync(...), ... )
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteCategoryAsync(Category category, CancellationToken cancellationToken)
         {
             ecommerceContext.Categories.Remove(category);
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken)
@@ -45,18 +46,13 @@ namespace Infrastructure.DataAccess
                 .SingleOrDefault(x => x.Id == categoryId);
         }
 
-        public async Task UpdateCategoryAsync(Category newCategory, Guid id, CancellationToken cancellationToken)
+        public async Task UpdateCategoryAsync(Category newCategory, CancellationToken cancellationToken)
         {
-           var category = ecommerceContext.Categories.FirstOrDefault(x => x.Id == id);
+            var category = await ecommerceContext.Categories.FirstAsync(x => x.Id == newCategory.Id, cancellationToken);
 
-            newCategory.Id = id;
-
-            if (category != null)
-            {
-                ecommerceContext.Entry(category).CurrentValues.SetValues(newCategory);
-            }
-
-            ecommerceContext.SaveChanges();
+            ecommerceContext.Entry(category).CurrentValues.SetValues(newCategory);
+            
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<Category> FindCategoryByNameAsync(string name, CancellationToken cancellationToken)
