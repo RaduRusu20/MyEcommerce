@@ -21,35 +21,35 @@ namespace Infrastructure.DataAccess
 
         public async Task CreateProductAsync(Product product, CancellationToken cancellationToken)
         {
-            ecommerceContext.Products.Add(product);
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.Products.AddAsync(product);
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteProductAsync(Product product, CancellationToken cancellationToken)
         {
             ecommerceContext.Products.Remove(product);
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.SaveChangesAsync();
         }
 
         public async Task<Product> FindProductByIdAsync(Guid productId, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Products
+            return await ecommerceContext.Products
                 .Include(p => p.Category)
                 .Include(p => p.ShoppingCarts)
-                .SingleOrDefault(x => x.Id == productId);
+                .SingleOrDefaultAsync(x => x.Id == productId, cancellationToken);
         }
 
         public async Task<List<Product>> GetAllProductsAsync(CancellationToken cancellationToken)
         {
-            return ecommerceContext.Products
+            return await ecommerceContext.Products
                 .Include(p => p.Category)
                 .Include(p => p.ShoppingCarts)
-                .ToList();
+                .ToListAsync(cancellationToken);
         }
 
         public async Task UpdateProductAsync(Product newProduct, Guid id, CancellationToken cancellationToken)
         {
-            var product = ecommerceContext.Products.FirstOrDefault(x => x.Id == id);
+            var product = await ecommerceContext.Products.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             newProduct.Id = id;
 
@@ -58,15 +58,15 @@ namespace Infrastructure.DataAccess
                 ecommerceContext.Entry(product).CurrentValues.SetValues(newProduct);
             }
 
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.SaveChangesAsync();
         }
 
         public async Task<Product> FindProductByNameAsync(string name, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Products
+            return await ecommerceContext.Products
                 .Include(p => p.Category)
                 .Include(p => p.ShoppingCarts)
-                .FirstOrDefault(x => x.Name == name);
+                .FirstOrDefaultAsync(x => x.Name == name, cancellationToken);
         }
 
         public async Task<List<Product>> GetProductsByCategoryId(Guid categoryId, CancellationToken cancellationToken)

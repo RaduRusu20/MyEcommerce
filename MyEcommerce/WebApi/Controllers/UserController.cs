@@ -76,7 +76,7 @@ namespace WebApi.Controllers
                 await _mediator.Send(commandSHc);
             }
 
-            return Ok(user);
+            return Created($"/Users/{userId}", null);
         }
 
         [HttpDelete("{userId}")]
@@ -90,7 +90,7 @@ namespace WebApi.Controllers
             };
 
             await _mediator.Send(command);
-            return Ok(userId);
+            return NoContent();
         }
 
         [HttpPatch("{userId}")]
@@ -107,7 +107,7 @@ namespace WebApi.Controllers
             };
             await _mediator.Send(command);
 
-            return Ok(userId);
+            return NoContent();
         }
     }
 }

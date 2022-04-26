@@ -34,9 +34,9 @@ namespace Infrastructure.DataAccess
 
         public async Task<List<ShoppingCart>> GetAllShoppingCartAsync(CancellationToken cancellationToken)
         {
-            return ecommerceContext.ShoppingCarts
+            return await ecommerceContext.ShoppingCarts
                 .Include(sc => sc.Products)
-                .ToList();
+                .ToListAsync();
         }
 
         public async Task UpdateShoppingCartAsync(ShoppingCart shoppingCart, CancellationToken cancellationToken)
@@ -58,7 +58,7 @@ namespace Infrastructure.DataAccess
                 product.AvailableQuantity -= quantity;
 
                
-                var newProduct = ecommerceContext.Products.FirstOrDefault(x => x.Id == product.Id);
+                var newProduct = await ecommerceContext.Products.FirstOrDefaultAsync(x => x.Id == product.Id);
                 var updatedProduct = newProduct;
                 newProduct.AvailableQuantity = product.AvailableQuantity;
                 ecommerceContext.Entry(newProduct).CurrentValues.SetValues(updatedProduct);
@@ -73,8 +73,8 @@ namespace Infrastructure.DataAccess
 
         public async Task RemoveProductFromShoppingCartAsync(ShoppingCart shoppingCart, Product product, int quantity, CancellationToken cancellationToken)
         {
-            var item = ecommerceContext.ShoppingCartsProducts
-                .FirstOrDefault(x => x.ProductId == product.Id && x.ShoppingCartId == shoppingCart.Id);
+            var item = await ecommerceContext.ShoppingCartsProducts
+                .FirstOrDefaultAsync(x => x.ProductId == product.Id && x.ShoppingCartId == shoppingCart.Id, cancellationToken);
 
             if (quantity == item.Quantity)
             {
@@ -88,14 +88,14 @@ namespace Infrastructure.DataAccess
                 ecommerceContext.Entry(item).CurrentValues.SetValues(updatedItem);
             }
 
-            var newProduct = ecommerceContext.Products
-                   .FirstOrDefault(x => x.Id == item.ProductId);
+            var newProduct = await ecommerceContext.Products
+                   .FirstOrDefaultAsync(x => x.Id == item.ProductId, cancellationToken);
 
             var updatedProduct = newProduct;
             updatedProduct.AvailableQuantity += quantity;
             ecommerceContext.Entry(newProduct).CurrentValues.SetValues(updatedProduct);
 
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

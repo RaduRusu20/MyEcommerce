@@ -73,9 +73,9 @@ namespace WebApi.Controllers
             {
                 Name = category.Name
             };
-            var x = await _mediator.Send(command);
+            var id = await _mediator.Send(command);
 
-            return Created($"/Category/{x}", null);
+            return Created($"/Category/{id}", null);
         }
 
         [HttpDelete("{categoryId}")]

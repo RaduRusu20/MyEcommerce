@@ -17,33 +17,33 @@ namespace Infrastructure.DataAccess
 
         public async Task CreateCustomeryAsync(User customer, CancellationToken cancellationToken)
         {
-            ecommerceContext.Users.Add(customer);
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.Users.AddAsync(customer, cancellationToken);
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteCustomeryAsync(User customer, CancellationToken cancellationToken)
         {
             ecommerceContext.Users.Remove(customer);
-            ecommerceContext.SaveChanges();
+            await ecommerceContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<User> FindCustomerByIdAsync(Guid customerId, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Users
+            return await ecommerceContext.Users
                 .Include(u => u.ShoppingCart)
-                .SingleOrDefault(x => x.Id == customerId);
+                .SingleOrDefaultAsync(x => x.Id == customerId);
         }
 
         public async Task<List<User>> GetAllCustomersAsync(CancellationToken cancellationToken)
         {
-            return ecommerceContext.Users
+            return await ecommerceContext.Users
                 .Include(u => u.ShoppingCart)
-                .ToList();
+                .ToListAsync();
         }
 
         public async Task UpdateCustomerAsync(User newUser, Guid id, CancellationToken cancellationToken)
         {
-            var user = ecommerceContext.Users.FirstOrDefault(x => x.Id == id);
+            var user = await ecommerceContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             newUser.Id = id;
 
@@ -57,9 +57,9 @@ namespace Infrastructure.DataAccess
 
         public async Task<User> FindCustomerByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            return ecommerceContext.Users
+            return await ecommerceContext.Users
                 .Include(u => u.ShoppingCart)
-                .FirstOrDefault(x => x.Email == email);
+                .FirstOrDefaultAsync(x => x.Email == email);
         }
     }
 }

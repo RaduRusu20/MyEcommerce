@@ -76,7 +76,7 @@ namespace WebApi.Controllers
 
             await _mediator.Send(command);
 
-            return Ok();
+            return NoContent();
         }
 
 

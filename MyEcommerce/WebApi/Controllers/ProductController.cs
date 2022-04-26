@@ -63,9 +63,9 @@ namespace WebApi.Controllers
                 CategoryId = product.CategoryId
             };
 
-            await _mediator.Send(command);
+            var id = await _mediator.Send(command);
 
-            return Ok(product);
+            return Created($"/Products/{id}", null);
         }
 
         [HttpDelete("{productId}")]
@@ -79,7 +79,7 @@ namespace WebApi.Controllers
 
             await _mediator.Send(command);
 
-            return Ok(productId);
+            return NoContent();
         }
 
         [HttpPatch("{productId}")]
@@ -94,7 +94,7 @@ namespace WebApi.Controllers
 
             await _mediator.Send(command);
 
-            return Ok(productId);
+            return NoContent();
         }
     }
 }
