@@ -7,5 +7,6 @@
         public float Price { get; set; }
         public int AvailableQuantity { get; set; }
         public Guid CategoryId { get; set; }
+        public string Img { get; set; }
     }
 }

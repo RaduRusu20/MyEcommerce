@@ -17,7 +17,9 @@ namespace Application.Products.Commands
 
         public int AvailableQuantity { get; set; }  
 
-        public Guid CategoryId { get; set; }    
+        public Guid CategoryId { get; set; }
+
+        public string Img { get; set; }
 
     }
 }

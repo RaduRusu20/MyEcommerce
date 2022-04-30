@@ -60,7 +60,8 @@ namespace WebApi.Controllers
                 Description = product.Description,
                 Price = product.Price,
                 AvailableQuantity = product.AvailableQuantity,
-                CategoryId = product.CategoryId
+                CategoryId = product.CategoryId,
+                Img = product.Img
             };
 
             var id = await _mediator.Send(command);
