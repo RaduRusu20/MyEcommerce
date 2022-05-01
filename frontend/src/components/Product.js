@@ -18,8 +18,6 @@ function Product (product){
              <AddShoppingCartIcon></AddShoppingCartIcon>
                  Add
             </Button>
-            
-             
         </section>
     );
 }
