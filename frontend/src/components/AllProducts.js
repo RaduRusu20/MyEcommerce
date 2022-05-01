@@ -10,10 +10,19 @@ const products_url = 'https://localhost:7090/api/Products';
 
 function AllProducts(){
   const [products, setProducts] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
   const [sortType, setSortType] = useState('price');
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(15);
+  const [postsPerPage] = useState(14);
+
+   //Get Current Post
+   const indexOfLastPost = currentPage * postsPerPage;
+   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+
+   //Change Page
+   const paginate  =  pageNumber => {
+    setCurrentPage(pageNumber);
+   console.log(pageNumber);
+  }
  
   const getProducts = async() =>{
     const response = await fetch(products_url);
@@ -22,14 +31,8 @@ function AllProducts(){
   }
 
   const sortArray = async (type) => {
-
-    setAllProducts(products);
-
-     //Get Current Post
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
    
-
+    //sorting types
     const types = {
       price_asc: 'price',
       price_desc: 'price',
@@ -38,29 +41,25 @@ function AllProducts(){
     };
     const sortProperty = types[type];
 
+    //sorting descending or ascending
     if(type.endsWith('_desc'))
     {
     const sortedProducts_desc = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
-    const currentProducts_desc = sortedProducts_desc.slice(indexOfFirstPost, indexOfLastPost); 
-    setProducts(currentProducts_desc);
+    //const currentProducts_desc = sortedProducts_desc.slice(indexOfFirstPost, indexOfLastPost); 
+    setProducts(sortedProducts_desc);
     }
     else
     {
     const sortedProducts_asc = [...products].sort((a, b) => a[sortProperty] - b[sortProperty]);
-    const currentProducts_asc = sortedProducts_asc.slice(indexOfFirstPost, indexOfLastPost);
-    setProducts(currentProducts_asc);
+    //const currentProducts_asc = sortedProducts_asc.slice(indexOfFirstPost, indexOfLastPost);
+    setProducts(sortedProducts_asc);
     }
   };
 
   useEffect(() => {getProducts()}, []);
   useEffect(() => {sortArray(sortType)}, [sortType]);
 
-   //Change Page
-   const paginate  =  pageNumber => {
-     setCurrentPage(pageNumber);
-    console.log(pageNumber);
-   }
-
+  const slicedProducts = products.slice(indexOfFirstPost, indexOfLastPost);
   return (
     <React.Fragment>
       <br></br>
@@ -80,7 +79,7 @@ function AllProducts(){
         <option value="name_desc">DescendingByName</option>
       </select>
       <ul className='Products'>
-        {products.map((product) => {
+        {slicedProducts.map((product) => {
           const {name, price, img} = product;
           return (
             <Product
@@ -91,7 +90,7 @@ function AllProducts(){
           );
         })}
         </ul>
-        <Pagination postsPerPage={postsPerPage} totalPosts={allProducts.length} paginate={paginate}></Pagination>
+        <Pagination postsPerPage={postsPerPage} totalPosts={products.length} paginate={paginate}></Pagination>
         <br></br>
         </React.Fragment>
   );
