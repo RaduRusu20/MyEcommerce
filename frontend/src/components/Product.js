@@ -1,7 +1,7 @@
 import React from 'react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Button } from '@mui/material';
-import '../index.css'
+import '../style/AllProductsStyle.css'
 
 function Product (product){
     const {_name, _price, _img} = product;

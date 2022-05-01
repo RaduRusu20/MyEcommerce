@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Product from './Product'
 import Pagination from './Pagination'
 //CSS
-import '../index.css'
-import { CompressOutlined } from '@mui/icons-material';
+import '../style/AllProductsStyle.css'
 
 const products_url = 'https://localhost:7090/api/Products';
 
@@ -12,7 +11,7 @@ function AllProducts(){
   const [products, setProducts] = useState([]);
   const [sortType, setSortType] = useState('price');
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(14);
+  const [postsPerPage] = useState(5);
 
    //Get Current Post
    const indexOfLastPost = currentPage * postsPerPage;
@@ -21,7 +20,6 @@ function AllProducts(){
    //Change Page
    const paginate  =  pageNumber => {
     setCurrentPage(pageNumber);
-   console.log(pageNumber);
   }
  
   const getProducts = async() =>{
@@ -45,13 +43,11 @@ function AllProducts(){
     if(type.endsWith('_desc'))
     {
     const sortedProducts_desc = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
-    //const currentProducts_desc = sortedProducts_desc.slice(indexOfFirstPost, indexOfLastPost); 
     setProducts(sortedProducts_desc);
     }
     else
     {
     const sortedProducts_asc = [...products].sort((a, b) => a[sortProperty] - b[sortProperty]);
-    //const currentProducts_asc = sortedProducts_asc.slice(indexOfFirstPost, indexOfLastPost);
     setProducts(sortedProducts_asc);
     }
   };
@@ -60,6 +56,7 @@ function AllProducts(){
   useEffect(() => {sortArray(sortType)}, [sortType]);
 
   const slicedProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <React.Fragment>
       <br></br>
@@ -72,7 +69,7 @@ function AllProducts(){
           All products
       </h1>
       <br></br>
-      <select onChange={(e) => setSortType(e.target.value)}>
+      <select className='SelectSorter' onChange={(e) => setSortType(e.target.value)}>
         <option value="price_asc">AscendingByPrice</option>
         <option value="price_desc">DescendingByPrice</option>
         <option value="name_asc">AscendingByName</option>

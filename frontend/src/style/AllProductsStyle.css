@@ -1,0 +1,70 @@
+.Products{
+    align-self: center;
+    width: 75vw;
+    max-width: 1170px;
+    margin: 2rem auto;
+    display: grid;
+    gap: 2rem;
+  }
+  
+  @media  screen and (min-width: 768px) {
+    .Products{
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .Product{
+    position: relative;
+    text-align: center;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .Product:hover{
+    transform: scale(1.1);
+  }
+ 
+  
+  .Product Button{
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    background-color: rgb(151, 185, 224);
+  }
+  
+  .Product h4{
+    margin-top: 5px;
+    color: rgb(30, 113, 201);
+  }
+  
+  .Pagination{
+    text-align: center;
+  }
+  
+  .Pagination li{
+    display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .Pagination a{
+    color: rgb(67, 156, 252);
+    border-style: solid;
+    border-radius: 30%;
+    padding: 0.5rem 0.5rem;
+    border-color:rgb(180, 211, 245);    
+  }
+
+  .Pagination a:hover{
+    border-style: solid;
+    color: black;
+    background-color:#56acef;
+  }
+
+.SelectSorter{
+  position: relative;
+  padding: 10px;
+  margin: 10px;
+}
