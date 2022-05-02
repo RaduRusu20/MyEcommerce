@@ -1,10 +1,8 @@
-import './App.css';
-import AllProducts from './components/AllProducts';
+import "./App.css";
+import AllProducts from "./components/AllProducts";
 
 function App() {
-  return (
-    <AllProducts></AllProducts>
-  );
+  return <AllProducts />;
 }
 
 export default App;
