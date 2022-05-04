@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useFetch } from "../hooks/useFetch";
 import Product from "./Product";
 import Pagination from "./Pagination";
 //CSS
@@ -110,8 +111,10 @@ function AllProducts() {
 
       <ul className="Products">
         {slicedProducts.map((product) => {
-          const { name, price, img } = product;
-          return <Product name={name} price={price} img={img}></Product>;
+          const { name, price, img, Id } = product;
+          return (
+            <Product key={Id} name={name} price={price} img={img}></Product>
+          );
         })}
       </ul>
       <Pagination
