@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useFetch } from "../hooks/useFetch";
 import Product from "./Product";
 import Pagination from "./Pagination";
 //CSS
-import "../style/AllProductsStyle.css";
+import ListOfItems from "../style/ListOfItems.module.css";
 
-const products_url = "https://localhost:7090/api/Products";
-
-function AllProducts() {
+function AllProducts({ products_url, isProduct }) {
   const [products, setProducts] = useState([]);
   const [sortType, setSortType] = useState("price");
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +37,7 @@ function AllProducts() {
 
     //sorting descending or ascending
     let sortedProducts;
-    if (type.startsWith("price")) {
+    if (type.startsWith("price") && isProduct) {
       sortedProducts = [...products].sort((a, b) =>
         type.endsWith("_desc")
           ? b[sortProperty] - a[sortProperty]
@@ -91,15 +88,18 @@ function AllProducts() {
         All products
       </h1>
       <br></br>
-      <select className="select" onChange={(e) => setSortType(e.target.value)}>
-        <option value="price_asc">AscendingByPrice</option>
-        <option value="price_desc">DescendingByPrice</option>
+      <select
+        className={ListOfItems.select}
+        onChange={(e) => setSortType(e.target.value)}
+      >
+        {isProduct && <option value="price_asc">AscendingByPrice</option>}
+        {isProduct && <option value="price_desc">DescendingByPrice</option>}
         <option value="name_asc">AscendingByName</option>
         <option value="name_desc">DescendingByName</option>
       </select>
 
       <select
-        className="select"
+        className={ListOfItems.select}
         onChange={(e) => {
           setPostsPerPage(e.target.value);
         }}
@@ -109,7 +109,7 @@ function AllProducts() {
         ))}
       </select>
 
-      <ul className="Products">
+      <ul className={ListOfItems.products}>
         {slicedProducts.map((product) => {
           const { name, price, img, Id } = product;
           return (

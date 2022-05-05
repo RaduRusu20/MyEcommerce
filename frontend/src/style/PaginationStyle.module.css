@@ -1,0 +1,23 @@
+.pagination {
+  text-align: center;
+}
+
+.pagination li {
+  display: inline-block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.pagination a {
+  color: rgb(67, 156, 252);
+  border-style: solid;
+  border-radius: 30%;
+  padding: 0.5rem 0.5rem;
+  border-color: rgb(180, 211, 245);
+}
+
+.pagination a:hover {
+  border-style: solid;
+  color: black;
+  background-color: #56acef;
+}
