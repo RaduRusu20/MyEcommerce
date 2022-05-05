@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
+import Category from "./Category";
 import Pagination from "./Pagination";
 //CSS
 import ListOfItems from "../style/ListOfItems.module.css";
 
-function AllProducts({ products_url, isProduct }) {
-  const [products, setProducts] = useState([]);
+function AllItems({ url, isProduct }) {
+  const [data, setData] = useState([]);
   const [sortType, setSortType] = useState("price");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -19,11 +20,13 @@ function AllProducts({ products_url, isProduct }) {
     setCurrentPage(pageNumber);
   };
 
-  const getProducts = async () => {
-    const response = await fetch(products_url);
-    const products = await response.json();
-    setProducts(products);
+  const getData = async () => {
+    const response = await fetch(url);
+    const result = await response.json();
+    setData(result);
   };
+
+  console.log(data);
 
   const sortArray = (type) => {
     //sorting types
@@ -38,13 +41,13 @@ function AllProducts({ products_url, isProduct }) {
     //sorting descending or ascending
     let sortedProducts;
     if (type.startsWith("price") && isProduct) {
-      sortedProducts = [...products].sort((a, b) =>
+      sortedProducts = [...data].sort((a, b) =>
         type.endsWith("_desc")
           ? b[sortProperty] - a[sortProperty]
           : a[sortProperty] - b[sortProperty]
       );
     } else if (type.startsWith("name")) {
-      sortedProducts = [...products].sort((a, b) =>
+      sortedProducts = [...data].sort((a, b) =>
         type.endsWith("_desc")
           ? b[sortProperty] > a[sortProperty]
             ? 1
@@ -54,25 +57,25 @@ function AllProducts({ products_url, isProduct }) {
           : 1
       );
     }
-    setProducts(sortedProducts);
+    setData(sortedProducts);
   };
 
   useEffect(() => {
-    getProducts();
+    getData();
   }, []);
   useEffect(() => {
     sortArray(sortType);
   }, [sortType]);
 
-  const slicedProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+  const slicedProducts = data.slice(indexOfFirstPost, indexOfLastPost);
 
   //get array of products range
-  let GetRangeOfDisplayedProducts = (() => {
-    const produxIndx = [];
+  let GetRangeOfDisplayedItems = (() => {
+    const itemsIndx = [];
     for (let i = 5; i <= 10; i++) {
-      produxIndx.push(i);
+      itemsIndx.push(i);
     }
-    return produxIndx;
+    return itemsIndx;
   })();
 
   return (
@@ -104,22 +107,27 @@ function AllProducts({ products_url, isProduct }) {
           setPostsPerPage(e.target.value);
         }}
       >
-        {GetRangeOfDisplayedProducts.map((e, i) => (
+        {GetRangeOfDisplayedItems.map((e, i) => (
           <option key={i}>{e}</option>
         ))}
       </select>
 
       <ul className={ListOfItems.products}>
         {slicedProducts.map((product) => {
-          const { name, price, img, Id } = product;
-          return (
-            <Product key={Id} name={name} price={price} img={img}></Product>
-          );
+          if (isProduct) {
+            const { name, price, img, Id } = product;
+            return (
+              <Product key={Id} name={name} price={price} img={img}></Product>
+            );
+          } else {
+            const { name } = product;
+            return <Category name={name}></Category>;
+          }
         })}
       </ul>
       <Pagination
         postsPerPage={postsPerPage}
-        totalPosts={products.length}
+        totalPosts={data.length}
         paginate={paginate}
       ></Pagination>
       <br></br>
@@ -127,4 +135,4 @@ function AllProducts({ products_url, isProduct }) {
   );
 }
 
-export default AllProducts;
+export default AllItems;

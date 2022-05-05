@@ -1,0 +1,15 @@
+.category {
+  position: relative;
+  text-align: center;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 1rem;
+}
+
+.category:hover {
+  transform: scale(1.1);
+}
