@@ -2,10 +2,10 @@ import AllItems from "./AllItems";
 import React from "react";
 
 function Products() {
-  const products_url = "https://localhost:7090/api/Products";
+  const url = "https://localhost:7090/api/Products";
   const isProduct = true;
 
-  return <AllItems url={products_url} isProduct={isProduct}></AllItems>;
+  return <AllItems url={url} isProduct={isProduct}></AllItems>;
 }
 
 export default Products;

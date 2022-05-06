@@ -23,10 +23,13 @@ function AllItems({ url, isProduct }) {
   const getData = async () => {
     const response = await fetch(url);
     const result = await response.json();
+
+    console.log(response);
+    console.log(result);
     setData(result);
   };
 
-  console.log(data);
+  console.log("Data: ", data);
 
   const sortArray = (type) => {
     //sorting types
@@ -39,15 +42,15 @@ function AllItems({ url, isProduct }) {
     const sortProperty = types[type];
 
     //sorting descending or ascending
-    let sortedProducts;
+    let sortedItems;
     if (type.startsWith("price") && isProduct) {
-      sortedProducts = [...data].sort((a, b) =>
+      sortedItems = [...data].sort((a, b) =>
         type.endsWith("_desc")
           ? b[sortProperty] - a[sortProperty]
           : a[sortProperty] - b[sortProperty]
       );
     } else if (type.startsWith("name")) {
-      sortedProducts = [...data].sort((a, b) =>
+      sortedItems = [...data].sort((a, b) =>
         type.endsWith("_desc")
           ? b[sortProperty] > a[sortProperty]
             ? 1
@@ -57,40 +60,36 @@ function AllItems({ url, isProduct }) {
           : 1
       );
     }
-    setData(sortedProducts);
+    setData(sortedItems);
   };
 
   useEffect(() => {
     getData();
   }, []);
+
   useEffect(() => {
     sortArray(sortType);
   }, [sortType]);
 
-  const slicedProducts = data.slice(indexOfFirstPost, indexOfLastPost);
+  const [slicedData, setSlicedData] = useState(null);
+
+  useEffect(() => {
+    if (data) setSlicedData(data.slice(indexOfFirstPost, indexOfLastPost));
+  }, [data]);
 
   //get array of products range
   let GetRangeOfDisplayedItems = (() => {
     const itemsIndx = [];
-    for (let i = 5; i <= 10; i++) {
+    for (let i = 1; i <= 10; i++) {
       itemsIndx.push(i);
     }
     return itemsIndx;
   })();
 
+  console.log(isProduct);
+
   return (
     <>
-      <br></br>
-      <h1
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        All products
-      </h1>
-      <br></br>
       <select
         className={ListOfItems.select}
         onChange={(e) => setSortType(e.target.value)}
@@ -100,7 +99,6 @@ function AllItems({ url, isProduct }) {
         <option value="name_asc">AscendingByName</option>
         <option value="name_desc">DescendingByName</option>
       </select>
-
       <select
         className={ListOfItems.select}
         onChange={(e) => {
@@ -111,25 +109,27 @@ function AllItems({ url, isProduct }) {
           <option key={i}>{e}</option>
         ))}
       </select>
-
-      <ul className={ListOfItems.products}>
-        {slicedProducts.map((product) => {
-          if (isProduct) {
-            const { name, price, img, Id } = product;
+      <ul className={ListOfItems.items}>
+        {slicedData &&
+          slicedData.map((item) => {
+            const { name, price, img } = item;
             return (
-              <Product key={Id} name={name} price={price} img={img}></Product>
+              <div>
+                {isProduct && (
+                  <Product name={name} price={price} img={img}></Product>
+                )}
+                {!isProduct && <Category name={name}></Category>}
+              </div>
             );
-          } else {
-            const { name } = product;
-            return <Category name={name}></Category>;
-          }
-        })}
+          })}
       </ul>
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={data.length}
-        paginate={paginate}
-      ></Pagination>
+      {data && (
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={data.length}
+          paginate={paginate}
+        ></Pagination>
+      )}
       <br></br>
     </>
   );
