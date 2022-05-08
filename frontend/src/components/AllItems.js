@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import Category from "./Category";
 import Pagination from "./Pagination";
+
 //CSS
 import ListOfItems from "../style/ListOfItems.module.css";
 
 function AllItems({ url, isProduct }) {
   const [data, setData] = useState([]);
+  // const [slicedData, setSlicedData] = useState(null);
   const [sortType, setSortType] = useState("price");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -23,13 +25,8 @@ function AllItems({ url, isProduct }) {
   const getData = async () => {
     const response = await fetch(url);
     const result = await response.json();
-
-    console.log(response);
-    console.log(result);
     setData(result);
   };
-
-  console.log("Data: ", data);
 
   const sortArray = (type) => {
     //sorting types
@@ -71,11 +68,11 @@ function AllItems({ url, isProduct }) {
     sortArray(sortType);
   }, [sortType]);
 
-  const [slicedData, setSlicedData] = useState(null);
+  // useEffect(() => {
+  //   if (data) setSlicedData(data.slice(indexOfFirstPost, indexOfLastPost));
+  // }, [sortType, currentPage, postsPerPage]);
 
-  useEffect(() => {
-    if (data) setSlicedData(data.slice(indexOfFirstPost, indexOfLastPost));
-  }, [data]);
+  let slicedData = data ? data.slice(indexOfFirstPost, indexOfLastPost) : [];
 
   //get array of products range
   let GetRangeOfDisplayedItems = (() => {
@@ -85,8 +82,6 @@ function AllItems({ url, isProduct }) {
     }
     return itemsIndx;
   })();
-
-  console.log(isProduct);
 
   return (
     <>
@@ -112,13 +107,20 @@ function AllItems({ url, isProduct }) {
       <ul className={ListOfItems.items}>
         {slicedData &&
           slicedData.map((item) => {
-            const { name, price, img } = item;
+            const { name, price, img, id } = item;
             return (
               <div>
                 {isProduct && (
-                  <Product name={name} price={price} img={img}></Product>
+                  <>
+                    <Product
+                      name={name}
+                      price={price}
+                      img={img}
+                      id={id}
+                    ></Product>
+                  </>
                 )}
-                {!isProduct && <Category name={name}></Category>}
+                {!isProduct && <Category name={name} id={id}></Category>}
               </div>
             );
           })}
