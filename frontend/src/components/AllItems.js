@@ -12,6 +12,7 @@ function AllItems({ url, isProduct }) {
   const [sortType, setSortType] = useState("price");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
+  const [search, setSearch] = useState("");
 
   //Get Current Post
   const indexOfLastPost = currentPage * postsPerPage;
@@ -85,6 +86,7 @@ function AllItems({ url, isProduct }) {
 
   return (
     <>
+      <p className={ListOfItems.inline}>Sort type: </p>
       <select
         className={ListOfItems.select}
         onChange={(e) => setSortType(e.target.value)}
@@ -94,6 +96,8 @@ function AllItems({ url, isProduct }) {
         <option value="name_asc">AscendingByName</option>
         <option value="name_desc">DescendingByName</option>
       </select>
+
+      <p className={ListOfItems.inline}>Results per page: </p>
       <select
         className={ListOfItems.select}
         onChange={(e) => {
@@ -104,26 +108,49 @@ function AllItems({ url, isProduct }) {
           <option key={i}>{e}</option>
         ))}
       </select>
+
+      <input
+        className={ListOfItems.inline}
+        style={{ allign: "center", padding: "5px", margin: "15px" }}
+        type={"text"}
+        placeholder={"Search here"}
+        onChange={(e) => {
+          setSearch(e.target.value);
+        }}
+      ></input>
+
+      {data && <p className={ListOfItems.right}>Total result: {data.length}</p>}
       <ul className={ListOfItems.items}>
         {slicedData &&
-          slicedData.map((item) => {
-            const { name, price, img, id } = item;
-            return (
-              <div>
-                {isProduct && (
-                  <>
-                    <Product
-                      name={name}
-                      price={price}
-                      img={img}
-                      id={id}
-                    ></Product>
-                  </>
-                )}
-                {!isProduct && <Category name={name} id={id}></Category>}
-              </div>
-            );
-          })}
+          slicedData
+            .filter((item) => {
+              if (
+                item.name
+                  .toLocaleLowerCase()
+                  .includes(search.toLocaleLowerCase()) ||
+                item.name === ""
+              ) {
+                return item;
+              }
+            })
+            .map((item) => {
+              const { name, price, img, id } = item;
+              return (
+                <div key={id}>
+                  {isProduct && (
+                    <>
+                      <Product
+                        name={name}
+                        price={price}
+                        img={img}
+                        id={id}
+                      ></Product>
+                    </>
+                  )}
+                  {!isProduct && <Category name={name} id={id}></Category>}
+                </div>
+              );
+            })}
       </ul>
       {data && (
         <Pagination

@@ -7,11 +7,16 @@ import Categories from "./components/Categories";
 import Navbar from "./components/Navbar";
 import SingleProduct from "./components/SingleProduct";
 import ProductsByCategory from "./components/ProductsByCategory";
+import ProductsAdmin from "./Admin/Products";
+import CategoriesAdmin from "./Admin/Categories";
+import Users from "./Admin/Users";
+import Footer from "./components/Footer";
+import Post from "./Admin/Post";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar></Navbar>
+      <Navbar />
       <br></br>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,7 +28,13 @@ function App() {
           element={<ProductsByCategory />}
         />
         <Route path="*" element={<Error />} />
+        <Route path="admin/products" element={<ProductsAdmin />} />
+        <Route path="admin/categories" element={<CategoriesAdmin />} />
+        <Route path="admin/users" element={<Users />} />
+        <Route path="admin/post" element={<Post />} />
       </Routes>
+      <br />
+      <Footer />
     </BrowserRouter>
   );
 }

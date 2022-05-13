@@ -18,3 +18,15 @@
   padding: 5px;
   margin: 10px;
 }
+
+.inline {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.right {
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+  top: 100px;
+}

@@ -26,3 +26,39 @@
   margin-top: 5px;
   color: rgb(30, 113, 201);
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.productDetails {
+  position: relative;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  display: flex;
+  top: 2rem;
+  margin-bottom: 4rem;
+  width: 1000px;
+  height: fit-content;
+}
+
+.pictures {
+  padding: 0.5rem;
+  margin-right: 2rem;
+}
+
+.strike {
+  text-decoration: line-through;
+  color: red;
+}
+
+.inline {
+  display: inline;
+}
+
+.link {
+  text-decoration: none;
+  color: #3f51b5;
+}

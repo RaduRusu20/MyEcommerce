@@ -43,7 +43,7 @@ namespace WebApi.Controllers
         
 
 
-        [HttpGet("{CategoryId}")]
+        [HttpGet("{categoryId}")]
         public async Task<ActionResult<CategoryDto>> GetCategoryById(Guid categoryId)
         {
             var query = new GetCategoryByIdQuery

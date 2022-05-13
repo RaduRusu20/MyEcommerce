@@ -18,6 +18,6 @@
 
 .pagination a:hover {
   border-style: solid;
-  color: black;
-  background-color: #56acef;
+  color: white;
+  background-color: #3f51b5;
 }
