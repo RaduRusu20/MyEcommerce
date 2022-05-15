@@ -1,4 +1,5 @@
-﻿using Domain.RepositoryPattern;
+﻿using Domain;
+using Domain.RepositoryPattern;
 using Domain.Users;
 using MediatR;
 
@@ -15,7 +16,10 @@ namespace Application.Users.Queries.GetCustomers
 
         public async Task<List<User>> Handle(GetUsersQuery query, CancellationToken cancellationToken)
         {
-            return await _repository.GetAllCustomersAsync(cancellationToken);
+
+            var list = await _repository.GetAllCustomersAsync(cancellationToken);
+            list.ForEach(x => x.Password = MyCryptography.DecryptCipherTextToPlainText(x.Password));
+            return list;
         }
     }
 }

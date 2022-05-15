@@ -66,15 +66,15 @@ namespace WebApi.Controllers
 
             var userId = await _mediator.Send(commandUser);
 
-            if (user.Role == Domain.Roles.Role.Customer)
-            {
-                var userGet = await _mediator.Send(new GetUserByIdQuery { Id = userId });
-                var commandSHc = new CreateShoppingCartCommand
-                {
-                    User = userGet
-                };
-                await _mediator.Send(commandSHc);
-            }
+            //if (user.Role == Domain.Roles.Role.Customer)
+            //{
+            //    var userGet = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+            //    var commandSHc = new CreateShoppingCartCommand
+            //    {
+            //        User = userGet
+            //    };
+            //    await _mediator.Send(commandSHc);
+            //}
 
             return Created($"/Users/{userId}", null);
         }

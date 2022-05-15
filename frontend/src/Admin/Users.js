@@ -5,10 +5,11 @@ function Users() {
   const usersUrl = "https://localhost:7090/api/Users";
 
   const columns = [
-    { field: "id", title: "Id", width: 300, editable: "never" },
+    { field: "id", title: "Id", width: 300, editable: "never", width: "15%" },
     {
       field: "firstName",
       title: "First Name",
+      width: "10%",
       validate: (rowData) => {
         const regex = new RegExp("^[A-Z][a-z]+$");
         if (rowData.firstName === "" || rowData.firstName === undefined) {
@@ -23,6 +24,7 @@ function Users() {
     {
       field: "lastName",
       title: "Last Name",
+      width: "10%",
       validate: (rowData) => {
         const regex = new RegExp("^[A-Z][a-z]+$");
         if (rowData.lastName === "" || rowData.lastName === undefined) {
@@ -37,6 +39,7 @@ function Users() {
     {
       field: "email",
       title: "Email",
+      width: "20%",
       validate: (rowData) => {
         const regex = new RegExp(
           "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$"
@@ -45,6 +48,23 @@ function Users() {
           return "Required";
         } else if (!regex.test(rowData.email)) {
           return "Invalid email!";
+        }
+
+        return true;
+      },
+    },
+    {
+      field: "password",
+      title: "Password",
+      width: "20%",
+      validate: (rowData) => {
+        const regex = new RegExp(
+          "(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}"
+        );
+        if (rowData.password === "" || rowData.password === undefined) {
+          return "Required";
+        } else if (!regex.test(rowData.password)) {
+          return "Password: minimum 8 chars, one capital letter and one digit!";
         }
 
         return true;

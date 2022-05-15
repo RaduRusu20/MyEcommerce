@@ -29,17 +29,81 @@ function Products() {
   }, [categories]);
 
   const columns = [
-    { field: "id", title: "Id", editable: "never" },
-    { field: "name", title: "Name" },
-    { field: "description", title: "Description" },
-    { field: "price", title: "Price", type: "currency" },
+    { field: "id", title: "Id", editable: "never", width: "10%" },
+    {
+      field: "name",
+      title: "Name",
+      width: "10%",
+      validate: (rowData) => {
+        if (rowData.name === "" || rowData.name === undefined) {
+          return "Required";
+        }
+        return true;
+      },
+    },
+    {
+      field: "description",
+      title: "Description",
+      width: "10%",
+      validate: (rowData) => {
+        if (rowData.description === "" || rowData.description === undefined) {
+          return "Required";
+        }
+        return true;
+      },
+    },
+    {
+      field: "price",
+      title: "Price",
+      type: "currency",
+      width: "5%",
+      validate: (rowData) => {
+        if (rowData.price === "" || rowData.price === undefined) {
+          return "Required";
+        } else if (rowData.price < 0) {
+          return "Price cannot be negative!";
+        }
+        return true;
+      },
+    },
     {
       field: "availableQuantity",
       title: "Available quantity",
       type: "numeric",
+      width: "5%",
+      validate: (rowData) => {
+        if (
+          rowData.availableQuantity === "" ||
+          rowData.availableQuantity === undefined
+        ) {
+          return "Required";
+        }
+        return true;
+      },
     },
-    { field: "img", title: "Image URL" },
-    { field: "categoryId", title: "Category", lookup: mapper },
+    {
+      field: "img",
+      title: "Image URL",
+      width: "55%",
+      validate: (rowData) => {
+        if (rowData.img === "" || rowData.img === undefined) {
+          return "Required";
+        }
+        return true;
+      },
+    },
+    {
+      field: "categoryId",
+      title: "Category",
+      lookup: mapper,
+      width: "65%",
+      validate: (rowData) => {
+        if (rowData.categoryId === "" || rowData.categoryId === undefined) {
+          return "Required";
+        }
+        return true;
+      },
+    },
   ];
 
   return <Table columns={columns} title={"Products"} url={productsUrl} />;
