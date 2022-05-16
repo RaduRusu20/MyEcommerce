@@ -1,5 +1,5 @@
 import React from "react";
-import AllItems from "./AllItems";
+import AllItems from "../components/AllItems";
 
 function Categories() {
   const url = "https://localhost:7090/api/Categories";

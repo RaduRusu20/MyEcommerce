@@ -1,4 +1,4 @@
-import AllItems from "./AllItems";
+import AllItems from "../components/AllItems";
 import React from "react";
 
 function Products() {
