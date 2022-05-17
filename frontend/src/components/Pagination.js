@@ -1,5 +1,6 @@
 import React from "react";
 import PaginationStyle from "../style/PaginationStyle.module.css";
+import MUIPagination from "./MUIpagination";
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   const pageNumbers = [];
@@ -8,7 +9,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   }
   return (
     <nav>
-      <br />
+      <MUIPagination noOfPages={pageNumbers.length} paginate={paginate} />
+      {/* <br />
       <br />
       <br />
       <ul className={PaginationStyle.pagination}>
@@ -19,7 +21,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         ))}
       </ul>
       <br />
-      <br />
+      <br /> */}
     </nav>
   );
 };

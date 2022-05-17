@@ -47,6 +47,7 @@ function RegistrationForm() {
       <Layout>
         <Box gap={3} className={RegistrationFormStyle.center}>
           <img
+            className={RegistrationFormStyle.pic}
             width={"590"}
             height={"480"}
             src={
