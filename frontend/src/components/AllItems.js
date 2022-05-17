@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import Category from "./Category";
 import Pagination from "./Pagination";
+import Layout from "../Layouts/CustomerLayout";
 
 //CSS
 import ListOfItems from "../style/ListOfItems.module.css";
@@ -86,80 +87,84 @@ function AllItems({ url, isProduct }) {
 
   return (
     <>
-      <p className={ListOfItems.inline}>Sort type: </p>
-      <select
-        className={ListOfItems.select}
-        onChange={(e) => setSortType(e.target.value)}
-      >
-        {isProduct && <option value="price_asc">AscendingByPrice</option>}
-        {isProduct && <option value="price_desc">DescendingByPrice</option>}
-        <option value="name_asc">AscendingByName</option>
-        <option value="name_desc">DescendingByName</option>
-      </select>
+      <Layout>
+        <p className={ListOfItems.inline}>Sort type: </p>
+        <select
+          className={ListOfItems.select}
+          onChange={(e) => setSortType(e.target.value)}
+        >
+          {isProduct && <option value="price_asc">AscendingByPrice</option>}
+          {isProduct && <option value="price_desc">DescendingByPrice</option>}
+          <option value="name_asc">AscendingByName</option>
+          <option value="name_desc">DescendingByName</option>
+        </select>
 
-      <p className={ListOfItems.inline}>Results per page: </p>
-      <select
-        className={ListOfItems.select}
-        onChange={(e) => {
-          setPostsPerPage(e.target.value);
-        }}
-      >
-        {GetRangeOfDisplayedItems.map((e, i) => (
-          <option key={i}>{e}</option>
-        ))}
-      </select>
+        <p className={ListOfItems.inline}>Results per page: </p>
+        <select
+          className={ListOfItems.select}
+          onChange={(e) => {
+            setPostsPerPage(e.target.value);
+          }}
+        >
+          {GetRangeOfDisplayedItems.map((e, i) => (
+            <option key={i}>{e}</option>
+          ))}
+        </select>
 
-      <input
-        className={ListOfItems.inline}
-        style={{ allign: "center", padding: "5px", margin: "15px" }}
-        type={"text"}
-        placeholder={"Search here"}
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-      ></input>
+        <input
+          className={ListOfItems.inline}
+          style={{ allign: "center", padding: "5px", margin: "15px" }}
+          type={"text"}
+          placeholder={"Search here"}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        ></input>
 
-      {data && <p className={ListOfItems.right}>Total result: {data.length}</p>}
-      <ul className={ListOfItems.items}>
-        {slicedData &&
-          slicedData
-            .filter((item) => {
-              if (
-                item.name
-                  .toLocaleLowerCase()
-                  .includes(search.toLocaleLowerCase()) ||
-                item.name === ""
-              ) {
-                return item;
-              }
-            })
-            .map((item) => {
-              const { name, price, img, id } = item;
-              return (
-                <div key={id}>
-                  {isProduct && (
-                    <>
-                      <Product
-                        name={name}
-                        price={price}
-                        img={img}
-                        id={id}
-                      ></Product>
-                    </>
-                  )}
-                  {!isProduct && <Category name={name} id={id}></Category>}
-                </div>
-              );
-            })}
-      </ul>
-      {data && (
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPosts={data.length}
-          paginate={paginate}
-        ></Pagination>
-      )}
-      <br></br>
+        {data && (
+          <p className={ListOfItems.right}>Total result: {data.length}</p>
+        )}
+        <ul className={ListOfItems.items}>
+          {slicedData &&
+            slicedData
+              .filter((item) => {
+                if (
+                  item.name
+                    .toLocaleLowerCase()
+                    .includes(search.toLocaleLowerCase()) ||
+                  item.name === ""
+                ) {
+                  return item;
+                }
+              })
+              .map((item) => {
+                const { name, price, img, id } = item;
+                return (
+                  <div key={id}>
+                    {isProduct && (
+                      <>
+                        <Product
+                          name={name}
+                          price={price}
+                          img={img}
+                          id={id}
+                        ></Product>
+                      </>
+                    )}
+                    {!isProduct && <Category name={name} id={id}></Category>}
+                  </div>
+                );
+              })}
+        </ul>
+        {data && (
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={data.length}
+            paginate={paginate}
+          ></Pagination>
+        )}
+        <br></br>
+      </Layout>
     </>
   );
 }

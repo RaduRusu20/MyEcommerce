@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+export default function AdminNavbar() {
   const classes = useStyles();
 
   return (
@@ -37,14 +35,14 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
 
-          <Link to="/products" className={NavbarStyle.btn}>
-            Products
+          <Link to="/admin/users" className={NavbarStyle.btn}>
+            Users
           </Link>
-          <Link to="/" className={NavbarStyle.btn}>
-            Home
-          </Link>
-          <Link to="/categories" className={NavbarStyle.btn}>
+          <Link to="/admin/categories" className={NavbarStyle.btn}>
             Categories
+          </Link>
+          <Link to="/admin/products" className={NavbarStyle.btn}>
+            Products
           </Link>
         </Toolbar>
       </AppBar>

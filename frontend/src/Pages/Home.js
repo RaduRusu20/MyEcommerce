@@ -3,6 +3,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import HomePageStyle from "../style/HomePage.module.css";
+import Layout from "../Layouts/CustomerLayout";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -15,73 +16,75 @@ function srcset(image, size, rows = 1, cols = 1) {
 
 export default function Home() {
   return (
-    <Box display={"flex"}>
-      <ImageList
-        sx={{ width: 500, height: "fit" }}
-        variant="quilted"
-        cols={4}
-        rowHeight={121}
-      >
-        {itemData.map((item) => (
-          <ImageListItem
-            key={item.img}
-            cols={item.cols || 1}
-            rows={item.rows || 1}
-          >
-            <img
-              className={HomePageStyle.popup}
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+    <Layout>
+      <Box display={"flex"}>
+        <ImageList
+          sx={{ width: 500, height: "fit" }}
+          variant="quilted"
+          cols={4}
+          rowHeight={121}
+        >
+          {itemData.map((item) => (
+            <ImageListItem
+              key={item.img}
+              cols={item.cols || 1}
+              rows={item.rows || 1}
+            >
+              <img
+                className={HomePageStyle.popup}
+                {...srcset(item.img, 121, item.rows, item.cols)}
+                alt={item.title}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
 
-      <ImageList
-        sx={{ width: 500, height: "fit" }}
-        variant="quilted"
-        cols={4}
-        rowHeight={121}
-      >
-        {itemData.map((item) => (
-          <ImageListItem
-            key={item.img}
-            cols={item.cols || 1}
-            rows={item.rows || 1}
-          >
-            <img
-              className={HomePageStyle.popup}
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+        <ImageList
+          sx={{ width: 500, height: "fit" }}
+          variant="quilted"
+          cols={4}
+          rowHeight={121}
+        >
+          {itemData.map((item) => (
+            <ImageListItem
+              key={item.img}
+              cols={item.cols || 1}
+              rows={item.rows || 1}
+            >
+              <img
+                className={HomePageStyle.popup}
+                {...srcset(item.img, 121, item.rows, item.cols)}
+                alt={item.title}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
 
-      <ImageList
-        sx={{ width: 500, height: "fit" }}
-        variant="quilted"
-        cols={4}
-        rowHeight={121}
-      >
-        {itemData.map((item) => (
-          <ImageListItem
-            key={item.img}
-            cols={item.cols || 1}
-            rows={item.rows || 1}
-          >
-            <img
-              className={HomePageStyle.popup}
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </Box>
+        <ImageList
+          sx={{ width: 500, height: "fit" }}
+          variant="quilted"
+          cols={4}
+          rowHeight={121}
+        >
+          {itemData.map((item) => (
+            <ImageListItem
+              key={item.img}
+              cols={item.cols || 1}
+              rows={item.rows || 1}
+            >
+              <img
+                className={HomePageStyle.popup}
+                {...srcset(item.img, 121, item.rows, item.cols)}
+                alt={item.title}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Box>
+    </Layout>
   );
 }
 

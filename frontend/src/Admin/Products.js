@@ -1,6 +1,5 @@
 import React from "react";
 import Table from "./Table";
-import { useFetch } from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 
 function Products() {
