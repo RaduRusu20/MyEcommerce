@@ -16,6 +16,7 @@ export default function PaginationControlled({ noOfPages, paginate }) {
         Page: {page}
       </Typography>
       <Pagination
+        size="large"
         style={{ display: "flex", justifyContent: "center" }}
         showFirstButton
         showLastButton

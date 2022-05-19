@@ -11,12 +11,14 @@ import CategoriesAdmin from "./Admin/Categories";
 import Users from "./Admin/Users";
 import RegistrationForm from "./Pages/RegistrationForm";
 import AdminHomePage from "./Admin/HomePage";
+import LoginForm from "./Pages/LoginForm";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="registration" element={<RegistrationForm />} />
+        <Route path="SignIn" element={<LoginForm />} />
+        <Route path="SignUp" element={<RegistrationForm />} />
         <Route path="/" element={<Home />} />
         <Route path="products" element={<Products />} />
         <Route path="products/:productId" element={<SingleProduct />} />

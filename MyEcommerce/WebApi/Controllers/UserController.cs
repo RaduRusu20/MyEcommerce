@@ -4,6 +4,7 @@ using Application.Users.Command.DeleteCustomer;
 using Application.Users.Command.UpdateUser;
 using Application.Users.Queries.GetCustomerById;
 using Application.Users.Queries.GetCustomers;
+using Application.Users.Queries.GetUserIdByEmail;
 using AutoMapper;
 using Domain;
 using Domain.Users;
@@ -39,6 +40,18 @@ namespace WebApi.Controllers
             var dtoResult = _mapper.Map<UserDto>(result);
             return Ok(dtoResult);
         }
+
+        //[HttpGet("{email}")]
+        //public async Task<IActionResult> GetUserByEmail(string email)
+        //{
+        //    var query = new GetUserByEmailQuery
+        //    {
+        //        Email = email
+        //    };
+        //    var result = await _mediator.Send(query);
+        //    var dtoResult = _mapper.Map<UserDto>(result);
+        //    return Ok(dtoResult);
+        //}
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()

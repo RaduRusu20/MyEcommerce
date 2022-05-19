@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Layout from "../Layouts/CustomerLayout";
+import { Link, Navigate } from "react-router-dom";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 function RegistrationForm() {
   const classes = useStyles();
 
+  const [registration, setRegistration] = useState(false);
+
   const {
     register,
     formState: { errors },
@@ -28,8 +32,6 @@ function RegistrationForm() {
 
   const submit = (data) => {
     data.role = 1;
-    alert("Sign up successfully!");
-
     axios
       .post("https://localhost:7090/api/Users", data)
       .then(function (response) {
@@ -38,13 +40,13 @@ function RegistrationForm() {
       .catch(function (error) {
         console.log(error);
       });
-
-    console.log(data);
+    setRegistration(true);
   };
 
   return (
     <>
       <Layout>
+        {registration ? <Navigate to={"/SignIn"} /> : null}
         <Box gap={3} className={RegistrationFormStyle.center}>
           <img
             className={RegistrationFormStyle.pic}
@@ -53,7 +55,7 @@ function RegistrationForm() {
             src={
               "https://www.businessnewsdaily.com/images/i/000/005/645/original/ecommerce.jpg?1396899072"
             }
-            alt="Image not loading..."
+            alt="Not loading..."
           />
 
           <form
@@ -174,13 +176,13 @@ function RegistrationForm() {
             >
               Register
             </Button>
-            <Button
-              size="large"
-              onClick={() => alert("Not implemented yet.")}
-              variant="contained"
-              color="primary"
-            >
-              Login
+            <Button size="large" variant="contained" color="primary">
+              <Link
+                to={"/SignIn"}
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Login
+              </Link>
             </Button>
           </form>
         </Box>

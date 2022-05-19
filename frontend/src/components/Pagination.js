@@ -1,5 +1,5 @@
 import React from "react";
-import PaginationStyle from "../style/PaginationStyle.module.css";
+// import PaginationStyle from "../style/PaginationStyle.module.css";
 import MUIPagination from "./MUIpagination";
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {

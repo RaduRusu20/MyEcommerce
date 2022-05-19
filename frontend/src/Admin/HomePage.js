@@ -1,11 +1,14 @@
 import React from "react";
 import Layout from "../Layouts/AdminLayout";
+import { useContext } from "react";
+import { UserContext } from "../Services/UserContext";
 
 function HomePage() {
+  const { user } = useContext(UserContext);
   return (
     <>
       <Layout>
-        <div>Welcome, admin!</div>
+        {user.auth && <div>Welcome, {user.name}!</div>}
         <br />
         <br />
         <br />
