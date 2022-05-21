@@ -25,6 +25,10 @@ export const UserProvider = ({ children }) => {
     };
     localStorage.setItem("CurrentUser", JSON.stringify(profile));
 
+    if (JSON.parse(localStorage.getItem(`${name}-cart`)) === null) {
+      localStorage.setItem(`${name}-cart`, JSON.stringify([]));
+    }
+
     setUser((user) => profile);
   };
 

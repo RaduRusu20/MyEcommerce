@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { useGlobalContext } from "./Cart/context";
 
 const myTheme = createTheme({
   palette: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const classes = useStyles();
-
+  const { amount } = useGlobalContext();
   const { user, logout } = useContext(UserContext);
 
   return (
@@ -110,13 +111,17 @@ export default function NavBar() {
               />
             )}
 
-            <IconButton aria-label="cart">
-              <Badge badgeContent={999} color="secondary">
-                <ThemeProvider theme={myTheme}>
-                  <ShoppingCartIcon color="primary" />
-                </ThemeProvider>
-              </Badge>
-            </IconButton>
+            {user.auth && (
+              <Link to={"/shoppingCart"}>
+                <IconButton aria-label="cart">
+                  <Badge badgeContent={amount} color="secondary">
+                    <ThemeProvider theme={myTheme}>
+                      <ShoppingCartIcon color="primary" />
+                    </ThemeProvider>
+                  </Badge>
+                </IconButton>
+              </Link>
+            )}
           </div>
         </Toolbar>
       </AppBar>

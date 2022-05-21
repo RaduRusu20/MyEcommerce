@@ -18,7 +18,7 @@ function Product({ name, price, img, id }) {
         Details
         <InfoIcon color="primary" />
       </Link>
-      <BuyButton />
+      <BuyButton title={name} price={price} id={id} img={img} />
     </div>
   );
 }

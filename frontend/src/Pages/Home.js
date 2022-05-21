@@ -4,6 +4,9 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import HomePageStyle from "../style/HomePage.module.css";
 import Layout from "../Layouts/CustomerLayout";
+import { useGlobalContext } from "../components/Cart/context";
+import { useEffect } from "react";
+import { UserContext } from "../Services/UserContext";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -15,6 +18,12 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 export default function Home() {
+  const { fetchCartData } = useGlobalContext();
+  const { user } = React.useContext(UserContext);
+  useEffect(() => {
+    console.log("aici");
+    if (user.auth) fetchCartData();
+  }, []);
   return (
     <Layout>
       <Box display={"flex"}>

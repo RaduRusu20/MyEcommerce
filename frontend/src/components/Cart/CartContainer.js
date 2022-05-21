@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import { useGlobalContext } from "./context";
+import { UserContext } from "../../Services/UserContext";
+import { useContext } from "react";
 
 const CartContainer = () => {
-  const { cart } = useGlobalContext();
+  const { cart, total, clearCart, fetchCartData } = useGlobalContext();
+  const { user } = useContext(UserContext);
+
+  useEffect(fetchCartData, []);
+
   if (cart.length === 0) {
     return (
       <section className="cart">
@@ -32,13 +38,10 @@ const CartContainer = () => {
         <hr />
         <div className="cart-total">
           <h4>
-            total <span>$0.00</span>
+            total <span>{total} RON</span>
           </h4>
         </div>
-        <button
-          className="btn clear-btn"
-          onClick={() => console.log("clear cart")}
-        >
+        <button className="btn clear-btn" onClick={() => clearCart(user)}>
           clear cart
         </button>
       </footer>

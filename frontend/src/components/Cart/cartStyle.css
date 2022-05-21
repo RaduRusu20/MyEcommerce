@@ -113,7 +113,7 @@ nav svg {
 }
 .clear-btn:hover {
   background: var(--clr-red-light);
-  color: var(--clr-red-dark);
+  color: red;
   border-color: var(--clr-red-light);
 }
 /*
@@ -152,7 +152,7 @@ nav svg {
   transition: var(--transition);
 }
 .remove-btn:hover {
-  color: var(--clr-primary-light);
+  color: red;
 }
 .amount-btn {
   width: 1.5rem;
