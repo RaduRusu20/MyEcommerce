@@ -87,39 +87,47 @@ function AllItems({ url, isProduct }) {
 
   return (
     <>
-      <Layout>
-        <p className={ListOfItems.inline}>Sort type: </p>
-        <select
-          className={ListOfItems.select}
-          onChange={(e) => setSortType(e.target.value)}
-        >
-          {isProduct && <option value="price_asc">AscendingByPrice</option>}
-          {isProduct && <option value="price_desc">DescendingByPrice</option>}
-          <option value="name_asc">AscendingByName</option>
-          <option value="name_desc">DescendingByName</option>
-        </select>
+      <Layout
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <div>
+          <p className={ListOfItems.inline}>Sort type: </p>
+          <select
+            className={ListOfItems.select}
+            onChange={(e) => setSortType(e.target.value)}
+          >
+            {isProduct && <option value="price_asc">AscendingByPrice</option>}
+            {isProduct && <option value="price_desc">DescendingByPrice</option>}
+            <option value="name_asc">AscendingByName</option>
+            <option value="name_desc">DescendingByName</option>
+          </select>
 
-        <p className={ListOfItems.inline}>Results per page: </p>
-        <select
-          className={ListOfItems.select}
-          onChange={(e) => {
-            setPostsPerPage(e.target.value);
-          }}
-        >
-          {GetRangeOfDisplayedItems.map((e, i) => (
-            <option key={i}>{e}</option>
-          ))}
-        </select>
+          <p className={ListOfItems.inline}>Results per page: </p>
+          <select
+            className={ListOfItems.select}
+            onChange={(e) => {
+              setPostsPerPage(e.target.value);
+            }}
+          >
+            {GetRangeOfDisplayedItems.map((e, i) => (
+              <option key={i}>{e}</option>
+            ))}
+          </select>
 
-        <input
-          className={ListOfItems.inline}
-          style={{ allign: "center", padding: "5px", margin: "15px" }}
-          type={"text"}
-          placeholder={"Search here"}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-        ></input>
+          <input
+            className={ListOfItems.inline}
+            style={{ allign: "center", padding: "5px", margin: "15px" }}
+            type={"text"}
+            placeholder={"Search here"}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          ></input>
+        </div>
 
         {data && (
           <p className={ListOfItems.right}>Total result: {data.length}</p>

@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <>
       <Layout>
-        {user.auth && <div>Welcome, {user.name}!</div>}
+        {user.auth && <div>Welcome admin, {user.name}!</div>}
         <br />
         <br />
         <br />

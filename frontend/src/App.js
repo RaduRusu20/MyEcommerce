@@ -12,6 +12,7 @@ import Users from "./Admin/Users";
 import RegistrationForm from "./Pages/RegistrationForm";
 import AdminHomePage from "./Admin/HomePage";
 import LoginForm from "./Pages/LoginForm";
+import ShoppingCart from "./Pages/ShoppingCart";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           path="categories/:categoryId/products"
           element={<ProductsByCategory />}
         />
+        <Route path="shoppingCart" exact element={<ShoppingCart />} />
         <Route path="admin" element={<AdminHomePage />} />
         <Route path="admin/products" element={<ProductsAdmin />} />
         <Route path="admin/categories" element={<CategoriesAdmin />} />

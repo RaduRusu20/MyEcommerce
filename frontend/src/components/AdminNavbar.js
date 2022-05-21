@@ -33,26 +33,33 @@ export default function AdminNavbar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           {redirect !== true ? null : <Navigate to={"/"} />}
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
 
-          <Link to="/admin/users" className={NavbarStyle.btn}>
-            Users
-          </Link>
-          <Link to="/admin/categories" className={NavbarStyle.btn}>
-            Categories
-          </Link>
-          <Link to="/admin/products" className={NavbarStyle.btn}>
-            Products
-          </Link>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+            }}
+          >
+            {user.auth && <h4>Hello, {user.name}</h4>}
+            <Link to="/admin/users" className={NavbarStyle.btn}>
+              Users
+            </Link>
+            <Link to="/admin/categories" className={NavbarStyle.btn}>
+              Categories
+            </Link>
+            <Link to="/admin/products" className={NavbarStyle.btn}>
+              Products
+            </Link>
+          </div>
           {user.auth && (
             <LogoutIcon
               onClick={() => {

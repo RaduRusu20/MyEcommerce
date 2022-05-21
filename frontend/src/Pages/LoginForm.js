@@ -70,7 +70,15 @@ function LoginForm() {
     <>
       {isLoggedIn !== "ok" ? null : <Navigate to={homePage} />}
       <Layout>
-        <Box gap={3} className={RegistrationFormStyle.center}>
+        <Box
+          gap={3}
+          className={RegistrationFormStyle.center}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <img
             className={RegistrationFormStyle.pic}
             width={"590"}
@@ -80,11 +88,15 @@ function LoginForm() {
             }
             alt="Not loading..."
           />
-
           <form
             className={classes.root}
             autoComplete="on"
             onSubmit={handleSubmit((data) => Submit(data))}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+            }}
           >
             <h2>Sign In</h2>
             <TextField
