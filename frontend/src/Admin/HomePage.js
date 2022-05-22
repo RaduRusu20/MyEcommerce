@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../Layouts/AdminLayout";
 import { useContext } from "react";
-import { UserContext } from "../Services/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 
 function HomePage() {
   const { user } = useContext(UserContext);

@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import NavbarStyle from "../style/NavbarStyle.module.css";
-import { UserContext } from "../Services/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import Badge from "@material-ui/core/Badge";
@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { useGlobalContext } from "./Cart/context";
+import { useGlobalContext } from "../Cart/context";
 
 const myTheme = createTheme({
   palette: {
@@ -38,6 +38,7 @@ export default function NavBar() {
   const classes = useStyles();
   const { amount } = useGlobalContext();
   const { user, logout } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false);
 
   return (
     <div className={classes.root}>
@@ -49,6 +50,7 @@ export default function NavBar() {
             justifyContent: "space-between",
           }}
         >
+          {redirect !== true ? null : <Navigate to={"/"} />}
           <div
             style={{
               display: "flex",
@@ -107,7 +109,10 @@ export default function NavBar() {
             {user.auth && (
               <LogoutIcon
                 style={{ paddingLeft: "1rem" }}
-                onClick={() => logout()}
+                onClick={() => {
+                  logout();
+                  setRedirect(true);
+                }}
               />
             )}
 

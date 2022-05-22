@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import { useGlobalContext } from "./context";
-import { UserContext } from "../../Services/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 import { useContext } from "react";
+import CheckoutButton from "./CheckoutButton";
+import { Box } from "@material-ui/core";
 
 const CartContainer = () => {
   const { cart, total, clearCart, fetchCartData } = useGlobalContext();
@@ -44,6 +46,7 @@ const CartContainer = () => {
         <button className="btn clear-btn" onClick={() => clearCart(user)}>
           clear cart
         </button>
+        <CheckoutButton />
       </footer>
     </section>
   );

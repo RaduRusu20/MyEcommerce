@@ -8,9 +8,10 @@ import TextField from "@material-ui/core/TextField";
 import Layout from "../Layouts/CustomerLayout";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { UserContext } from "../Services/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { maxWidth } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,8 +82,6 @@ function LoginForm() {
         >
           <img
             className={RegistrationFormStyle.pic}
-            width={"590"}
-            height={"480"}
             src={
               "https://www.businessnewsdaily.com/images/i/000/005/645/original/ecommerce.jpg?1396899072"
             }
@@ -96,6 +95,7 @@ function LoginForm() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
+              minWidth: "200px",
             }}
           >
             <h2>Sign In</h2>

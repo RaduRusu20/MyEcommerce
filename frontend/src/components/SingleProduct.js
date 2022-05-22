@@ -12,7 +12,7 @@ function SingleProduct() {
   const { productId } = useParams();
 
   const product = useFetch(`https://localhost:7090/api/Products/${productId}`);
-  const { name, price, img, description, availableQuantity } = product.data;
+  const { name, price, img, description, availableQuantity, id } = product.data;
 
   let oldPrice = (price + 0.1 * price).toFixed(2);
 
@@ -45,7 +45,7 @@ function SingleProduct() {
                 <Rating />
               </Box>
               <br></br>
-              <BuyButton />
+              <BuyButton title={name} price={price} id={id} img={img} />
             </div>
           </div>
         </div>

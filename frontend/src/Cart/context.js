@@ -1,7 +1,6 @@
 import React, { useState, useContext, useReducer, useEffect } from "react";
 import reducer from "./reducer";
-import { UserContext } from "../../Services/UserContext";
-import data from "../Cart/data";
+import { UserContext } from "../Contexts/UserContext";
 
 const AppContext = React.createContext();
 

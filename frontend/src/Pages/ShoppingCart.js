@@ -1,6 +1,6 @@
 import React from "react";
-import CartContainer from "../components/Cart/CartContainer";
-import "../components/Cart/cartStyle.css";
+import CartContainer from "../Cart/CartContainer";
+import "../Cart/cartStyle.css";
 import CustomerLayout from "../Layouts/CustomerLayout";
 
 function ShoppingCart() {

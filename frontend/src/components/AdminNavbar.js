@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import NavbarStyle from "../style/NavbarStyle.module.css";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useContext } from "react";
-import { UserContext } from "../Services/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 

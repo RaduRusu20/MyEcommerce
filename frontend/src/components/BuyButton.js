@@ -2,9 +2,9 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Stack from "@mui/material/Stack";
-import { UserContext } from "../Services/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 import { useContext } from "react";
-import { useGlobalContext } from "./Cart/context";
+import { useGlobalContext } from "../Cart/context";
 
 export default function IconLabelButtons({ title, price, id, img }) {
   const { user } = useContext(UserContext);

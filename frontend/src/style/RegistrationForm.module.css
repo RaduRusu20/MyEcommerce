@@ -19,4 +19,8 @@
 
 .pic {
   border-radius: 5%;
+  display: flex;
+  min-width: 200px;
+  min-height: auto;
+  width: 590px;
 }
