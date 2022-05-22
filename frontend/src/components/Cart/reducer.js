@@ -6,14 +6,35 @@ const Reducer = (state, action) => {
     return { ...state, cart: [] };
   }
   if (action.type === "REMOVE") {
+    let products = JSON.parse(
+      localStorage.getItem(`${action.payload.email}-cart`)
+    );
+    products = products.filter((product) => product.id !== action.payload.id);
+    localStorage.setItem(
+      `${action.payload.email}-cart`,
+      JSON.stringify(products)
+    );
+
     return {
       ...state,
-      cart: state.cart.filter((item) => item.id !== action.payload),
+      cart: state.cart.filter((item) => item.id !== action.payload.id),
     };
   }
   if (action.type === "INCREASE") {
+    let products = JSON.parse(
+      localStorage.getItem(`${action.payload.email}-cart`)
+    );
+    products.map((product) => {
+      if (product.id === action.payload.id) {
+        product.amount += 1;
+      }
+    });
+    localStorage.setItem(
+      `${action.payload.email}-cart`,
+      JSON.stringify(products)
+    );
     let tempCart = state.cart.map((cartItem) => {
-      if (cartItem.id === action.payload) {
+      if (cartItem.id === action.payload.id) {
         return { ...cartItem, amount: cartItem.amount + 1 };
       }
       return { ...cartItem };
@@ -22,9 +43,26 @@ const Reducer = (state, action) => {
   }
 
   if (action.type === "DECREASE") {
+    let products = JSON.parse(
+      localStorage.getItem(`${action.payload.email}-cart`)
+    );
+    products.map((product) => {
+      if (product.id === action.payload.id) {
+        if (product.amount > 1) {
+          product.amount -= 1;
+        } else {
+          products = products.filter((item) => item.id !== product.id);
+        }
+      }
+    });
+    localStorage.setItem(
+      `${action.payload.email}-cart`,
+      JSON.stringify(products)
+    );
+
     let tempCart = state.cart
       .map((cartItem) => {
-        if (cartItem.id === action.payload) {
+        if (cartItem.id === action.payload.id) {
           return { ...cartItem, amount: cartItem.amount - 1 };
         }
         return cartItem;

@@ -18,12 +18,6 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 export default function Home() {
-  const { fetchCartData } = useGlobalContext();
-  const { user } = React.useContext(UserContext);
-  useEffect(() => {
-    console.log("aici");
-    if (user.auth) fetchCartData();
-  }, []);
   return (
     <Layout>
       <Box display={"flex"}>

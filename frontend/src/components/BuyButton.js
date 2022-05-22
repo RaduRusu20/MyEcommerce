@@ -8,7 +8,7 @@ import { useGlobalContext } from "./Cart/context";
 
 export default function IconLabelButtons({ title, price, id, img }) {
   const { user } = useContext(UserContext);
-  const { addProduct, increase } = useGlobalContext();
+  const { addProduct } = useGlobalContext();
 
   // const addToCart = () => {
   //   if (user.auth === true) {

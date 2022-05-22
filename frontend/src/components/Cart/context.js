@@ -24,16 +24,16 @@ const AppProvider = ({ children }) => {
     dispatch({ type: "ADD_ITEM", payload: { user, product } });
   };
 
-  const remove = (id) => {
-    dispatch({ type: "REMOVE", payload: id });
+  const remove = (email, id) => {
+    dispatch({ type: "REMOVE", payload: { email, id } });
   };
 
-  const increase = (id) => {
-    dispatch({ type: "INCREASE", payload: id });
+  const increase = (email, id) => {
+    dispatch({ type: "INCREASE", payload: { email, id } });
   };
 
-  const decrease = (id) => {
-    dispatch({ type: "DECREASE", payload: id });
+  const decrease = (email, id) => {
+    dispatch({ type: "DECREASE", payload: { email, id } });
   };
 
   const fetchCartData = () => {
