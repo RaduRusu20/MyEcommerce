@@ -11,6 +11,24 @@
   color: white;
   font-size: 25px;
   position: relative;
+  display: "flex";
+}
+
+@media screen and (max-width: 855px) {
+  .footer {
+    display: none !important;
+  }
+}
+
+.accordion {
+  background-color: #3f51b5;
+  color: red;
+}
+
+@media screen and (min-width: 855px) {
+  .accordionFooter {
+    display: none !important;
+  }
 }
 
 .footerTitles {

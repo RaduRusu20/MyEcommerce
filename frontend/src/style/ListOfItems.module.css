@@ -13,6 +13,18 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 457px) {
+  .items {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 .select {
   position: relative;
   padding: 5px;
@@ -29,4 +41,16 @@
   position: absolute;
   right: 20px;
   top: 100px;
+}
+
+@media screen and (max-width: 813px) {
+  .right {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 679px) {
+  .inline {
+    display: none !important;
+  }
 }

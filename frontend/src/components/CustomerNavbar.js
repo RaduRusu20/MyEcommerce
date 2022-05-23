@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  fixed: {
+    position: "-webkit-sticky",
+  },
 }));
 
 export default function NavBar() {
@@ -58,13 +61,15 @@ export default function NavBar() {
               justifyContent: "flex-start",
             }}
           >
-            {user.auth && <h4>Hello, {user.name}</h4>}
+            {user.auth && (
+              <h4 className={NavbarStyle.userMessage}>Hello, {user.name}</h4>
+            )}
 
-            <Link to="/products" className={NavbarStyle.btn}>
-              Products
-            </Link>
             <Link to="/" className={NavbarStyle.btn}>
               Home
+            </Link>
+            <Link to="/products" className={NavbarStyle.btn}>
+              Products
             </Link>
             <Link to="/categories" className={NavbarStyle.btn}>
               Categories
