@@ -9,14 +9,13 @@ function HomePage() {
   return (
     <>
       <Layout>
-        {user.auth && <div>Welcome admin, {user.name}!</div>}
-        <ReadMoreReact
-          text={
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis varius quam quisque id diam vel quam. Nunc eget lorem dolor sed viverra ipsum nunc. Metus dictum at tempor commodo ullamcorper a lacus vestibulum. Dolor purus non enim praesent. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Ipsum a arcu cursus vitae congue mauris rhoncus aenean vel. Vel pretium lectus quam id leo in vitae. Eget gravida cum sociis natoque penatibus et. Mauris cursus mattis molestie a. Sed nisi lacus sed viverra tellus in hac habitasse. Id neque aliquam vestibulum morbi blandit. Sit amet volutpat consequat mauris nunc congue nisi vitae suscipit."
-          }
-          min={40}
-          readMoreText={"readMoreText"}
-        />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            src="https://www.logolynx.com/images/logolynx/a6/a671ef222a6e136f8fe7fd9cfc97e57b.png"
+            style={{ maxHeight: "100vh", maxWidth: "100vw" }}
+          ></img>
+        </div>
+        {/* {user.auth && <div>Welcome admin, {user.name}!</div>}
         <br />
         <br />
         <br />
@@ -31,7 +30,7 @@ function HomePage() {
         <br />
         <br />
         <br />
-        <br />
+        <br /> */}
       </Layout>
     </>
   );

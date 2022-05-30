@@ -18,10 +18,13 @@ function srcset(image, size, rows = 1, cols = 1) {
 export default function Home() {
   return (
     <Layout>
-      {/* <div>
-        <img style={{ maxWidth: "100%", maxHeight: "100%" }} src={image}></img>
-      </div> */}
-      <Box display={"flex"}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          src="https://www.logolynx.com/images/logolynx/a6/a671ef222a6e136f8fe7fd9cfc97e57b.png"
+          style={{ maxHeight: "100vh", maxWidth: "100vw" }}
+        ></img>
+      </div>
+      {/* <Box display={"flex"}>
         <ImageList
           sx={{ width: 500, height: "fit" }}
           variant="quilted"
@@ -87,7 +90,7 @@ export default function Home() {
             </ImageListItem>
           ))}
         </ImageList>
-      </Box>
+      </Box> */}
     </Layout>
   );
 }
