@@ -4,6 +4,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import HomePageStyle from "../style/HomePage.module.css";
 import Layout from "../Layouts/CustomerLayout";
+import image from "../Images/background.jpg";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -17,6 +18,9 @@ function srcset(image, size, rows = 1, cols = 1) {
 export default function Home() {
   return (
     <Layout>
+      {/* <div>
+        <img style={{ maxWidth: "100%", maxHeight: "100%" }} src={image}></img>
+      </div> */}
       <Box display={"flex"}>
         <ImageList
           sx={{ width: 500, height: "fit" }}

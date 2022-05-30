@@ -3,9 +3,12 @@ import Product from "./Product";
 import Category from "./Category";
 import Pagination from "./Pagination";
 import Layout from "../Layouts/CustomerLayout";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
 
 //CSS
 import ListOfItems from "../style/ListOfItems.module.css";
+import { display } from "@mui/system";
 
 function AllItems({ url, isProduct }) {
   const [data, setData] = useState([]);
@@ -14,6 +17,8 @@ function AllItems({ url, isProduct }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
   const [search, setSearch] = useState("");
+  const [displaySearch, setDisplaySearch] = useState(false);
+  const [clickCounter, setClickCounter] = useState(0);
 
   //Get Current Post
   const indexOfLastPost = currentPage * postsPerPage;
@@ -96,37 +101,71 @@ function AllItems({ url, isProduct }) {
       >
         <div>
           <p className={ListOfItems.inline}>Sort type: </p>
-          <select
-            className={ListOfItems.select}
-            onChange={(e) => setSortType(e.target.value)}
-          >
-            {isProduct && <option value="price_asc">AscendingByPrice</option>}
-            {isProduct && <option value="price_desc">DescendingByPrice</option>}
-            <option value="name_asc">AscendingByName</option>
-            <option value="name_desc">DescendingByName</option>
-          </select>
+          {!displaySearch && (
+            <select
+              className={ListOfItems.select}
+              onChange={(e) => setSortType(e.target.value)}
+            >
+              {isProduct && <option value="price_asc">AscendingByPrice</option>}
+              {isProduct && (
+                <option value="price_desc">DescendingByPrice</option>
+              )}
+              <option value="name_asc">AscendingByName</option>
+              <option value="name_desc">DescendingByName</option>
+            </select>
+          )}
 
           <p className={ListOfItems.inline}>Results per page: </p>
-          <select
-            className={ListOfItems.select}
-            onChange={(e) => {
-              setPostsPerPage(e.target.value);
-            }}
-          >
-            {GetRangeOfDisplayedItems.map((e, i) => (
-              <option key={i}>{e}</option>
-            ))}
-          </select>
+          {!displaySearch && (
+            <select
+              className={ListOfItems.select}
+              onChange={(e) => {
+                setPostsPerPage(e.target.value);
+              }}
+            >
+              {GetRangeOfDisplayedItems.map((e, i) => (
+                <option key={i}>{e}</option>
+              ))}
+            </select>
+          )}
 
-          <input
-            className={ListOfItems.inline}
-            style={{ allign: "center", padding: "5px", margin: "15px" }}
-            type={"text"}
-            placeholder={"Search here"}
-            onChange={(e) => {
-              setSearch(e.target.value);
+          <IconButton
+            className={ListOfItems.search}
+            onClick={() => {
+              if (clickCounter % 2 === 0) {
+                setDisplaySearch(true);
+              } else {
+                setDisplaySearch(false);
+              }
+              setClickCounter(clickCounter + 1);
             }}
-          ></input>
+            onC
+          >
+            <SearchIcon />
+          </IconButton>
+
+          {displaySearch && (
+            <input
+              style={{ allign: "center", padding: "5px", margin: "15px" }}
+              type={"text"}
+              placeholder={"Search here"}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            ></input>
+          )}
+
+          {!displaySearch && (
+            <input
+              className={ListOfItems.inline}
+              style={{ allign: "center", padding: "5px", margin: "15px" }}
+              type={"text"}
+              placeholder={"Search here"}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            ></input>
+          )}
         </div>
 
         {data && (

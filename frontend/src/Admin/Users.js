@@ -5,11 +5,19 @@ function Users() {
   const usersUrl = "https://localhost:7090/api/Users";
 
   const columns = [
-    { field: "id", title: "Id", width: 300, editable: "never", width: "15%" },
+    {
+      field: "id",
+      title: "Id",
+      width: 300,
+      editable: "never",
+      filtering: false,
+      width: "15%",
+    },
     {
       field: "firstName",
       title: "First Name",
       width: "10%",
+      filtering: false,
       validate: (rowData) => {
         const regex = new RegExp("^[A-Z][a-z]+$");
         if (rowData.firstName === "" || rowData.firstName === undefined) {
@@ -25,6 +33,7 @@ function Users() {
       field: "lastName",
       title: "Last Name",
       width: "10%",
+      filtering: false,
       validate: (rowData) => {
         const regex = new RegExp("^[A-Z][a-z]+$");
         if (rowData.lastName === "" || rowData.lastName === undefined) {
@@ -40,6 +49,7 @@ function Users() {
       field: "email",
       title: "Email",
       width: "20%",
+      filtering: false,
       validate: (rowData) => {
         const regex = new RegExp(
           "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$"
@@ -57,6 +67,7 @@ function Users() {
       field: "password",
       title: "Password",
       width: "20%",
+      filtering: false,
       validate: (rowData) => {
         const regex = new RegExp(
           "(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}"
@@ -73,6 +84,7 @@ function Users() {
     {
       field: "phone",
       title: "Phone",
+      filtering: false,
       validate: (rowData) => {
         const regex = new RegExp("^[0-9]{10}$");
         if (rowData.phone === "" || rowData.phone === undefined) {
@@ -87,6 +99,7 @@ function Users() {
     {
       field: "adress",
       title: "Adress",
+      filtering: false,
       validate: (rowData) => {
         if (rowData.adress === "" || rowData.adress === undefined) {
           return "Required";
@@ -98,6 +111,7 @@ function Users() {
       field: "role",
       title: "Role",
       lookup: { 0: "Admin", 1: "Customer" },
+      filterPlaceholder: "Role",
       validate: (rowData) => {
         if (rowData.role === undefined) {
           return "Required";

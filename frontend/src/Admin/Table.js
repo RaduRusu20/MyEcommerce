@@ -56,7 +56,12 @@ export default function DataTable({ columns, title, url }) {
           data={rows}
           columns={columns}
           options={{
+            columnsButton: true,
+            grouping: true,
+            pageSizeOptions: [5, 6, 7, 8, 9, 10, 15, 20],
+            paginationType: "stepped",
             sorting: true,
+            filtering: true,
             actionsColumnIndex: -1,
             exportMenu: [
               {
@@ -74,7 +79,7 @@ export default function DataTable({ columns, title, url }) {
             onRowUpdate: (newRow, oldRow) =>
               new Promise((resolve, reject) => {
                 makeObject(newRow);
-                setUpdatedRows(!updatedRows);
+
                 axios
                   .patch(`${url}/${oldRow.id}`, obj)
                   .then(function (response) {
@@ -83,12 +88,13 @@ export default function DataTable({ columns, title, url }) {
                   .catch(function (error) {
                     console.log(error);
                   });
+
                 setTimeout(() => resolve(), 2000);
+                setUpdatedRows(!updatedRows);
               }),
 
             onRowDelete: (selectedRow) =>
               new Promise((resolve, reject) => {
-                setUpdatedRows(!updatedRows);
                 axios
                   .delete(`${url}/${selectedRow.id}`, {})
                   .then(function (response) {
@@ -97,12 +103,13 @@ export default function DataTable({ columns, title, url }) {
                   .catch(function (error) {
                     console.log(error);
                   });
+
                 setTimeout(() => resolve(), 2000);
+                setUpdatedRows(!updatedRows);
               }),
 
             onRowAdd: (newRow) =>
               new Promise((resolve, reject) => {
-                setUpdatedRows(!updatedRows);
                 makeObject(newRow);
                 axios
                   .post(`${url}`, obj)
@@ -113,6 +120,7 @@ export default function DataTable({ columns, title, url }) {
                     console.log(error);
                   });
                 setTimeout(() => resolve(), 2000);
+                setUpdatedRows(!updatedRows);
               }),
           }}
         />

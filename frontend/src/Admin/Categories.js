@@ -5,10 +5,11 @@ function Categories() {
   const categoriesUrl = "https://localhost:7090/api/Categories";
 
   const columns = [
-    { field: "id", title: "Id", editable: "never" },
+    { field: "id", title: "Id", filtering: false, editable: "never" },
     {
       field: "name",
       title: "Name",
+      filtering: false,
       validate: (rowData) => {
         if (rowData.name === "" || rowData.name === undefined) {
           return "Name cannot be empty";

@@ -1,6 +1,8 @@
 import React from "react";
 import Table from "./Table";
 import { useEffect, useState } from "react";
+import ReadMoreReact from "read-more-react";
+import ProductStyle from "../style/ProductStyle.module.css";
 
 function Products() {
   const productsUrl = "https://localhost:7090/api/Products";
@@ -28,11 +30,18 @@ function Products() {
   }, [categories]);
 
   const columns = [
-    { field: "id", title: "Id", editable: "never", width: "10%" },
+    {
+      field: "id",
+      title: "Id",
+      editable: "never",
+      width: "10%",
+      filtering: false,
+    },
     {
       field: "name",
       title: "Name",
-      width: "10%",
+      filtering: false,
+      // width: "10%",
       validate: (rowData) => {
         if (rowData.name === "" || rowData.name === undefined) {
           return "Required";
@@ -43,7 +52,15 @@ function Products() {
     {
       field: "description",
       title: "Description",
-      width: "10%",
+      filtering: false,
+      // width: "10%",
+      render: (rowData) => (
+        <ReadMoreReact
+          text={rowData.description}
+          min={10}
+          readMoreText={<p style={{ color: "blue" }}>Read More...</p>}
+        />
+      ),
       validate: (rowData) => {
         if (rowData.description === "" || rowData.description === undefined) {
           return "Required";
@@ -55,7 +72,10 @@ function Products() {
       field: "price",
       title: "Price",
       type: "currency",
-      width: "5%",
+      align: "left",
+      filtering: false,
+      currencySetting: { currencyCode: "RON" },
+      // width: "5%",
       validate: (rowData) => {
         if (rowData.price === "" || rowData.price === undefined) {
           return "Required";
@@ -69,7 +89,9 @@ function Products() {
       field: "availableQuantity",
       title: "Available quantity",
       type: "numeric",
-      width: "5%",
+      align: "center",
+      filtering: false,
+      // width: "5%",
       validate: (rowData) => {
         if (
           rowData.availableQuantity === "" ||
@@ -82,8 +104,18 @@ function Products() {
     },
     {
       field: "img",
-      title: "Image URL",
-      width: "55%",
+      title: "Image",
+      sorting: false,
+      filtering: false,
+
+      // width: "20%",
+      render: (rowData) => (
+        <img
+          src={rowData.img}
+          // style={{ width: 100, borderRadius: "50%" }}
+          className={ProductStyle.adminProduct}
+        />
+      ),
       validate: (rowData) => {
         if (rowData.img === "" || rowData.img === undefined) {
           return "Required";
@@ -94,8 +126,9 @@ function Products() {
     {
       field: "categoryId",
       title: "Category",
+      filterPlaceholder: "Category",
       lookup: mapper,
-      width: "65%",
+      // width: "65%",
       validate: (rowData) => {
         if (rowData.categoryId === "" || rowData.categoryId === undefined) {
           return "Required";

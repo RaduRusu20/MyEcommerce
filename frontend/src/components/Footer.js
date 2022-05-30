@@ -17,9 +17,7 @@ const Footer = () => (
     <footer className={HomePageStyle.accordionFooter}>
       <Accordion style={{ backgroundColor: "#3f51b5" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography style={{ color: "#9b9698" }}>
-            Despre MyEcommerce
-          </Typography>
+          <Typography style={{ color: "white" }}>Despre MyEcommerce</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography style={{ color: "white" }}>
@@ -41,7 +39,7 @@ const Footer = () => (
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography style={{ color: "#9b9698" }}>Suport clienti</Typography>
+          <Typography style={{ color: "white" }}>Suport clienti</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography style={{ color: "white" }}>
@@ -58,9 +56,7 @@ const Footer = () => (
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography style={{ color: "#9b9698" }}>
-            Informatii legale
-          </Typography>
+          <Typography style={{ color: "white" }}>Informatii legale</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography style={{ color: "white" }}>
@@ -78,7 +74,7 @@ const Footer = () => (
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography style={{ color: "#9b9698" }}>Contact</Typography>
+          <Typography style={{ color: "white" }}>Contact</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography style={{ color: "white" }}>
@@ -93,7 +89,7 @@ const Footer = () => (
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography style={{ color: "#9b9698" }}>Urmareste-ne</Typography>
+          <Typography style={{ color: "white" }}>Urmareste-ne</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
