@@ -11,12 +11,11 @@ function Users() {
       width: 300,
       editable: "never",
       filtering: false,
-      width: "15%",
     },
     {
       field: "firstName",
       title: "First Name",
-      width: "10%",
+
       filtering: false,
       validate: (rowData) => {
         const regex = new RegExp("^[A-Z][a-z]+$");
@@ -32,7 +31,6 @@ function Users() {
     {
       field: "lastName",
       title: "Last Name",
-      width: "10%",
       filtering: false,
       validate: (rowData) => {
         const regex = new RegExp("^[A-Z][a-z]+$");
@@ -48,7 +46,6 @@ function Users() {
     {
       field: "email",
       title: "Email",
-      width: "20%",
       filtering: false,
       validate: (rowData) => {
         const regex = new RegExp(
@@ -66,7 +63,6 @@ function Users() {
     {
       field: "password",
       title: "Password",
-      width: "20%",
       filtering: false,
       validate: (rowData) => {
         const regex = new RegExp(

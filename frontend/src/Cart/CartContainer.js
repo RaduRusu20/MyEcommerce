@@ -5,6 +5,7 @@ import { UserContext } from "../Contexts/UserContext";
 import { useContext } from "react";
 import CheckoutButton from "./CheckoutButton";
 import { Box } from "@material-ui/core";
+import { DriveEta } from "@material-ui/icons";
 
 const CartContainer = () => {
   const { cart, total, clearCart, fetchCartData } = useGlobalContext();
@@ -43,10 +44,19 @@ const CartContainer = () => {
             total <span>{total} RON</span>
           </h4>
         </div>
-        <button className="btn clear-btn" onClick={() => clearCart(user)}>
-          clear cart
-        </button>
-        <CheckoutButton />
+        <Box
+          display={"flex"}
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <button
+            style={{ marginRight: "20px" }}
+            className="btn clear-btn"
+            onClick={() => clearCart(user)}
+          >
+            clear cart
+          </button>
+          <CheckoutButton style={{ marginRight: "20px" }} />
+        </Box>
       </footer>
     </section>
   );

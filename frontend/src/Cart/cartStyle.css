@@ -104,12 +104,14 @@ nav svg {
   margin-top: 1rem;
 }
 .clear-btn {
-  background: transparent;
+  background-image: linear-gradient(
+    rgb(125, 197, 238),
+    rgb(0, 140, 221) 85%,
+    rgb(48, 162, 228)
+  );
   padding: 0.5rem 1rem;
-  color: var(--clr-red-dark);
-  border: 1px solid var(--clr-red-dark);
-  margin-top: 2.25rem;
-  border-radius: var(--radius);
+  color: white;
+  border-radius: 4px;
 }
 .clear-btn:hover {
   background: var(--clr-red-light);

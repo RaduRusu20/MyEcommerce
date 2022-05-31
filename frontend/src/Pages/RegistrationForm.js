@@ -8,7 +8,8 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Layout from "../Layouts/CustomerLayout";
 import { Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,14 +22,32 @@ const useStyles = makeStyles((theme) => ({
 
 function RegistrationForm() {
   const classes = useStyles();
-
   const [registration, setRegistration] = useState(false);
+  const form = useRef();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const sendEmail = () => {
+    emailjs
+      .sendForm(
+        "service_ttbx8wr",
+        "template_tar52yd",
+        form.current,
+        "3qzZsevFcsLlsPEEF"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
 
   const submit = (data) => {
     data.role = 1;
@@ -41,6 +60,7 @@ function RegistrationForm() {
         console.log(error);
       });
     setRegistration(true);
+    sendEmail();
   };
 
   return (
@@ -59,6 +79,7 @@ function RegistrationForm() {
           />
 
           <form
+            ref={form}
             className={classes.root}
             autoComplete="on"
             onSubmit={handleSubmit((data) => submit(data))}
