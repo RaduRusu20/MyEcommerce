@@ -2,7 +2,8 @@ import React from "react";
 import Table from "./Table";
 
 function Categories() {
-  const categoriesUrl = "https://localhost:7090/api/Categories";
+  const categoriesUrl =
+    "https://myecommercewebapi.azurewebsites.net/api/Categories";
 
   const columns = [
     { field: "id", title: "Id", filtering: false, editable: "never" },

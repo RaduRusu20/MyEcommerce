@@ -2,7 +2,7 @@ import React from "react";
 import Table from "./Table";
 
 function Users() {
-  const usersUrl = "https://localhost:7090/api/Users";
+  const usersUrl = "https://myecommercewebapi.azurewebsites.net/api/Users";
 
   const columns = [
     {

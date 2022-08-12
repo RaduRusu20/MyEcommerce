@@ -31,17 +31,22 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment()) // this works only on local host
+//{
     app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    app.UseSwaggerUI(c =>
+    {
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEcommerce API v1");
+        c.RoutePrefix = String.Empty;
+    });
+//}
 
 app.UseHttpsRedirection();
 
-app.UseCors(builder => builder.WithOrigins("http://localhost:3000")
+app.UseCors(builder => builder.WithOrigins("*")
                               .AllowAnyMethod()
                               .AllowAnyHeader());
+app.UseRouting();
 
 app.UseAuthorization();
 

@@ -5,13 +5,16 @@ import ReadMoreReact from "read-more-react";
 import ProductStyle from "../style/ProductStyle.module.css";
 
 function Products() {
-  const productsUrl = "https://localhost:7090/api/Products";
+  const productsUrl =
+    "https://myecommercewebapi.azurewebsites.net/api/Products";
   // const categories = useFetch("https://localhost:7090/api/Categories");
 
   const [categories, setCategories] = useState([]);
 
   const getData = async () => {
-    const response = await fetch("https://localhost:7090/api/Categories");
+    const response = await fetch(
+      "https://myecommercewebapi.azurewebsites.net/api/Categories"
+    );
     const result = await response.json();
     setCategories(result);
   };

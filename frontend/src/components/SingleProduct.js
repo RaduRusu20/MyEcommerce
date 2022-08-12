@@ -11,7 +11,9 @@ import CustomerLayout from "../Layouts/CustomerLayout";
 function SingleProduct() {
   const { productId } = useParams();
 
-  const product = useFetch(`https://localhost:7090/api/Products/${productId}`);
+  const product = useFetch(
+    `https://myecommercewebapi.azurewebsites.net/api/Products/${productId}`
+  );
   const { name, price, img, description, availableQuantity, id } = product.data;
 
   let oldPrice = (price + 0.1 * price).toFixed(2);

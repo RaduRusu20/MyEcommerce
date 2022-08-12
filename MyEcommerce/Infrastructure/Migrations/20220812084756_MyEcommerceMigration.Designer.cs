@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    [Migration("20220412063959_ShoppingCartsProducts2")]
-    partial class ShoppingCartsProducts2
+    [Migration("20220812084756_MyEcommerceMigration")]
+    partial class MyEcommerceMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -45,10 +45,17 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("AvailableQuantity")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Img")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -57,9 +64,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Raiting")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
@@ -77,8 +81,8 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("ShoppingCartId", "ProductId");
 

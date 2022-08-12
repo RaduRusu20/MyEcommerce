@@ -52,7 +52,7 @@ function RegistrationForm() {
   const submit = (data) => {
     data.role = 1;
     axios
-      .post("https://localhost:7090/api/Users", data)
+      .post("https://myecommercewebapi.azurewebsites.net/api/Users", data)
       .then(function (response) {
         console.log(response);
       })

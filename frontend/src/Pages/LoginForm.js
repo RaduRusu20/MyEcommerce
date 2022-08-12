@@ -27,7 +27,7 @@ function LoginForm() {
 
   const { login } = useContext(UserContext);
 
-  const usersUrl = "https://localhost:7090/api/Users";
+  const usersUrl = "https://myecommercewebapi.azurewebsites.net/api/Users";
   const [users, setUsers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState("progress");
   const [homePage, setHomePage] = useState("/");

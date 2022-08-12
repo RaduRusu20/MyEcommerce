@@ -128,7 +128,7 @@ const Footer = () => (
       </Accordion>
     </footer>
     <footer className={HomePageStyle.footer}>
-      <Box gap={7} display={"flex"}>
+      <Box gap={7} display={"flex"} style={{ justifyContent: "space-around" }}>
         <Box className={HomePageStyle.footerText}>
           <h5 className={HomePageStyle.footerTitles}>Despre MyEcommerce</h5>
           <br />
