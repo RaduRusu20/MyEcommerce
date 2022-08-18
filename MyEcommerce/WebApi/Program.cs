@@ -37,7 +37,7 @@ var app = builder.Build();
     app.UseSwaggerUI(c =>
     {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEcommerce API v1");
-        c.RoutePrefix = String.Empty;
+    c.RoutePrefix = String.Empty;
     });
 //}
 
