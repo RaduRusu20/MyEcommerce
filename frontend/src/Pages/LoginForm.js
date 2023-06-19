@@ -72,7 +72,6 @@ function LoginForm() {
       {isLoggedIn !== "ok" ? null : <Navigate to={homePage} />}
       <Layout>
         <Box
-          gap={3}
           className={RegistrationFormStyle.center}
           style={{
             display: "flex",
@@ -80,13 +79,6 @@ function LoginForm() {
             justifyContent: "space-between",
           }}
         >
-          <img
-            className={RegistrationFormStyle.pic}
-            src={
-              "https://www.businessnewsdaily.com/images/i/000/005/645/original/ecommerce.jpg?1396899072"
-            }
-            alt="Not loading..."
-          />
           <form
             className={classes.root}
             autoComplete="on"
@@ -96,6 +88,8 @@ function LoginForm() {
               flexDirection: "column",
               justifyContent: "flex-start",
               minWidth: "200px",
+              alignItems: "center",
+              textAlign: "center",
             }}
           >
             <h2>Sign In</h2>

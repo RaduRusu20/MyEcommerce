@@ -6,7 +6,7 @@ namespace Domain
 {
     public class MyCryptography
     {
-        private const string SecurityKey = "Internship-Amdaris_2022";
+        private const string SecurityKey = "SecretKey111112234657r7534";
 
         public static string EncryptPlainTextToCipherText(string PlainText)
         {

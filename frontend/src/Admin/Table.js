@@ -13,6 +13,7 @@ export default function DataTable({ columns, title, url }) {
     const response = await fetch(url);
     const result = await response.json();
     setRows(result);
+    console.log("rerendering");
   };
 
   useEffect(() => {
@@ -90,8 +91,7 @@ export default function DataTable({ columns, title, url }) {
                   });
 
                 setTimeout(() => resolve(), 2000);
-                setUpdatedRows(!updatedRows);
-              }),
+              }).then(() => setUpdatedRows(!updatedRows)),
 
             onRowDelete: (selectedRow) =>
               new Promise((resolve, reject) => {
@@ -105,8 +105,7 @@ export default function DataTable({ columns, title, url }) {
                   });
 
                 setTimeout(() => resolve(), 2000);
-                setUpdatedRows(!updatedRows);
-              }),
+              }).then(() => setUpdatedRows(!updatedRows)),
 
             onRowAdd: (newRow) =>
               new Promise((resolve, reject) => {
@@ -120,8 +119,7 @@ export default function DataTable({ columns, title, url }) {
                     console.log(error);
                   });
                 setTimeout(() => resolve(), 2000);
-                setUpdatedRows(!updatedRows);
-              }),
+              }).then(() => setUpdatedRows(!updatedRows)),
           }}
         />
       </div>

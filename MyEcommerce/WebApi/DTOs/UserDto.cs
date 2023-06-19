@@ -12,5 +12,6 @@ namespace WebApi.DTOs
         public string Phone { get; set; }
         public string Adress { get; set; }
         public Role Role { get; set; }
+        public string ProfileImgUrl { get; set; } 
     }
 }

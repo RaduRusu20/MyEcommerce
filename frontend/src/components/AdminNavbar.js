@@ -11,6 +11,8 @@ import { useContext } from "react";
 import { UserContext } from "../Contexts/UserContext";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import TableDropDownList from "./TablesDropDown";
+import StatisticsDropDown from "./StatisticsDropDown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +52,7 @@ export default function AdminNavbar() {
             }}
           >
             {user.auth && <h4>Hello, {user.name}</h4>}
-            <Link to="/admin/users" className={NavbarStyle.btn}>
+            {/* <Link to="/admin/users" className={NavbarStyle.btn}>
               Users
             </Link>
             <Link to="/admin/categories" className={NavbarStyle.btn}>
@@ -58,7 +60,9 @@ export default function AdminNavbar() {
             </Link>
             <Link to="/admin/products" className={NavbarStyle.btn}>
               Products
-            </Link>
+            </Link> */}
+            <TableDropDownList />
+            <StatisticsDropDown />
           </div>
           {user.auth && (
             <LogoutIcon

@@ -21,12 +21,13 @@ namespace Domain.Users
         public Guid Id { get; set; }
         public string Adress { get; }
         public Role Role { get; }
+        public string ProfileImgUrl { get; set; }
 
         public ShoppingCart ShoppingCart { get; set; }
 
 
 
-        internal User(string FirstName, string LastName, string Email, string Password, string Adress, string Phone, Role Role)
+        internal User(string FirstName, string LastName, string Email, string Password, string Adress, string Phone, Role Role, string ProfileImgUrl)
         {
             if (string.IsNullOrWhiteSpace(FirstName))
                 throw new ArgumentNullException("FirstName is not valid!");
@@ -61,6 +62,7 @@ namespace Domain.Users
             this.Id = Guid.NewGuid();
             this.Adress = Adress;
             this.Role = Role;
+            this.ProfileImgUrl = ProfileImgUrl;
         }
 
         public override String ToString()

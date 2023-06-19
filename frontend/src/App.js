@@ -13,6 +13,8 @@ import RegistrationForm from "./Pages/RegistrationForm";
 import AdminHomePage from "./Admin/HomePage";
 import LoginForm from "./Pages/LoginForm";
 import ShoppingCart from "./Pages/ShoppingCart";
+import UserStatistics from "./Admin/UserStatistics";
+import ProductStatistics from "./Admin/ProductStatistics";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
         <Route path="admin/products" element={<ProductsAdmin />} />
         <Route path="admin/categories" element={<CategoriesAdmin />} />
         <Route path="admin/users" element={<Users />} />
+        <Route path="admin/userStatistics" element={<UserStatistics />} />
+        <Route path="admin/productStatistics" element={<ProductStatistics />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

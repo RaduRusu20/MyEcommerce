@@ -13,6 +13,8 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { useGlobalContext } from "../Cart/context";
+import { useEffect } from "react";
+import Avatar from "@material-ui/core/Avatar";
 
 const myTheme = createTheme({
   palette: {
@@ -42,6 +44,30 @@ export default function NavBar() {
   const { amount } = useGlobalContext();
   const { user, logout } = useContext(UserContext);
   const [redirect, setRedirect] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [profilePic, setProfilePic] = useState();
+
+  const getData = async () => {
+    const response = await fetch(
+      "https://myecommercewebapi.azurewebsites.net/api/Users"
+    );
+    const result = await response.json();
+    setUsers(result);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].email === user.name) {
+        setProfilePic(users[i].profileImgUrl);
+      }
+    }
+  }, [users]);
+
+  console.log(profilePic);
 
   return (
     <div className={classes.root}>
@@ -62,7 +88,10 @@ export default function NavBar() {
             }}
           >
             {user.auth && (
-              <h4 className={NavbarStyle.userMessage}>Hello, {user.name}</h4>
+              <>
+                <Avatar src={profilePic} />
+                <h4 className={NavbarStyle.userMessage}>Hello, {user.name}</h4>
+              </>
             )}
 
             <Link to="/" className={NavbarStyle.btn}>

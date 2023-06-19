@@ -5,8 +5,8 @@ import ProductStyle from "../style/ProductStyle.module.css";
 import { Link } from "react-router-dom";
 import BuyButton from "./BuyButton";
 import InfoIcon from "@mui/icons-material/Info";
-import { Navigate } from "react-router-dom";
-import { useState } from "react";
+
+
 
 function Product({ name, price, img, id }) {
   return (

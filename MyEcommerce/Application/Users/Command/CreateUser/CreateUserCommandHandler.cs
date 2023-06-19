@@ -16,7 +16,7 @@ namespace Application.Users.Command.CreateCustomer
 
         public Task<Guid> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var customer = new User(command.FirstName, command.LastName, command.Email, command.Password, command.Adress, command.Phone, command.Role);
+            var customer = new User(command.FirstName, command.LastName, command.Email, command.Password, command.Adress, command.Phone, command.Role, command.ProfileImgUrl);
             customer.Password = MyCryptography.EncryptPlainTextToCipherText(customer.Password);
             _repository.CreateCustomeryAsync(customer, cancellationToken);
             return Task.FromResult(customer.Id);

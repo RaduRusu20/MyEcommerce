@@ -12,6 +12,9 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.DTOs;
+using Azure.Storage.Blobs;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace WebApi.Controllers
 {
@@ -41,17 +44,17 @@ namespace WebApi.Controllers
             return Ok(dtoResult);
         }
 
-        //[HttpGet("{email}")]
-        //public async Task<IActionResult> GetUserByEmail(string email)
-        //{
-        //    var query = new GetUserByEmailQuery
-        //    {
-        //        Email = email
-        //    };
-        //    var result = await _mediator.Send(query);
-        //    var dtoResult = _mapper.Map<UserDto>(result);
-        //    return Ok(dtoResult);
-        //}
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            var query = new GetUserByEmailQuery
+            {
+                Email = email
+            };
+            var result = await _mediator.Send(query);
+            var dtoResult = _mapper.Map<UserDto>(result);
+            return Ok(dtoResult);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
@@ -75,21 +78,53 @@ namespace WebApi.Controllers
                 Phone = user.Phone,
                 Adress = user.Adress,
                 Role = user.Role,
+                ProfileImgUrl = user.ProfileImgUrl
             };
 
             var userId = await _mediator.Send(commandUser);
 
-            //if (user.Role == Domain.Roles.Role.Customer)
-            //{
-            //    var userGet = await _mediator.Send(new GetUserByIdQuery { Id = userId });
-            //    var commandSHc = new CreateShoppingCartCommand
-            //    {
-            //        User = userGet
-            //    };
-            //    await _mediator.Send(commandSHc);
-            //}
-
             return Created($"/Users/{userId}", null);
+        }
+
+        [Route("UploadPhoto")]
+        [HttpPost]
+        public async Task<IActionResult> UploadPhoto(IFormFile image)
+        {
+            var blobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=myecommerce12;AccountKey=8RTMxbDR61HS0VoBpz82pRFRv3q0A6t4t1k6BbDmWTZcLKuGmV/wczbgRlb1kH6oR6y5lVe0OEAJ+AStNMg9YQ==;EndpointSuffix=core.windows.net";
+            var blobStorageContainerName = "files";
+
+
+            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(blobStorageConnectionString);
+            // Create the blob client.    
+            CloudBlobClient blobClient = cloudStorageAccount.CreateCloudBlobClient();
+            // Retrieve a reference to a container.    
+            CloudBlobContainer container = blobClient.GetContainerReference(blobStorageContainerName);
+            // This also does not make a service call; it only creates a local object.    
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Guid.NewGuid().ToString() + ".png");
+            await using (var data = image.OpenReadStream())
+            {
+                await blockBlob.UploadFromStreamAsync(data);
+            }
+            return Ok(blockBlob.StorageUri.PrimaryUri.AbsoluteUri);
+        }
+
+        [Route("GetPhoto")]
+        [HttpGet]
+        public async Task<IActionResult> GetPhoto(string fileName)
+        {
+            var blobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=myecommerce12;AccountKey=8RTMxbDR61HS0VoBpz82pRFRv3q0A6t4t1k6BbDmWTZcLKuGmV/wczbgRlb1kH6oR6y5lVe0OEAJ+AStNMg9YQ==;EndpointSuffix=core.windows.net";
+            var blobStorageContainerName = "files";
+
+
+            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(blobStorageConnectionString);
+            // Create the blob client.    
+            CloudBlobClient blobClient = cloudStorageAccount.CreateCloudBlobClient();
+            // Retrieve a reference to a container.    
+            CloudBlobContainer container = blobClient.GetContainerReference(blobStorageContainerName);
+            // This also does not make a service call; it only creates a local object.    
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+
+            return Ok(blockBlob.StorageUri.PrimaryUri.AbsoluteUri);
         }
 
         [HttpDelete("{userId}")]

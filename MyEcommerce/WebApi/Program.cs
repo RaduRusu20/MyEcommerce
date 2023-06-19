@@ -18,7 +18,7 @@ builder.Services.AddMediatR(typeof(CreateProductCommand));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<EcommerceContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("Remote")));
 
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -34,11 +34,12 @@ var app = builder.Build();
 //if (app.Environment.IsDevelopment()) // this works only on local host
 //{
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
+ app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEcommerce API v1");
     c.RoutePrefix = String.Empty;
-    });
+});
 //}
 
 app.UseHttpsRedirection();
